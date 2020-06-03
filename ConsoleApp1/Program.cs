@@ -21,7 +21,7 @@ namespace ConsoleApp1
             string rngBaseNumTwo = "6073"; //Second fixed number in RNG equation
             bool critSearch = false; //Initializes a bool for the question of whether to search for crit frames
             string critAsk; //Initializes the string that will be read from to set critSearch
-                            //------------------------- End of initialization ------------------------- 
+            //------------------------- End of initialization ------------------------- 
 
 
 
