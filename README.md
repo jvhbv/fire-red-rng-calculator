@@ -86,18 +86,6 @@ In-application screenshot showing off the `int.TryParse` `while` loop successful
 
 One of the useful things I find about the .NET framework console applications is that there is no installation needed for the actual application, although you must have [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) installed in order to run the application. You can get direct downloads to the executable without having to manually compile it on the [releases](https://github.com/jvhbv/fire-red-rng-calculator/releases) page as more versions get released with more features and bug fixes.
 
-## Possible future feature implementations as of now
-
-Adding a way to print only frames after a given RNG frame
-
-Making this a GUI application
-
-Writing results to a file
-
-Adding a way for the application to recommend selecting an attack on a specific RNG frame so the crit/roll check is done on the exactly correct frame, so you don't have to manually do that small part (might be version/language exclusive due to text)
-
-Adding a way to switch algorithms to gain semi-compatibility with Pokémon Colosseum
-
 ## Contribution
 
 As-is, this software is created solely by me. If you would like to contribute by adding ideas, knowledge, bug fixes, or want to modify the source code for your own use, you are welcome to. Pull requests are welcome, and if you find bugs that have not already been reported, you can open a [new issue](https://github.com/jvhbv/fire-red-rng-calculator/issues) to let me know about it. If you modify and publish the source code, make sure to follow the guidelines of the [GNU GPL v3.0](https://choosealicense.com/licenses/gpl-3.0/) license, and aside from that, all ideas are welcome so I can make this program be as great as it can be.
