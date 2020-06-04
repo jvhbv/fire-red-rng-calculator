@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace ConsoleApp1
@@ -11,7 +11,8 @@ namespace ConsoleApp1
             /*
             Possible future feature implementations-
 
-            Finding only pairs of frames that give both a crit and max damage roll
+            Finding only pairs of frames that give both a crit and max damage roll - Added
+            Adding a way to print only frames after a given RNG frame
             */
 
             //------------------------- Initialization ------------------------- 
@@ -21,6 +22,12 @@ namespace ConsoleApp1
             string rngBaseNumTwo = "6073"; //Second fixed number in RNG equation
             bool critSearch = false; //Initializes a bool for the question of whether to search for crit frames
             string critAsk; //Initializes the string that will be read from to set critSearch
+            bool rollSearch = false; //Initializes a bool for the question of whether to search for rolls after crits
+            string rollAsk; //Initializes the string that will be read from to set rollSearch
+            int subCalc; //Initializes an integer that's used in the rollSearch loops
+            int subLoopCount = 1; //Initializes another integer that's used in the rollSearch loops
+            string subHex = "FFFFFFFF"; //Initializes a string that's used in the rollSearch loops
+            int finalFrame; //Initializes an integer that's used if a match is found on the rollSearch loops
             //------------------------- End of initialization ------------------------- 
 
 
@@ -42,6 +49,20 @@ namespace ConsoleApp1
             {
                 critSearch = true;
             }
+
+            if (critSearch == true)
+            {
+                Console.WriteLine("Would you like to search for only max roll crit frame pairs?"); //Self-Explanatory
+                rollAsk = Console.ReadLine(); //Gets answer for roll frame question
+                if (rollAsk.IndexOf("y", 0, 1) == 0) //Checks if the first character of critAsk is "y" and sets rollSearch to true if it is
+                {
+                    rollSearch = true;
+                }
+                if (rollAsk.IndexOf("Y", 0, 1) == 0) //Checks if the first character of critAsk is "Y" and sets rollSearch to true if it is
+                {
+                    rollSearch = true;
+                }
+            }
             //------------------------- End of questions ------------------------- 
 
 
@@ -60,7 +81,29 @@ namespace ConsoleApp1
             }
             if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3) //Checks if critSearch is set to true and checks if the 4th character in hexResult is "0"
             {
-                Console.WriteLine("1: 0x" + hexResult);
+                if (rollSearch == false)
+                {
+                    Console.WriteLine("1: 0x" + hexResult);
+                }
+                if (rollSearch == true)
+                {
+                    subCalc = BaseNumOne * firstCalc + BaseNumTwo;
+                    subLoopCount++;
+                    while (subLoopCount <= 5)
+                    {
+                        subCalc = BaseNumOne * subCalc + BaseNumTwo;
+                        subHex = subCalc.ToString("X8");
+                        subLoopCount++;
+                    }
+                    if (subHex.IndexOf("0", 3, 1) == 3)
+                    {
+                        Console.WriteLine(repeated + ": 0x" + hexResult);
+                        finalFrame = repeated + 5;
+                        Console.WriteLine(finalFrame + ": 0x" + subHex);
+                        Console.WriteLine();
+                    }
+                    subLoopCount = 1;
+                }
             }
 
             while (repeated < repeatTimes) //Loop function
@@ -74,7 +117,29 @@ namespace ConsoleApp1
                 }
                 if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3)
                 {
-                    Console.WriteLine(repeated + ": 0x" + hexResult);
+                    if (rollSearch == false)
+                    {
+                        Console.WriteLine(repeated + ": 0x" + hexResult);
+                    }
+                    if (rollSearch == true)
+                    {
+                        subCalc = BaseNumOne * firstCalc + BaseNumTwo;
+                        subLoopCount++;
+                        while (subLoopCount <= 5)
+                        {
+                            subCalc = BaseNumOne * subCalc + BaseNumTwo;
+                            subHex = subCalc.ToString("X8");
+                            subLoopCount++;
+                        }
+                        if (subHex.IndexOf("0", 3, 1) == 3)
+                        {
+                            Console.WriteLine(repeated + ": 0x" + hexResult);
+                            finalFrame = repeated + 5;
+                            Console.WriteLine(finalFrame + ": 0x" + subHex);
+                            Console.WriteLine();
+                        }
+                        subLoopCount = 1;
+                    }
                 }
             }
             Console.WriteLine("Press enter to continue.");
