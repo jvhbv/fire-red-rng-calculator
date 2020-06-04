@@ -1,7 +1,7 @@
 # Pokémon generation 3 GBA RNG calculator
 This is a very simple application to use. I made it mainly because I couldn't find any application where I could specify the exact RNG frame of Pokemon Fire Red given the starting seed and get all of the results without going through a bunch of extra stuff.
 
-Because all of the gen 3 GBA Pokemon games use the same formula to calculate RNG as well as having the same way to determine if an attack is a crit and determine damage roll multipliers, this RNG calculator should work with any of the GBA games, including Ruby, Sapphire, Fire Red, Leaf Green, and Emerald. All you need for it to work is the initial RNG seed. There is a very useful set of [lua scripts made by mkdasher](https://github.com/mkdasher/PokemonBizhawkLua) that can help you find the RNG seed on [BizHawk emulator](https://github.com/TASVideos/BizHawk), or you can manually find the RNG seed by locating it in memory (located at 0x02020000 in Fire Red and Leaf Green) on pretty much any emulator, including BizHawk. Mkdasher's lua scripts are also very useful for things other than just finding the RNG seed, so I'd definitely recommend checking it out if you're making a gen 3 TAS.
+Because all of the gen 3 GBA Pokemon games use the same formula to calculate RNG as well as having the same way to determine if an attack is a crit and determine damage roll multipliers, this RNG calculator should work with any of the GBA games, including Ruby, Sapphire, Fire Red, Leaf Green, and Emerald. All you need for it to work is the initial RNG seed. There is a very useful set of [lua scripts made by mkdasher](https://github.com/mkdasher/PokemonBizhawkLua) that can help you find the RNG seed on [BizHawk emulator](https://github.com/TASVideos/BizHawk), or you can manually find the RNG seed by locating it in memory (located at 0x02020000 in Fire Red and Leaf Green) on pretty much any emulator, including BizHawk. Mkdasher's lua scripts are also very useful for things other than just finding the RNG seed, so I'd definitely recommend checking it out if you're making a gen 3 TAS. This application can also generate the same RNG values given the seed as the 4th generation DS main-series games, including Diamond, Pearl, Platinum, Heart Gold, and Soul Silver, but I'm not sure if those games have the same way of determining whether an attack is a critical hit or determining the damage roll, so use caution if trying to use the calculator to find crit / roll frames in a gen 4 game.
 
 ## Why do I care so much about finding exact RNG values?
 
@@ -15,7 +15,7 @@ Well, you see, I actually do use [RNGReporter](https://github.com/Admiral-Fish/R
 
 Basically, just follow all the prompts that the terminal application gives, filling in the exact hex value of the starting seed, the number of frames you want to calculate, and typing yes or anything else into the prompt to calculate crits only and then doing the same thing for whether you only want to display crit max damage pairs if you answered yes to calculating crits only.
 
-The program just checks if the first letter in your response to the prompts to calculate crits only and calculate crit max damage pairs is either "y" or "Y", specifically at `if (critAsk.IndexOf("y", 0, 1) == 0 || critAsk.IndexOf("Y", 0, 1) == 0)`, having the first letter be anything else will just assume that you do not want to calculate crits only, and will display all results. A quick thing to note is that this program is still very much in alpha stages, so if you don't type anything on the question to calculate crits or the question to display crit max damage pairs, the application crashes, ~~and if you type things in that the application doesn't like on the other prompts, it will also crash.~~ I am proud to say that the crashing after typing in the wrong kind of characters on the first 2 questions no longer crashes, as there is now a `while` loop that utilizes an `Int32.TryParse` boolean to make sure you type in valid characters on the first 2 questions. If anyone has any ideas on how I could fix the issues on the yes/no questions, please by all means put up a pull request or let me know how you think it could be fixed directly.
+The program just checks if the first letter in your response to the prompts to calculate crits only and calculate crit max damage pairs is either "y" or "Y", specifically at `if (critAsk.IndexOf("y", 0, 1) == 0 || critAsk.IndexOf("Y", 0, 1) == 0)`, having the first letter be anything else will just assume that you do not want to calculate crits only, and will display all results. A quick thing to note is that this program is still very much in alpha stages, so if you don't type anything on the question to calculate crits or the question to display crit max damage pairs, the application crashes, ~~and if you type things in that the application doesn't like on the other prompts, it will also crash.~~ I am proud to say that the crashing after typing in the wrong kind of characters on the first 2 questions no longer crashes, as there is now a `while` loop that utilizes an `int.TryParse` boolean to make sure you type in valid characters on the first 2 questions. If anyone has any ideas on how I could fix the issues on the yes/no questions, please by all means put up a pull request or let me know how you think it could be fixed directly.
 
 Here's an example of how to use the application:
 
@@ -78,9 +78,25 @@ Outputs:
 Press enter to continue.
 ```
 
+In-application screenshot showing off the `int.TryParse` `while` loop successfully avoiding exceptions on both the initial seed input and number of times to repeat input then going on to work like normal:
+
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/master/inProgram.PNG)
+
 ## Great, now how do you go about installing it?
 
 One of the useful things I find about the .NET framework console applications is that there is no installation needed for the actual application, although you must have [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) installed in order to run the application. You can get direct downloads to the executable without having to manually compile it on the [releases](https://github.com/jvhbv/fire-red-rng-calculator/releases) page as more versions get released with more features and bug fixes.
+
+## Possible future feature implementations as of now
+
+Adding a way to print only frames after a given RNG frame
+
+Making this a GUI application
+
+Writing results to a file
+
+Adding a way for the application to recommend selecting an attack on a specific RNG frame so the crit/roll check is done on the exactly correct frame, so you don't have to manually do that small part (might be version/language exclusive due to text)
+
+Adding a way to switch algorithms to gain semi-compatibility with Pokémon Colosseum
 
 ## Contribution
 
