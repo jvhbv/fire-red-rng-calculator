@@ -15,13 +15,7 @@ Well, you see, I actually do use [RNGReporter](https://github.com/Admiral-Fish/R
 
 Basically, just follow all the prompts that the terminal application gives, filling in the exact hex value of the starting seed, the number of frames you want to calculate, and typing yes or anything else into the prompt to calculate crits only and then doing the same thing for whether you only want to display crit max damage pairs if you answered yes to calculating crits only.
 
-The program just checks if the first letter in your response to the prompts to calculate crits only and calculate crit max damage pairs is either "y" or "Y", specifically at
-
-```cs
-if (critAsk.IndexOf("y", 0, 1) == 0 || critAsk.IndexOf("Y", 0, 1) == 0)
-```
-
-having the first letter be anything else will just assume that you do not want to calculate crits only, and will display all results. A quick thing to note is that this program is still very much in alpha stages, so if you don't type anything on the question to calculate crits or the question to display crit max damage pairs, the application crashes, and if you type things in that the application doesn't like on the other prompts, it will also crash.
+The program just checks if the first letter in your response to the prompts to calculate crits only and calculate crit max damage pairs is either "y" or "Y", specifically at `if (critAsk.IndexOf("y", 0, 1) == 0 || critAsk.IndexOf("Y", 0, 1) == 0)`, having the first letter be anything else will just assume that you do not want to calculate crits only, and will display all results. A quick thing to note is that this program is still very much in alpha stages, so if you don't type anything on the question to calculate crits or the question to display crit max damage pairs, the application crashes, and if you type things in that the application doesn't like on the other prompts, it will also crash.
 
 Here's an example of how to use the application:
 
