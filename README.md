@@ -86,9 +86,5 @@ In-application screenshot showing off the `int.TryParse` `while` loop successful
 
 One of the useful things I find about the .NET framework console applications is that there is no installation needed for the actual application, although you must have [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) installed in order to run the application. You can get direct downloads to the executable without having to manually compile it on the [releases](https://github.com/jvhbv/fire-red-rng-calculator/releases) page as more versions get released with more features and bug fixes.
 
-## Contribution
-
-As-is, this software is created solely by me. If you would like to contribute by adding ideas, knowledge, bug fixes, or want to modify the source code for your own use, you are welcome to. Pull requests are welcome, and if you find bugs that have not already been reported, you can open a [new issue](https://github.com/jvhbv/fire-red-rng-calculator/issues) to let me know about it. If you modify and publish the source code, make sure to follow the guidelines of the [GNU GPL v3.0](https://choosealicense.com/licenses/gpl-3.0/) license, and aside from that, all ideas are welcome so I can make this program be as great as it can be. If you want information regarding documentation and explanations on specific parts of the program, visit the [Wiki page](https://github.com/jvhbv/fire-red-rng-calculator/wiki), as most everything is right there on the first page.
-
 ## License
 This software is protected under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/)
