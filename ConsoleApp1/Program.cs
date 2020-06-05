@@ -45,6 +45,8 @@ namespace ConsoleApp1
             CultureInfo provider = CultureInfo.InvariantCulture; //Creates an IFormatProvider variable so TryParse can work with the hex values on initial seed input
             bool initSeedParse = false; //Initializes a boolean for the TryParse while loop for the initial seed
             bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
+            string saveAsk; //Initializes the string that will be read from to set save
+            bool save = false; //Initializes a boolean for the question of whether to save the results
             //------------------------- End of initialization ------------------------- 
 
 
@@ -90,6 +92,13 @@ namespace ConsoleApp1
                     rollSearch = true;
                 }
             }
+
+            Console.WriteLine("Would you like to save the results to a txt file? (significantly slower at the moment)"); //Self-Explanatory
+            saveAsk = Console.ReadLine(); //Gets answer for crit frame question
+            if (saveAsk.IndexOf("y", 0, 1) == 0 || saveAsk.IndexOf("Y", 0, 1) == 0) //Checks if the first character of saveAsk is "y" or "Y" and sets save to true if it is
+            {
+                save = true;
+            }
             //------------------------- End of questions ------------------------- 
 
 
@@ -105,12 +114,20 @@ namespace ConsoleApp1
             if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
             {
                 Console.WriteLine("1: 0x" + hexResult); //Prints the hex value of firstCalc
+                if (save)
+                {
+                    File.AppendAllText(rngInitSeed + "data.txt", "1: 0x" + hexResult + "\n");
+                }
             }
-            if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3) //Checks if critSearch is set to true and checks if the 4th character in hexResult is "0"
+            if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3) //Checks if critSearch is set to true and if the 4th character in hexResult is 0
             {
                 if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                 {
                     Console.WriteLine("1: 0x" + hexResult);
+                    if (save)
+                    {
+                        File.AppendAllText(rngInitSeed + "data-critsonly.txt", "1: 0x" + hexResult + "\n");
+                    }
                 }
                 if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                 {
@@ -128,6 +145,11 @@ namespace ConsoleApp1
                         finalFrame = repeated + 5;
                         Console.WriteLine(finalFrame + ": 0x" + subHex);
                         Console.WriteLine();
+                        if (save)
+                        {
+                            File.AppendAllText(rngInitSeed + "data-critrollpairs.txt", repeated + ": 0x" + hexResult + "\n");
+                            File.AppendAllText(rngInitSeed + "data-critrollpairs.txt", finalFrame + ": 0x" + subHex + "\n\n");
+                        }
                     }
                     subLoopCount = 1; //Resets the subcalculation loop counter to 1
                 }
@@ -141,12 +163,20 @@ namespace ConsoleApp1
                 if (critSearch == false)
                 {
                     Console.WriteLine(repeated + ": 0x" + hexResult);
+                    if (save)
+                    {
+                        File.AppendAllText(rngInitSeed + "data.txt", repeated + ": 0x" + hexResult + "\n");
+                    }
                 }
                 if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3)
                 {
                     if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                     {
                         Console.WriteLine(repeated + ": 0x" + hexResult);
+                        if (save)
+                        {
+                            File.AppendAllText(rngInitSeed + "data-critsonly.txt", repeated + ": 0x" + hexResult + "\n");
+                        }
                     }
                     if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                     {
@@ -164,6 +194,11 @@ namespace ConsoleApp1
                             finalFrame = repeated + 5;
                             Console.WriteLine(finalFrame + ": 0x" + subHex);
                             Console.WriteLine();
+                            if (save)
+                            {
+                                File.AppendAllText(rngInitSeed + "data-critrollpairs.txt", repeated + ": 0x" + hexResult + "\n");
+                                File.AppendAllText(rngInitSeed + "data-critrollpairs.txt", finalFrame + ": 0x" + subHex + "\n\n");
+                            }
                         }
                         subLoopCount = 1; //Resets the subcalculation loop counter to 1
                     }
