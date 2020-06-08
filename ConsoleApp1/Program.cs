@@ -47,6 +47,8 @@ namespace ConsoleApp1
             bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
             string saveAsk; //Initializes the string that will be read from to set save
             bool save = false; //Initializes a boolean for the question of whether to save the results
+            bool encounterSearch = false;
+            string encounterAsk;
             //------------------------- End of initialization ------------------------- 
 
 
@@ -99,6 +101,16 @@ namespace ConsoleApp1
             {
                 save = true;
             }
+
+            if (critSearch == false) //Only asks this question if you answered no to the critAsk question
+            {
+                Console.WriteLine("Would you like to search for only frames that produce an encounter? (Ruby/Sapphire only)"); //Self-Explanatory
+                encounterAsk = Console.ReadLine(); //Gets answer for roll frame question
+                if (encounterAsk.IndexOf("y", 0, 1) == 0 || encounterAsk.IndexOf("Y", 0, 1) == 0) //Checks if the first character of encounterAsk is "y" or "Y" and sets encounterSearch to true if it is
+                {
+                    encounterSearch = true;
+                }
+            }
             //------------------------- End of questions ------------------------- 
 
 
@@ -113,10 +125,27 @@ namespace ConsoleApp1
             string hexResult = firstCalc.ToString("X8"); //Converts firstCalc back to hex
             if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
             {
-                Console.WriteLine("1: 0x" + hexResult); //Prints the hex value of firstCalc
-                if (save)
+                if (encounterSearch == false)
                 {
-                    File.AppendAllText(rngInitSeed + "data.txt", "1: 0x" + hexResult + "\n");
+                    Console.WriteLine("1: 0x" + hexResult); //Prints the hex value of firstCalc
+                    if (save)
+                    {
+                        File.AppendAllText(rngInitSeed + "data.txt", "1: 0x" + hexResult + "\n");
+                    }
+                }
+                if (encounterSearch)
+                {
+                    string hexDigits = hexResult.Substring(0, 4); //Makes a string that is the first 4 characters of hexResult
+                    int encounterVar = Int32.Parse(hexDigits, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of hexDigits
+                    int encounterCalc = encounterVar % 2880; //Sets an integer equal to encounterVar mod 2880
+                    if (encounterCalc < 320) //Checks if encounterCalc is less than 320 and prints result if so
+                    {
+                        Console.WriteLine("1: 0x" + hexResult); //Prints the hex value of firstCalc
+                        if (save)
+                        {
+                            File.AppendAllText(rngInitSeed + "data-encounters.txt", "1: 0x" + hexResult + "\n");
+                        }
+                    }
                 }
             }
             if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3) //Checks if critSearch is set to true and if the 4th character in hexResult is 0
@@ -162,10 +191,27 @@ namespace ConsoleApp1
                 repeated++; //Adds 1 to repeated, allowing the program to terminate after running the correct amount of times
                 if (critSearch == false)
                 {
-                    Console.WriteLine(repeated + ": 0x" + hexResult);
-                    if (save)
+                    if (encounterSearch == false)
                     {
-                        File.AppendAllText(rngInitSeed + "data.txt", repeated + ": 0x" + hexResult + "\n");
+                        Console.WriteLine(repeated + ": 0x" + hexResult);
+                        if (save)
+                        {
+                            File.AppendAllText(rngInitSeed + "data.txt", repeated + ": 0x" + hexResult + "\n");
+                        }
+                    }
+                    if (encounterSearch)
+                    {
+                        string hexDigits = hexResult.Substring(0, 4);
+                        int encounterVar = Int32.Parse(hexDigits, NumberStyles.HexNumber);
+                        int encounterCalc = encounterVar % 2880;
+                        if (encounterCalc < 320)
+                        {
+                            Console.WriteLine(repeated + ": 0x" + hexResult); //Prints the hex value of firstCalc
+                            if (save)
+                            {
+                                File.AppendAllText(rngInitSeed + "data-encounters.txt", repeated + ": 0x" + hexResult + "\n");
+                            }
+                        }
                     }
                 }
                 if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3)
