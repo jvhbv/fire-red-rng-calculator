@@ -176,7 +176,6 @@ namespace ConsoleApp1
                         subLoopCount++;
                     }
                     subLoopCount = 0;
-                    Console.WriteLine(subHex);
 
                     string hexDigits = subHex.Substring(0, 4); //Makes a string that is the first 4 characters of hexResult
                     int encounterVar = Int32.Parse(hexDigits, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of hexDigits
