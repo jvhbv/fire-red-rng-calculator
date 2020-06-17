@@ -60,6 +60,11 @@ namespace ConsoleApp1
             string moveAsk;
             int InitSeed = 0;
             int repeatTimes = 0;
+            string minRoll = "";
+            bool minRollParse = false;
+            int rollParsed = 0;
+            int rollCalculation;
+            string subHexChar4;
             //------------------------- End of initialization ------------------------- 
 
 
@@ -140,6 +145,16 @@ namespace ConsoleApp1
                         if (YesOrNo("Would you like to search for only max roll crit frame pairs?"))
                         {
                             rollSearch = true;
+
+                            while (minRollParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
+                            {
+                                Console.WriteLine("What is the minimum roll you will accept? (0-16, 0 being max damage, 16 being minimum damage)");
+                                minRoll = Console.ReadLine(); //Gets number of times to repeat
+                                minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
+                                if (minRollParse) { break; }
+                                Console.WriteLine("Please enter an integer.");
+                                Console.WriteLine();
+                            }
                         }
                     }
                 }
@@ -154,7 +169,6 @@ namespace ConsoleApp1
 
 
             //------------------------- Calculation and display ------------------------- 
-            //int InitSeed = Int32.Parse(rngInitSeed, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngInitSeed
             int BaseNumOne = Int32.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
             int BaseNumTwo = Int32.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
             int firstCalc = BaseNumOne * InitSeed + BaseNumTwo; //Calculates the first RNG result
@@ -243,7 +257,9 @@ namespace ConsoleApp1
                             subHex = subCalc.ToString("X8");
                             subLoopCount++;
                         }
-                        if (subHex.IndexOf("0", 3, 1) == 3) //Only prints if both the initial and final frame in a pair fit the requirements
+                        subHexChar4 = subHex.Substring(3, 1);
+                        rollCalculation = int.Parse(subHexChar4, NumberStyles.HexNumber);
+                        if (rollCalculation <= rollParsed)
                         {
                             Console.WriteLine(repeated + ": 0x" + hexResult);
                             finalFrame = repeated + 7; //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
@@ -309,7 +325,9 @@ namespace ConsoleApp1
                                 subHex = subCalc.ToString("X8");
                                 subLoopCount++;
                             }
-                            if (subHex.IndexOf("0", 3, 1) == 3) //Only prints if both the initial and final frame in a pair fit the requirements
+                            subHexChar4 = subHex.Substring(3, 1);
+                            rollCalculation = int.Parse(subHexChar4, NumberStyles.HexNumber);
+                            if (rollCalculation <= rollParsed)
                             {
                                 Console.WriteLine(repeated + ": 0x" + hexResult);
                                 finalFrame = repeated + 7; //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
