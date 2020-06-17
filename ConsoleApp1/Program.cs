@@ -45,7 +45,6 @@ namespace ConsoleApp1
             int subLoopCount = 1; //Initializes another integer that's used in the rollSearch loops
             string subHex = "FFFFFFFF"; //Initializes a string that's used in the rollSearch loops
             int finalFrame; //Initializes an integer that's used if a match is found on the rollSearch loops
-            //int parseAttempt; //Initializes an integer that's mandatory for TryParse
             CultureInfo provider = CultureInfo.InvariantCulture; //Creates an IFormatProvider variable so TryParse can work with the hex values on initial seed input
             bool initSeedParse = false; //Initializes a boolean for the TryParse while loop for the initial seed
             bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
