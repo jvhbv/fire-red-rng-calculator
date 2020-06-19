@@ -35,7 +35,6 @@ namespace ConsoleApp1
             */
 
             //------------------------- Initialization ------------------------- 
-            string repeat = ""; //Number of times to repeat
             string rngInitSeed = ""; //Initial seed
             string rngBaseNumOne = "41C64E6D"; //First number in RNG equation
             string rngBaseNumTwo = "6073"; //Second fixed number in RNG equation
@@ -45,36 +44,29 @@ namespace ConsoleApp1
             int subLoopCount = 1; //Initializes another integer that's used in the rollSearch loops
             string subHex = "FFFFFFFF"; //Initializes a string that's used in the rollSearch loops
             int finalFrame; //Initializes an integer that's used if a match is found on the rollSearch loops
-            CultureInfo provider = CultureInfo.InvariantCulture; //Creates an IFormatProvider variable so TryParse can work with the hex values on initial seed input
-            bool initSeedParse = false; //Initializes a boolean for the TryParse while loop for the initial seed
-            bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
             bool save = false; //Initializes a boolean for the question of whether to save the results
             bool encounterSearch = false;
             bool noEncounters = false;
-            string firstTileFrame = "";
             int tileFrame = 0;
-            bool tileFrameParse = false;
             int looped = 0;
-            int encounterCalc;
-            int moveType = 0;
-            string moveAsk;
+            int encounterCalc; //Initializes integer used to store the result of the calculation that determines if an encounter occurs
+            int moveType = 5; //Initializes integer used to determine what type of movement you are using for the noEncounters loop
             int InitSeed = 0;
             int repeatTimes = 0;
-            string minRoll = "";
-            bool minRollParse = false;
             int rollParsed = 0;
             int rollCalculation;
-            string subHexChar4;
+            int gameVar = 0; //Initializes an integer used to determine how many frames should be passed in the subcalculation loops before returning the result
             //------------------------- End of initialization ------------------------- 
 
 
 
             //------------------------- Questions ------------------------- 
+            bool initSeedParse = false; //Initializes a boolean for the TryParse while loop for the initial seed
             while (initSeedParse == false) //Makes sure that as long as you enter characters that are not hex numbers you will be asked this question again
             {
                 Console.WriteLine("Enter the initial seed hex value: "); //Self-Explanatory
                 rngInitSeed = Console.ReadLine(); //Sets initial seed to the value that was input
-                initSeedParse = int.TryParse(rngInitSeed, NumberStyles.HexNumber, provider, out InitSeed); //Attempts to parse the input, setting initSeedParse to true if it succeeds
+                initSeedParse = int.TryParse(rngInitSeed, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out InitSeed); //Attempts to parse the input, setting initSeedParse to true if it succeeds
                 if (initSeedParse) { break; }
                 Console.WriteLine("Please enter a hex value.");
                 Console.WriteLine();
@@ -83,21 +75,18 @@ namespace ConsoleApp1
             if (YesOrNo("Would you like to search for only frames that produce an encounter? (Ruby/Sapphire only)"))
             {
                 encounterSearch = true;
-            }
 
-            if (encounterSearch == true)
-            {
-                if (YesOrNo("Do you want to calculate how many tiles you can move based on the RNG frame you entered the first tile?"))
+                if (YesOrNo("Do you want to calculate how many tiles you can move based on the RNG frame you entered the first tile?")) //Only asks this if you answered yes to the previous question
                 {
                     noEncounters = true;
 
-                    Console.WriteLine("Are you (w)alking, (r)unning, on the (a)cro bike, or on the (m)ach bike? (acro not implemented yet)");
-                    moveAsk = Console.ReadLine();
+                    Console.WriteLine("Are you (w)alking, (r)unning, (s)urfing, on the (a)cro bike, or on the (m)ach bike? (acro not implemented yet, if you do not input a valid movement type, mach bike is chosen)");
+                    string moveAsk = Console.ReadLine();
                     if (char.ToLower(moveAsk[0]) == 'w')
                     {
                         moveType = 17;
                     }
-                    if (char.ToLower(moveAsk[0]) == 'r')
+                    if (char.ToLower(moveAsk[0]) == 'r' || char.ToLower(moveAsk[0]) == 's')
                     {
                         moveType = 9;
                     }
@@ -110,10 +99,11 @@ namespace ConsoleApp1
                         moveType = 5;
                     }
 
+                    bool tileFrameParse = false;
                     while (tileFrameParse == false)
                     {
                         Console.WriteLine("Enter the first RNG frame that you walked into a tile.");
-                        firstTileFrame = Console.ReadLine();
+                        string firstTileFrame = Console.ReadLine();
                         tileFrameParse = int.TryParse(firstTileFrame, out tileFrame);
                         if (tileFrameParse) { break; }
                         Console.WriteLine("Please enter an integer.");
@@ -124,10 +114,11 @@ namespace ConsoleApp1
 
             if (noEncounters == false)
             {
+                bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
                 while (repeatInputParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
                 {
                     Console.WriteLine("Enter number of times to repeat: "); //Self-Explanatory
-                    repeat = Console.ReadLine(); //Gets number of times to repeat
+                    string repeat = Console.ReadLine(); //Gets number of times to repeat
                     repeatInputParse = int.TryParse(repeat, out repeatTimes); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
                     if (repeatInputParse) { break; }
                     Console.WriteLine("Please enter an integer.");
@@ -140,17 +131,39 @@ namespace ConsoleApp1
                     {
                         critSearch = true;
                     }
-                    if (critSearch == true) //Only asks this question if you answered yes to the critAsk question
+                    if (critSearch) //Only asks this question if you answered yes to the critAsk question
                     {
                         if (YesOrNo("Would you like to search for only max roll crit frame pairs?"))
                         {
                             rollSearch = true;
 
+                            bool gameInput = false;
+                            while (gameInput == false)
+                            {
+                                Console.WriteLine("Are you playing (f)ire red, (l)eaf green, (r)uby, (s)apphire, or (e)merald?");
+                                string gameAsk = Console.ReadLine();
+                                if (char.ToLower(gameAsk[0]) == 'f' || char.ToLower(gameAsk[0]) == 'l')
+                                {
+                                    gameVar = 5;
+                                    gameInput = true;
+                                    break;
+                                }
+                                if (char.ToLower(gameAsk[0]) == 'r' || char.ToLower(gameAsk[0]) == 's' || char.ToLower(gameAsk[0]) == 'e')
+                                {
+                                    gameVar = 7;
+                                    gameInput = true;
+                                    break;
+                                }
+                                Console.WriteLine("Please enter a valid game code.");
+                                Console.WriteLine();
+                            }
+
+                            bool minRollParse = false;
                             while (minRollParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
                             {
                                 Console.WriteLine("What is the minimum roll you will accept? (0-16, 0 being max damage, 16 being minimum damage)");
-                                minRoll = Console.ReadLine(); //Gets number of times to repeat
-                                minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
+                                string minRoll = Console.ReadLine(); //Gets the minimum roll you will accept
+                                minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting minRollParse to true if it succeeds
                                 if (minRollParse) { break; }
                                 Console.WriteLine("Please enter an integer.");
                                 Console.WriteLine();
@@ -169,8 +182,8 @@ namespace ConsoleApp1
 
 
             //------------------------- Calculation and display ------------------------- 
-            int BaseNumOne = Int32.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
-            int BaseNumTwo = Int32.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
+            int BaseNumOne = int.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
+            int BaseNumTwo = int.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
             int firstCalc = BaseNumOne * InitSeed + BaseNumTwo; //Calculates the first RNG result
             int repeated = 1; //Initializes the amount of times the loop has been repeated
             string hexResult = firstCalc.ToString("X8"); //Converts firstCalc back to hex
@@ -199,7 +212,7 @@ namespace ConsoleApp1
                     subLoopCount = 0;
 
                     string hexDigits = subHex.Substring(0, 4); //Makes a string that is the first 4 characters of subHex
-                    int encounterVar = Int32.Parse(hexDigits, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of hexDigits
+                    int encounterVar = int.Parse(hexDigits, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of hexDigits
                     encounterCalc = encounterVar % 2880; //Sets an integer equal to encounterVar mod 2880
                     if (encounterCalc >= 320)
                     {
@@ -211,7 +224,6 @@ namespace ConsoleApp1
 
             if (noEncounters == false)
             {
-                //int repeatTimes = Int32.Parse(repeat); //Sets an integer equal to the parsed value of repeat
                 if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
                 {
                     if (encounterSearch == false)
@@ -237,7 +249,7 @@ namespace ConsoleApp1
                         }
                     }
                 }
-                if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3) //Checks if critSearch is set to true and if the 4th character in hexResult is 0
+                if (critSearch && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
                 {
                     if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                     {
@@ -247,22 +259,21 @@ namespace ConsoleApp1
                             File.AppendAllText(rngInitSeed + "data-critsonly.txt", "1: 0x" + hexResult + "\n");
                         }
                     }
-                    if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
+                    if (rollSearch) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                     {
                         subCalc = BaseNumOne * firstCalc + BaseNumTwo;
                         subLoopCount++;
-                        while (subLoopCount <= 7) //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
+                        while (subLoopCount <= gameVar)
                         {
                             subCalc = BaseNumOne * subCalc + BaseNumTwo;
                             subHex = subCalc.ToString("X8");
                             subLoopCount++;
                         }
-                        subHexChar4 = subHex.Substring(3, 1);
-                        rollCalculation = int.Parse(subHexChar4, NumberStyles.HexNumber);
+                        rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
                         if (rollCalculation <= rollParsed)
                         {
                             Console.WriteLine(repeated + ": 0x" + hexResult);
-                            finalFrame = repeated + 7; //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
+                            finalFrame = repeated + gameVar;
                             Console.WriteLine(finalFrame + ": 0x" + subHex);
                             Console.WriteLine();
                             if (save)
@@ -293,7 +304,7 @@ namespace ConsoleApp1
                         if (encounterSearch)
                         {
                             string hexDigits = hexResult.Substring(0, 4);
-                            int encounterVar = Int32.Parse(hexDigits, NumberStyles.HexNumber);
+                            int encounterVar = int.Parse(hexDigits, NumberStyles.HexNumber);
                             encounterCalc = encounterVar % 2880;
                             if (encounterCalc < 320)
                             {
@@ -305,7 +316,7 @@ namespace ConsoleApp1
                             }
                         }
                     }
-                    if (critSearch == true && hexResult.IndexOf("0", 3, 1) == 3)
+                    if (critSearch && hexResult[3] == '0')
                     {
                         if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                         {
@@ -315,22 +326,21 @@ namespace ConsoleApp1
                                 File.AppendAllText(rngInitSeed + "data-critsonly.txt", repeated + ": 0x" + hexResult + "\n");
                             }
                         }
-                        if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
+                        if (rollSearch) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                         {
                             subCalc = BaseNumOne * firstCalc + BaseNumTwo;
                             subLoopCount++;
-                            while (subLoopCount <= 7) //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
+                            while (subLoopCount <= gameVar)
                             {
                                 subCalc = BaseNumOne * subCalc + BaseNumTwo;
                                 subHex = subCalc.ToString("X8");
                                 subLoopCount++;
                             }
-                            subHexChar4 = subHex.Substring(3, 1);
-                            rollCalculation = int.Parse(subHexChar4, NumberStyles.HexNumber);
+                            rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
                             if (rollCalculation <= rollParsed)
                             {
                                 Console.WriteLine(repeated + ": 0x" + hexResult);
-                                finalFrame = repeated + 7; //Can be changed to 5 for FR/LG, 7 for Ruby/Sapphire, not sure about emerald
+                                finalFrame = repeated + gameVar;
                                 Console.WriteLine(finalFrame + ": 0x" + subHex);
                                 Console.WriteLine();
                                 if (save)
