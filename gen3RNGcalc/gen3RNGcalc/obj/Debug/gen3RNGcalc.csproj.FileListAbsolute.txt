@@ -1,0 +1,17 @@
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.csprojAssemblyReference.cache
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\MainWindow.g.cs
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\App.g.cs
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc_MarkupCompile.cache
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc_MarkupCompile.lref
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\bin\Debug\gen3RNGcalc.exe.config
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\bin\Debug\gen3RNGcalc.exe
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\bin\Debug\gen3RNGcalc.pdb
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\MainWindow.baml
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.g.resources
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.Properties.Resources.resources
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.csproj.GenerateResource.cache
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.csproj.CoreCompileInputs.cache
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.exe
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\gen3RNGcalc.pdb
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\Results.g.cs
+C:\Users\Joe\source\repos\gen3RNGcalc\gen3RNGcalc\obj\Debug\Results.baml
