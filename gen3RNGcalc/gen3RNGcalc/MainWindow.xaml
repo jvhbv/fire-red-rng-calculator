@@ -1,4 +1,4 @@
-﻿<Window x:Class="gen3RNGcalc.MainWindow"
+<Window x:Class="gen3RNGcalc.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,8 +18,8 @@
         <TextBox x:Name="repeatInput" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="426,38,0,0" FontFamily="Arial" FontSize="36" Grid.RowSpan="2"/>
         <CheckBox x:Name="crits" Content="Search for crits only" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,141.031,0,0" Height="19" Width="133" Grid.Row="1"/>
         <CheckBox x:Name="rolls" Content="Search for rolls" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,165.031,0,0" Height="19" Width="133" Grid.Row="1"/>
-        <TextBox x:Name="rollMin" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Margin="426,160,0,0" FontFamily="Arial" FontSize="12" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum roll: (0 is max 16 is min)" VerticalAlignment="Top" Margin="227,160,0,0" Height="24" Width="187" Grid.Row="1"/>
+        <TextBox x:Name="rollMin" HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Margin="414,165,0,0" FontFamily="Arial" FontSize="12" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum roll: (0 is max 16 is min)" VerticalAlignment="Top" Margin="222,165,0,0" Height="19" Width="187" Grid.Row="1"/>
         <CheckBox x:Name="game1" Content="Fire Red/Leaf Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,189.031,0,0" Height="19" Width="133" Grid.Row="1"/>
         <CheckBox x:Name="game2" Content="Ruby/Sapphire/Emerald" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,213.031,0,0" Height="19" Width="153" Grid.Row="1"/>
     </Grid>
