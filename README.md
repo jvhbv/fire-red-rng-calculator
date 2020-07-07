@@ -58,78 +58,15 @@ Well, you see, I actually do use [RNGReporter](https://github.com/Admiral-Fish/R
 
 ## How does one use this application?
 
-Basically, just follow all the prompts that the terminal application gives, filling in the exact hex value of the starting seed, the number of frames you want to calculate, and typing yes or anything else into the prompt to calculate crits only and then doing the same thing for whether you only want to display crit max damage pairs if you answered yes to calculating crits only.
+Basically, just fill out all the boxes applicable to what you are searching for, then click enter to search. A new window will come up with all the results.
 
-The program just checks if the first letter in your response to the prompts to calculate crits only and calculate crit max damage pairs is either "y" or "Y", specifically at `if (critAsk.IndexOf("y", 0, 1) == 0 || critAsk.IndexOf("Y", 0, 1) == 0)`, having the first letter be anything else will just assume that you do not want to calculate crits only, and will display all results. A quick thing to note is that this program is still very much in alpha stages, so if you don't type anything on the question to calculate crits or the question to display crit max damage pairs, the application crashes, ~~and if you type things in that the application doesn't like on the other prompts, it will also crash.~~ I am proud to say that the crashing after typing in the wrong kind of characters on the first 2 questions no longer crashes, as there is now a `while` loop that utilizes an `int.TryParse` boolean to make sure you type in valid characters on the first 2 questions. If anyone has any ideas on how I could fix the issues on the yes/no questions, please by all means put up a pull request or let me know how you think it could be fixed directly.
+Some various in-application screenshots showing off the GUI-
 
-Here's an example of how to use the application:
-
-```
-Enter the initial seed hex value:
-23AC
-Enter the number of times to repeat:
-1000
-Would you like to search for only crit frames?
-y
-Would you like to search for only max roll crit frame pairs?
-y
-Would you like to save the results to a txt file? (significantly slower at the moment)
-n
-```
-
-Outputs:
-```
-172: 0x452042F8
-177: 0xDFC0079F
-
-333: 0xD8B0622B
-338: 0x01F0CEC6
-
-590: 0xB720BFC2
-595: 0x160093C1
-
-791: 0xBCE0A875
-796: 0x17C05E68
-
-857: 0x9F3020A7
-862: 0xDBF01252
-
-868: 0xBA0055B0
-873: 0x6C203D77
-
-Press enter to continue.
-```
-
-Another example for good measure:
-```
-Enter the initial seed hex value:
-23AC
-Enter number of times to repeat:
-10
-Would you like to search for only crit frames?
-n
-Would you like to save the results to a txt file? (significantly slower at the moment)
-n
-```
-
-Outputs:
-```
-1: 0x4DF5F8AF
-2: 0xE9DA94F6
-3: 0xD7B8C131
-4: 0x016D9050
-5: 0xEB7F3283
-6: 0x5ADECC3A
-7: 0x41F30125
-8: 0x666F2334
-9: 0xE8443597
-10: 0x772933BE
-Press enter to continue.
-```
-
-In-application screenshot showing off the `int.TryParse` `while` loop successfully avoiding exceptions on both the initial seed input and number of times to repeat input then going on to work like normal (screencap taken before the save option was implemented):
-
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/master/inProgram.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram1.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram2.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram3.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram4.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram5.PNG)
 
 ## Great, now how do you go about installing it?
 
