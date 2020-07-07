@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 using System.IO;
+using System.ComponentModel;
+using System.Threading;
 
 namespace gen3RNGcalc
 {
@@ -36,7 +38,6 @@ namespace gen3RNGcalc
         int finalFrame;
         int minimumRepeat = 0;
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,105 +49,48 @@ namespace gen3RNGcalc
             bool? rollSearch = rolls.IsChecked;
             bool? gameSelect1 = game1.IsChecked;
 
-            Results win2 = new Results();
-            win2.Show();
-
             if (gameSelect1 == true)
             {
                 gameVar = 5;
             }
             else { gameVar = 7; }
 
-            bool initSeedParse = false;
-            while (initSeedParse == false) //Makes sure that as long as you enter characters that are not hex numbers you will be asked this question again
+            rngInitSeed = seedInput.Text;
+            bool initSeedParse = int.TryParse(rngInitSeed, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out InitSeed); //Attempts to parse the input, setting initSeedParse to true if it succeeds
+            if (initSeedParse == false)
             {
-                rngInitSeed = seedInput.Text;
-                initSeedParse = int.TryParse(rngInitSeed, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out InitSeed); //Attempts to parse the input, setting initSeedParse to true if it succeeds
-                if (initSeedParse) { break; }
-                win2.output.Text = "Please enter a hex value.";
-            }
-            bool repeatInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
-            while (repeatInputParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
-            {
-                string repeat = repeatInput.Text;
-                repeatInputParse = int.TryParse(repeat, out repeatTimes); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
-                if (repeatInputParse) { break; }
-                win2.output.Text = "Please enter an integer.";
-            }
-            bool minInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
-            while (minInputParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
-            {
-                string minRepeat = repeatMinimum.Text;
-                minInputParse = int.TryParse(minRepeat, out minimumRepeat); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
-                if (minInputParse) { break; }
-                win2.output.Text = "Please enter an integer.";
+                exception.Text = "Please enter a hexadecimal value for the initial seed.";
             }
 
-
-            int BaseNumOne = int.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
-            int BaseNumTwo = int.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
-            int firstCalc = BaseNumOne * InitSeed + BaseNumTwo; //Calculates the first RNG result
-            int repeated = 1; //Initializes the amount of times the loop has been repeated
-            string hexResult = firstCalc.ToString("X8"); //Converts firstCalc back to hex
-
-            if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
+            string repeat = repeatInput.Text;
+            bool repeatInputParse = int.TryParse(repeat, out repeatTimes); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
+            if (repeatInputParse == false)
             {
-                if (minimumRepeat <= repeated)
-                {
-                    win2.output.Text = "1: 0x" + hexResult;
-                }
-            }
-            if (critSearch == true && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
-            {
-                if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
-                {
-                    if (minimumRepeat <= repeated)
-                    {
-                        win2.output.Text = "1: 0x" + hexResult;
-                    }
-                }
-                if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
-                {
-                    bool minRollParse = false;
-                    while (minRollParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
-                    {
-                        string minRoll = rollMin.Text; //Gets the minimum roll you will accept
-                        minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting minRollParse to true if it succeeds
-                        if (minRollParse) { break; }
-                    }
-                    subCalc = BaseNumOne * firstCalc + BaseNumTwo;
-                    subLoopCount++;
-                    while (subLoopCount <= gameVar)
-                    {
-                        subCalc = BaseNumOne * subCalc + BaseNumTwo;
-                        subHex = subCalc.ToString("X8");
-                        subLoopCount++;
-                    }
-                    rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
-                    if (rollCalculation <= rollParsed)
-                    {
-                        if (minimumRepeat <= repeated)
-                        {
-                            win2.output.Text = repeated + ": 0x" + hexResult;
-                            finalFrame = repeated + gameVar;
-                            win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
-                        }
-                    }
-                    subLoopCount = 1; //Resets the subcalculation loop counter to 1
-                }
+                exception.Text = "Please enter an integer for the maximum number of times to repeat.";
             }
 
-            while (repeated < repeatTimes) //Loop function
+            string minRepeat = repeatMinimum.Text;
+            bool minInputParse = int.TryParse(minRepeat, out minimumRepeat); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
+            if (minInputParse == false)
             {
-                firstCalc = BaseNumOne * firstCalc + BaseNumTwo; //Does the equation again
-                hexResult = firstCalc.ToString("X8");
-                repeated++;
+                exception.Text = "Please enter an integer for the minimum frame you want displayed.";
+            }
+
+            if (initSeedParse && repeatInputParse && minInputParse)
+            {
+                Results win2 = new Results();
+                win2.Show();
+                int BaseNumOne = int.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
+                int BaseNumTwo = int.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
+                int firstCalc = BaseNumOne * InitSeed + BaseNumTwo; //Calculates the first RNG result
+                int repeated = 1; //Initializes the amount of times the loop has been repeated
+                string hexResult = firstCalc.ToString("X8"); //Converts firstCalc back to hex
+
                 if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
                 {
                     if (minimumRepeat <= repeated)
                     {
-                        win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                        win2.output.Height = win2.output.Height + 14;
+                        win2.output.Text = "1: 0x" + hexResult;
                     }
                 }
                 if (critSearch == true && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
@@ -155,8 +99,7 @@ namespace gen3RNGcalc
                     {
                         if (minimumRepeat <= repeated)
                         {
-                            win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                            win2.output.Height = win2.output.Height + 14;
+                            win2.output.Text = "1: 0x" + hexResult;
                         }
                     }
                     if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
@@ -164,7 +107,7 @@ namespace gen3RNGcalc
                         bool minRollParse = false;
                         while (minRollParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
                         {
-                            string minRoll = rollMin.Text;
+                            string minRoll = rollMin.Text; //Gets the minimum roll you will accept
                             minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting minRollParse to true if it succeeds
                             if (minRollParse) { break; }
                         }
@@ -181,16 +124,77 @@ namespace gen3RNGcalc
                         {
                             if (minimumRepeat <= repeated)
                             {
-                                win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                                win2.output.Text = repeated + ": 0x" + hexResult;
                                 finalFrame = repeated + gameVar;
                                 win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
-                                win2.output.Height = win2.output.Height + 42;
                             }
                         }
                         subLoopCount = 1; //Resets the subcalculation loop counter to 1
                     }
                 }
+
+                while (repeated < repeatTimes) //Loop function
+                {
+                    firstCalc = BaseNumOne * firstCalc + BaseNumTwo; //Does the equation again
+                    hexResult = firstCalc.ToString("X8");
+                    repeated++;
+                    if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
+                    {
+                        if (minimumRepeat <= repeated)
+                        {
+                            win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                            win2.output.Height = win2.output.Height + 14;
+                        }
+                    }
+                    if (critSearch == true && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
+                    {
+                        if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
+                        {
+                            if (minimumRepeat <= repeated)
+                            {
+                                win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                                win2.output.Height = win2.output.Height + 14;
+                            }
+                        }
+                        if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
+                        {
+                            bool minRollParse = false;
+                            while (minRollParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
+                            {
+                                string minRoll = rollMin.Text;
+                                minRollParse = int.TryParse(minRoll, out rollParsed); //Attempts to parse the input, setting minRollParse to true if it succeeds
+                                if (minRollParse) { break; }
+                            }
+                            subCalc = BaseNumOne * firstCalc + BaseNumTwo;
+                            subLoopCount++;
+                            while (subLoopCount <= gameVar)
+                            {
+                                subCalc = BaseNumOne * subCalc + BaseNumTwo;
+                                subHex = subCalc.ToString("X8");
+                                subLoopCount++;
+                            }
+                            rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
+                            if (rollCalculation <= rollParsed)
+                            {
+                                if (minimumRepeat <= repeated)
+                                {
+                                    win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                                    finalFrame = repeated + gameVar;
+                                    win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
+                                    win2.output.Height = win2.output.Height + 42;
+                                }
+                            }
+                            subLoopCount = 1; //Resets the subcalculation loop counter to 1
+                        }
+                    }
+                }
             }
+        }
+
+        private void Help(object sender, RoutedEventArgs e)
+        {
+            Help help = new Help();
+            help.Show();
         }
     }
 }
