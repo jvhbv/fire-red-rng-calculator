@@ -12,15 +12,17 @@
             <RowDefinition Height="378*"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Initial Seed:" VerticalAlignment="Top" Margin="89,10,0,0" Height="28" Width="133" FontFamily="Arial" FontSize="24"/>
-        <TextBox x:Name="seedInput" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="38,38,0,0" FontFamily="Arial" FontSize="36" Grid.RowSpan="2"/>
+        <TextBox x:Name="seedInput" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="31,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1"/>
         <Button Content="Enter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" Margin="243,286.031,0,0" Height="46" Click="Button_Click" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Number of times to repeat:" VerticalAlignment="Top" Margin="400,10,0,0" Height="28" Width="305" FontFamily="Arial" FontSize="24"/>
-        <TextBox x:Name="repeatInput" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="426,38,0,0" FontFamily="Arial" FontSize="36" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum display frame:" VerticalAlignment="Top" Margin="307,13,0,0" Height="28" Width="305" FontFamily="Arial" FontSize="20"/>
+        <TextBox x:Name="repeatInput" Text="10000" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="528,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1"/>
         <CheckBox x:Name="crits" Content="Search for crits only" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,141.031,0,0" Height="19" Width="133" Grid.Row="1"/>
         <CheckBox x:Name="rolls" Content="Search for rolls" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,165.031,0,0" Height="19" Width="133" Grid.Row="1"/>
         <TextBox x:Name="rollMin" HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Margin="414,165,0,0" FontFamily="Arial" FontSize="12" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum roll: (0 is max 16 is min)" VerticalAlignment="Top" Margin="222,165,0,0" Height="19" Width="187" Grid.Row="1"/>
         <CheckBox x:Name="game1" Content="Fire Red/Leaf Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,189.031,0,0" Height="19" Width="133" Grid.Row="1"/>
         <CheckBox x:Name="game2" Content="Ruby/Sapphire/Emerald" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,213.031,0,0" Height="19" Width="153" Grid.Row="1"/>
+        <TextBox x:Name="repeatMinimum" Text="0" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="290,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Maximum display frame:" VerticalAlignment="Top" Margin="539,13,-52,0" Height="28" Width="305" FontFamily="Arial" FontSize="20"/>
     </Grid>
 </Window>
