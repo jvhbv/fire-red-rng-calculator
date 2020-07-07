@@ -93,7 +93,7 @@ namespace gen3RNGcalc
                 }
             }
 
-            if (initSeedParse && repeatInputParse && minInputParse && minleqmax && rollSearch == false ^ rollSearch == true && rollParse)
+            if (initSeedParse && repeatInputParse && minInputParse && minleqmax && rollSearch == false ^ (rollSearch == true && rollParse))
             {
                 Results win2 = new Results();
                 win2.Show();
