@@ -62,11 +62,11 @@ Basically, just fill out all the boxes applicable to what you are searching for,
 
 Some various in-application screenshots showing off the GUI-
 
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram1.PNG)
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram2.PNG)
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram3.PNG)
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram4.PNG)
-![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/tree/GUI/GUIProgram5.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram1.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram2.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram3.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram4.PNG)
+![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram5.PNG)
 
 ## Great, now how do you go about installing it?
 
