@@ -24,7 +24,8 @@
         <CheckBox x:Name="game2" Content="Ruby/Sapphire/Emerald" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,213.031,0,0" Height="19" Width="153" Grid.Row="1"/>
         <TextBox x:Name="repeatMinimum" Text="0" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="290,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Maximum display frame:" VerticalAlignment="Top" Margin="539,13,-52,0" Height="28" Width="305" FontFamily="Arial" FontSize="20"/>
-        <TextBlock x:Name="exception" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="319,204,0,0" Grid.Row="1" Height="77" Width="417" FontFamily="Arial" FontWeight="Bold"/>
-        <Button Content="Help" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Margin="597,148,0,0" Grid.Row="1" Height="48" Click="Help"/>
+        <TextBlock x:Name="exception" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="247,204,0,0" Grid.Row="1" Height="77" Width="535" FontFamily="Arial" FontWeight="Bold"/>
+        <Button Content="Help" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="53,237,0,0" Grid.Row="1" Height="34" Click="Help"/>
+        <Button Content="License information" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="53,286,0,0" Grid.Row="1" Height="34" Click="License"/>
     </Grid>
 </Window>
