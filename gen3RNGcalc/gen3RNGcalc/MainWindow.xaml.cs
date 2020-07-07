@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +34,7 @@ namespace gen3RNGcalc
         int rollParsed = 0;
         int gameVar = 0;
         int finalFrame;
+        int minimumRepeat = 0;
 
 
         public MainWindow()
@@ -72,6 +73,14 @@ namespace gen3RNGcalc
                 if (repeatInputParse) { break; }
                 win2.output.Text = "Please enter an integer.";
             }
+            bool minInputParse = false; //Initializes a boolean for the TryParse while loop for the number of times to repeat
+            while (minInputParse == false) //Makes sure that as long as you enter characters that are not decimals you will be asked this question again
+            {
+                string minRepeat = repeatMinimum.Text;
+                minInputParse = int.TryParse(minRepeat, out minimumRepeat); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
+                if (minInputParse) { break; }
+                win2.output.Text = "Please enter an integer.";
+            }
 
 
             int BaseNumOne = int.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
@@ -82,13 +91,19 @@ namespace gen3RNGcalc
 
             if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
             {
-                win2.output.Text = "1: 0x" + hexResult;
+                if (minimumRepeat <= repeated)
+                {
+                    win2.output.Text = "1: 0x" + hexResult;
+                }
             }
             if (critSearch == true && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
             {
                 if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                 {
-                    Console.WriteLine("1: 0x" + hexResult);
+                    if (minimumRepeat <= repeated)
+                    {
+                        win2.output.Text = "1: 0x" + hexResult;
+                    }
                 }
                 if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                 {
@@ -110,10 +125,12 @@ namespace gen3RNGcalc
                     rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
                     if (rollCalculation <= rollParsed)
                     {
-                        Console.WriteLine(repeated + ": 0x" + hexResult);
-                        finalFrame = repeated + gameVar;
-                        Console.WriteLine(finalFrame + ": 0x" + subHex);
-                        Console.WriteLine();
+                        if (minimumRepeat <= repeated)
+                        {
+                            win2.output.Text = repeated + ": 0x" + hexResult;
+                            finalFrame = repeated + gameVar;
+                            win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
+                        }
                     }
                     subLoopCount = 1; //Resets the subcalculation loop counter to 1
                 }
@@ -126,15 +143,21 @@ namespace gen3RNGcalc
                 repeated++;
                 if (critSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
                 {
-                    win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                    win2.output.Height = win2.output.Height + 14;
+                    if (minimumRepeat <= repeated)
+                    {
+                        win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                        win2.output.Height = win2.output.Height + 14;
+                    }
                 }
                 if (critSearch == true && hexResult[3] == '0') //Checks if critSearch is set to true and if the 4th character in hexResult is 0
                 {
                     if (rollSearch == false) //Checks if rollSearch is set to false and if so, runs the normal critSearch loop
                     {
-                        win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                        win2.output.Height = win2.output.Height + 14;
+                        if (minimumRepeat <= repeated)
+                        {
+                            win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                            win2.output.Height = win2.output.Height + 14;
+                        }
                     }
                     if (rollSearch == true) //Checks if rollSearch is set to true and if so, runs a subcalculation in order to check if the second value in part of a pair also meets the requirements
                     {
@@ -156,10 +179,13 @@ namespace gen3RNGcalc
                         rollCalculation = int.Parse(subHex.Substring(3, 1), NumberStyles.HexNumber);
                         if (rollCalculation <= rollParsed)
                         {
-                            win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                            finalFrame = repeated + gameVar;
-                            win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
-                            win2.output.Height = win2.output.Height + 42;
+                            if (minimumRepeat <= repeated)
+                            {
+                                win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                                finalFrame = repeated + gameVar;
+                                win2.output.Text = win2.output.Text + "\n" + finalFrame + ": 0x" + subHex + "\n";
+                                win2.output.Height = win2.output.Height + 42;
+                            }
                         }
                         subLoopCount = 1; //Resets the subcalculation loop counter to 1
                     }
