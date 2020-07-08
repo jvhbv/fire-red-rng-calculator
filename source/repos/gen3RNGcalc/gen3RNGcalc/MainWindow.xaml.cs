@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,33 +72,33 @@ namespace gen3RNGcalc
 
             if (gameSelect1 == true)
             {
-                gameVar = 5;
+                gameVar = 5; //sets gameVar to 5 if FR/LG is checked
             }
-            else { gameVar = 7; }
+            else { gameVar = 7; } //sets gameVar to 7 if FR/LG is not checked
 
             rngInitSeed = seedInput.Text;
             bool initSeedParse = int.TryParse(rngInitSeed, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out InitSeed); //Attempts to parse the input, setting initSeedParse to true if it succeeds
-            if (initSeedParse == false)
+            if (initSeedParse == false) //makes sure you don't enter something that will crash the program
             {
                 exception.Text = "Please enter a hexadecimal value for the initial seed.";
             }
 
             string repeat = repeatInput.Text;
             bool repeatInputParse = int.TryParse(repeat, out repeatTimes); //Attempts to parse the input, setting repeatInputParse to true if it succeeds
-            if (repeatInputParse == false)
+            if (repeatInputParse == false) //makes sure you don't enter something that will crash the program
             {
                 exception.Text = "Please enter an integer for the maximum number of times to repeat.";
             }
 
             string minRepeat = repeatMinimum.Text;
             bool minInputParse = int.TryParse(minRepeat, out minimumRepeat); //Attempts to parse the input, setting minInputParse to true if it succeeds
-            if (minInputParse == false)
+            if (minInputParse == false) //makes sure you don't enter something that will crash the program
             {
                 exception.Text = "Please enter an integer for the minimum frame you want displayed.";
             }
 
             bool minleqmax = minimumRepeat <= repeatTimes;
-            if (minleqmax == false)
+            if (minleqmax == false) //makes sure you don't enter a reduntant minimum amount of times to repeat
             {
                 exception.Text = "Please make sure the minimum number to display is less than or equal to the maximum.";
             }
@@ -107,25 +107,25 @@ namespace gen3RNGcalc
             {
                 string rollSelect = rollMin.Text;
                 rollParse = int.TryParse(rollSelect, out rollParsed); //Attempts to parse the input, setting rollParse to true if it succeeds
-                if (rollParse == false)
+                if (rollParse == false) //makes sure you don't enter something that will crash the program
                 {
                     exception.Text = "Please enter an integer for the roll you want to search for.";
                 }
             }
 
-            if (initSeedParse && repeatInputParse && minInputParse && minleqmax && rollSearch == false ^ (rollSearch == true && rollParse))
+            if (initSeedParse && repeatInputParse && minInputParse && minleqmax && rollSearch == false ^ (rollSearch == true && rollParse)) //verifies you passed all checks up to this point for what you are searching for
             {
-                Results win2 = new Results();
-                win2.Show();
+                Results win2 = new Results(); //creates a new instance of the results window
+                win2.Show(); //shows the results window
                 int BaseNumOne = int.Parse(rngBaseNumOne, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumOne
                 int BaseNumTwo = int.Parse(rngBaseNumTwo, NumberStyles.HexNumber); //Sets an integer equal to the parsed value of rngBaseNumTwo
                 int firstCalc = BaseNumOne * InitSeed + BaseNumTwo; //Calculates the first RNG result
                 int repeated = 1; //Initializes the amount of times the loop has been repeated
                 string hexResult = firstCalc.ToString("X8"); //Converts firstCalc back to hex
 
-                if (critSearch == false && rollSearch == false) //Checks if critSearch is false and if so, just runs the program with no changes
+                if (critSearch == false && rollSearch == false) //Checks if critSearch and rollSearch is false and if so, just runs the program with no changes
                 {
-                    if (minimumRepeat <= repeated)
+                    if (minimumRepeat <= repeated) //Only prints the result if it falls within the minimum frame to display
                     {
                         win2.output.Text = "1: 0x" + hexResult;
                     }
@@ -143,7 +143,7 @@ namespace gen3RNGcalc
                     {
                         subCalc = BaseNumOne * firstCalc + BaseNumTwo;
                         subLoopCount++;
-                        while (subLoopCount <= gameVar)
+                        while (subLoopCount <= gameVar) //Uses gameVar to determine how many times the subcalculation should be ran before checking the calculated number
                         {
                             subCalc = BaseNumOne * subCalc + BaseNumTwo;
                             subHex = subCalc.ToString("X8");
@@ -162,9 +162,12 @@ namespace gen3RNGcalc
                         subLoopCount = 1; //Resets the subcalculation loop counter to 1
                     }
                 }
-                else if (rollSearch == true && critSearch == false && int.Parse(hexResult.Substring(3,1), NumberStyles.HexNumber) <= rollParsed)
+                else if (rollSearch == true && critSearch == false && int.Parse(hexResult.Substring(3,1), NumberStyles.HexNumber) <= rollParsed) //Checks if you want to search for rolls but not crits, and if it should print the result
                 {
-                    win2.output.Text = repeated + ": 0x" + hexResult;
+                    if (minimumRepeat <= repeated)
+                    {
+                        win2.output.Text = repeated + ": 0x" + hexResult;
+                    }
                 }
 
                 while (repeated < repeatTimes) //Loop function
@@ -216,8 +219,11 @@ namespace gen3RNGcalc
                     }
                     else if (rollSearch == true && critSearch == false && int.Parse(hexResult.Substring(3, 1), NumberStyles.HexNumber) <= rollParsed)
                     {
-                        win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
-                        win2.output.Height = win2.output.Height + 14;
+                        if (minimumRepeat <= repeated)
+                        {
+                            win2.output.Text = win2.output.Text + "\n" + repeated + ": 0x" + hexResult;
+                            win2.output.Height = win2.output.Height + 14;
+                        }
                     }
                 }
             }
