@@ -1,4 +1,4 @@
-﻿<Window x:Class="gen3RNGcalc.rsSeedFinder"
+<Window x:Class="gen3RNGcalc.rsSeedFinder"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,20 +8,88 @@
         Title="Seed finder" Height="385" Width="700">
     <Grid>
         <DatePicker HorizontalAlignment="Left" x:Name="dateSelected" SelectedDate="1/1/2000" VerticalAlignment="Top" Margin="42,106,0,0" Height="33" Width="107"/>
-        <TextBox HorizontalAlignment="Left" x:Name="hour" Height="33" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,106,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hour: (HH)" VerticalAlignment="Top" Margin="181,83,0,0" Height="18"/>
-        <TextBox HorizontalAlignment="Left" x:Name="minute" Height="33" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,106,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minute: (MM)" VerticalAlignment="Top" Margin="257,83,0,0" Height="18"/>
+        <TextBox HorizontalAlignment="Left" MaxLength="2" x:Name="hour" Text="00" Height="33" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Margin="169,106,0,0">
+            <TextBox.Style>
+                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style.Resources>
+                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="HH" Foreground="LightGray" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hour:" VerticalAlignment="Top" Margin="187,83,0,0" Height="18"/>
+        <TextBox HorizontalAlignment="Left" MaxLength="2" x:Name="minute" Text="00" Height="33" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" Margin="257,106,0,0">
+            <TextBox.Style>
+                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style.Resources>
+                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="MM" Foreground="LightGray" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minute:" VerticalAlignment="Top" Margin="276,83,0,0" Height="18"/>
         <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Margin="367,106,0,0" Click="Go" Height="33"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Your seed:" VerticalAlignment="Top" Margin="494,83,0,0" Height="18"/>
         <TextBlock HorizontalAlignment="Left" x:Name="seed" TextWrapping="Wrap" VerticalAlignment="Top" Margin="494,106,0,0" Height="68" Width="129" FontSize="24"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,23,0,0" Width="604" Height="55"><Span FontWeight="Bold">NOTE!</Span> This is only 100% accurate when you are using emulator, as on a cartridge, the seed generated is based on when the battery was installed. If you know the exact date and time the battery was installed, click on the Using a cartridge button. Also please observe that all times are using the 24 hour clock, rather than a 12 hour clock.</TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,23,0,0" Width="627" Height="55"><Span FontWeight="Bold">NOTE!</Span> This is only 100% accurate when you are using emulator, as on a cartridge, the seed generated is based on when the battery was installed. If you know the exact date and time the battery was installed, click on the Using a cartridge button. Also please observe that all times are using the 24 hour clock, rather than a 12 hour AM/PM clock.</TextBlock>
         <TextBlock HorizontalAlignment="Left" x:Name="error" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,159,0,0" Height="132" Width="604"/>
         <Button x:Name="copy" Content="Copy to initial seed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="494,159,0,0" Click="Copy_Click" Visibility="Hidden"/>
         <Button Content="Using a cartridge? Click here." HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="42,296,0,0" Height="35" Click="Cartridge"/>
         <DatePicker HorizontalAlignment="Left" x:Name="batteryDate" SelectedDate="1/1/2000" VerticalAlignment="Top" Margin="42,384,0,0" Height="36" Width="107" Visibility="Hidden"/>
-        <TextBox HorizontalAlignment="Left" x:Name="batteryHour" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,384,0,0" Visibility="Hidden"/>
-        <TextBox HorizontalAlignment="Left" x:Name="batteryMinute" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,384,0,0" Visibility="Hidden"/>
+        <TextBox HorizontalAlignment="Left" MaxLength="2" x:Name="batteryHour" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,384,0,0" Visibility="Hidden">
+            <TextBox.Style>
+                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style.Resources>
+                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="HH" Foreground="LightGray" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" MaxLength="2" x:Name="batteryMinute" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,384,0,0" Visibility="Hidden">
+            <TextBox.Style>
+                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style.Resources>
+                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="MM" Foreground="LightGray" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <TextBlock HorizontalAlignment="Left" x:Name="batteryHourPrompt" TextWrapping="Wrap" Text="Hour: (HH)" VerticalAlignment="Top" Margin="181,359,0,0" Height="20" Visibility="Hidden"/>
         <TextBlock HorizontalAlignment="Left" x:Name="batteryMinutePrompt" TextWrapping="Wrap" Text="Minute: (MM)" VerticalAlignment="Top" Margin="257,359,0,0" Height="20" Visibility="Hidden"/>
         <Button Content="Go" x:Name="goBatteryDate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Margin="367,384,0,0" Click="Go1" Height="36" Visibility="Visible"/>
