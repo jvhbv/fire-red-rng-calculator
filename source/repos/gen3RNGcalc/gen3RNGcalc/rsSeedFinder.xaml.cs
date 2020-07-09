@@ -20,6 +20,8 @@ namespace gen3RNGcalc
     /// </summary>
     public partial class rsSeedFinder : Window
     {
+        DateTime batteryTime = new DateTime(2000, 1, 1, 0, 0, 0);
+
         public rsSeedFinder()
         {
             InitializeComponent();
@@ -50,7 +52,7 @@ namespace gen3RNGcalc
             {
                 var date = dateSelected.SelectedDate.Value.Date.AddMinutes(minutes); //creates a variable for the date received and sets the minutes for the date to the minutes input
                 date = date.AddHours(hours); //sets the hours for the date to the hours input
-                int result = (int)(date.Subtract(new DateTime(2000, 1, 1))).TotalMinutes; //gets the total number of minutes passed since January 1st, 2000
+                int result = (int)(date.Subtract(batteryTime)).TotalMinutes; //gets the total number of minutes passed since January 1st, 2000
                 int maxSeed = int.Parse("FFFF", NumberStyles.HexNumber); //just here to make the math easier to follow
                 int remainder = result % maxSeed; //finalizes the number of minutes that actually matter for the seed generation
                 int defaultSeed = int.Parse("5A0", NumberStyles.HexNumber); //also here to make the math easier to follow, it just declares 05A0 as the default initial seed
@@ -67,6 +69,47 @@ namespace gen3RNGcalc
             win2.seedInput.Text = seed.Text; //sets the seed input field to the one generated
             win2.Show(); //shows the new instance of MainWindow
             Close(); //closes the seed finder
+        }
+
+        private void Cartridge(object sender, RoutedEventArgs e)
+        {
+            batteryDate.Visibility = Visibility.Visible;
+            batteryHour.Visibility = Visibility.Visible;
+            batteryMinute.Visibility = Visibility.Visible;
+            batteryHourPrompt.Visibility = Visibility.Visible;
+            batteryMinutePrompt.Visibility = Visibility.Visible;
+            goBatteryDate.Visibility = Visibility.Visible;
+            batteryDateTimePrompt.Visibility = Visibility.Visible;
+            Height = 482;
+        }
+
+        private void Go1(object sender, RoutedEventArgs e)
+        {
+            error.Text = ""; //resets the error log upon running again
+            bool hoursParse = double.TryParse(batteryHour.Text, out double hours);
+            if (!hoursParse) //makes sure you don't enter something that will crash the application
+            {
+                error.Text = error.Text + "Please enter an integer for hours.\n";
+            }
+            if (hours > 23) //makes sure you enter a number of hours less than or equal to the maximum in a day
+            {
+                error.Text = error.Text + "Please make sure the hours entered are not greater than 23.\n";
+            }
+            bool minutesParse = double.TryParse(batteryMinute.Text, out double minutes);
+            if (!minutesParse) //makes sure you don't enter something that will crash the application
+            {
+                error.Text = error.Text + "Please enter an integer for minutes.\n";
+            }
+            if (minutes > 59) //makes sure you enter a number of minutes less than or equal to the maximum in an hour
+            {
+                error.Text = error.Text + "Please make sure the minutes entered are not greater than 59.";
+            }
+            if (minutesParse && hoursParse && minutes <= 59 && hours <= 23)
+            {
+                batteryTime = batteryDate.SelectedDate.Value.Date.AddMinutes(minutes);
+                batteryTime = batteryTime.AddHours(hours);
+                initDateChanged.Visibility = Visibility.Visible;
+            }
         }
     }
 }

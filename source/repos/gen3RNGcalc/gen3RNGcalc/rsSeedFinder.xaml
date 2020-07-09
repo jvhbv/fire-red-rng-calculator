@@ -5,18 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gen3RNGcalc"
         mc:Ignorable="d"
-        Title="Seed finder" Height="275" Width="700">
-    <Grid Margin="0,0,0,0">
-        <DatePicker HorizontalAlignment="Left" x:Name="dateSelected" SelectedDate="1/1/2000" VerticalAlignment="Top" Margin="42,70,0,0" Height="31" Width="107"/>
-        <TextBox HorizontalAlignment="Left" x:Name="hour" Height="31" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,70,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hour: (HH)" VerticalAlignment="Top" Margin="181,48,0,0" Height="17"/>
-        <TextBox HorizontalAlignment="Left" x:Name="minute" Height="31" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,70,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minute: (MM)" VerticalAlignment="Top" Margin="257,48,0,0" Height="17"/>
-        <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Margin="367,70,0,0" Click="Go" Height="31"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Your seed:" VerticalAlignment="Top" Margin="494,48,0,0" Height="17"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="seed" TextWrapping="Wrap" VerticalAlignment="Top" Margin="494,70,0,0" Height="65" Width="129" FontSize="24"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,10,0,0" Width="604" Height="31"><Span FontWeight="Bold">NOTE!</Span> This is only 100% accurate when you are using emulator, as on a cartridge, the seed generated is based on when the battery was installed.</TextBlock>
-        <TextBlock HorizontalAlignment="Left" x:Name="error" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,119,0,0" Height="115" Width="604"/>
-        <Button x:Name="copy" Content="Copy to initial seed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="494,115,0,0" Click="Copy_Click" Visibility="Hidden"/>
+        Title="Seed finder" Height="385" Width="700">
+    <Grid>
+        <DatePicker HorizontalAlignment="Left" x:Name="dateSelected" SelectedDate="1/1/2000" VerticalAlignment="Top" Margin="42,106,0,0" Height="33" Width="107"/>
+        <TextBox HorizontalAlignment="Left" x:Name="hour" Height="33" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,106,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hour: (HH)" VerticalAlignment="Top" Margin="181,83,0,0" Height="18"/>
+        <TextBox HorizontalAlignment="Left" x:Name="minute" Height="33" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,106,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minute: (MM)" VerticalAlignment="Top" Margin="257,83,0,0" Height="18"/>
+        <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Margin="367,106,0,0" Click="Go" Height="33"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Your seed:" VerticalAlignment="Top" Margin="494,83,0,0" Height="18"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="seed" TextWrapping="Wrap" VerticalAlignment="Top" Margin="494,106,0,0" Height="68" Width="129" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,23,0,0" Width="604" Height="55"><Span FontWeight="Bold">NOTE!</Span> This is only 100% accurate when you are using emulator, as on a cartridge, the seed generated is based on when the battery was installed. If you know the exact date and time the battery was installed, click on the Using a cartridge button. Also please observe that all times are using the 24 hour clock, rather than a 12 hour clock.</TextBlock>
+        <TextBlock HorizontalAlignment="Left" x:Name="error" TextWrapping="Wrap" VerticalAlignment="Top" Margin="42,159,0,0" Height="132" Width="604"/>
+        <Button x:Name="copy" Content="Copy to initial seed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="494,159,0,0" Click="Copy_Click" Visibility="Hidden"/>
+        <Button Content="Using a cartridge? Click here." HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="42,296,0,0" Height="35" Click="Cartridge"/>
+        <DatePicker HorizontalAlignment="Left" x:Name="batteryDate" SelectedDate="1/1/2000" VerticalAlignment="Top" Margin="42,384,0,0" Height="36" Width="107" Visibility="Hidden"/>
+        <TextBox HorizontalAlignment="Left" x:Name="batteryHour" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="169,384,0,0" Visibility="Hidden"/>
+        <TextBox HorizontalAlignment="Left" x:Name="batteryMinute" Height="36" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="83" Margin="257,384,0,0" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="batteryHourPrompt" TextWrapping="Wrap" Text="Hour: (HH)" VerticalAlignment="Top" Margin="181,359,0,0" Height="20" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="batteryMinutePrompt" TextWrapping="Wrap" Text="Minute: (MM)" VerticalAlignment="Top" Margin="257,359,0,0" Height="20" Visibility="Hidden"/>
+        <Button Content="Go" x:Name="goBatteryDate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Margin="367,384,0,0" Click="Go1" Height="36" Visibility="Visible"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="batteryDateTimePrompt" TextWrapping="Wrap" Text="Enter the date and time the battery was installed." VerticalAlignment="Top" Margin="42,343,0,0" Width="408" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="initDateChanged" TextWrapping="Wrap" Text="Initial date changed." VerticalAlignment="Top" Margin="483,394,0,0" Height="26" Width="117" Visibility="Hidden"/>
     </Grid>
 </Window>
