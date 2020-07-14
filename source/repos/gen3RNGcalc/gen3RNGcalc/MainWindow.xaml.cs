@@ -170,7 +170,7 @@ namespace gen3RNGcalc
                     }
                 }
 
-                while (repeated < repeatTimes) //Loop function
+                while (repeated < repeatTimes) //Loop function, it might be beneficial for reading the code to change this to a for() loop in the future
                 {
                     firstCalc = BaseNumOne * firstCalc + BaseNumTwo; //Does the equation again
                     hexResult = firstCalc.ToString("X8");
@@ -197,7 +197,7 @@ namespace gen3RNGcalc
                         {
                             subCalc = BaseNumOne * firstCalc + BaseNumTwo;
                             subLoopCount++;
-                            while (subLoopCount <= gameVar)
+                            while (subLoopCount <= gameVar) //This could also benefit from being a for() loop in terms of readability, but due to how short the loop already is, it is a lesser issue
                             {
                                 subCalc = BaseNumOne * subCalc + BaseNumTwo;
                                 subHex = subCalc.ToString("X8");
@@ -247,6 +247,12 @@ namespace gen3RNGcalc
             rsSeedFinder seedFinder = new rsSeedFinder();
             seedFinder.Show();
             Close();
+        }
+
+        private void DMGCalc(object sender, RoutedEventArgs e)
+        {
+            damageCalc damage = new damageCalc();
+            damage.Show();
         }
     }
 }

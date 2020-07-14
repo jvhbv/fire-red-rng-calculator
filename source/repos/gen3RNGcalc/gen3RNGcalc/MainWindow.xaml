@@ -16,13 +16,13 @@
             <RowDefinition Height="378*"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Initial Seed:" VerticalAlignment="Top" Margin="89,10,0,0" Height="28" Width="133" FontFamily="Arial" FontSize="24" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="seedInput" Text="05A0" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="31,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <Button Content="Enter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" Margin="152.078,286,0,0" Height="46" Click="Button_Click" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="seedInput" Text="05A0" MaxLength="4" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="31,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Content="Enter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" Margin="189,282,0,0" Height="46" Click="Button_Click" Grid.Row="1" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum display frame:" VerticalAlignment="Top" Margin="216.078,13,0,0" Height="28" Width="305" FontFamily="Arial" FontSize="20" Grid.Column="1"/>
         <TextBox x:Name="repeatInput" Text="1000" HorizontalAlignment="Left" Height="112" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="437.078,0,0,0" FontFamily="Arial" FontSize="36" Grid.Row="1" Grid.Column="1"/>
         <CheckBox x:Name="crits" Content="Search for crits" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,141,0,0" Height="19" Width="133" Grid.Row="1" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="rolls" Content="Search for rolls" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,165,0,0" Height="19" Width="133" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="rollMin" Text="0" HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Margin="323.078,165,0,0" FontFamily="Arial" FontSize="12" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="rollMin" MaxLength="2" Text="0" HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Margin="323.078,165,0,0" FontFamily="Arial" FontSize="12" Grid.Row="1" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Minimum roll: (0 is max 16 is min)" VerticalAlignment="Top" Margin="131.078,165,0,0" Height="19" Width="187" Grid.Row="1" Grid.Column="1"/>
         <CheckBox x:Name="game1" Content="Fire Red/Leaf Green" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,189,0,0" Height="19" Width="133" Grid.Row="1" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="game2" Content="Ruby/Sapphire/Emerald" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,213,0,0" Height="19" Width="153" Grid.Row="1" Grid.ColumnSpan="2"/>
@@ -32,5 +32,6 @@
         <Button Content="Help" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="53,237,0,0" Grid.Row="1" Height="34" Click="Help" Grid.ColumnSpan="2"/>
         <Button Content="License information" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="53,276,0,0" Grid.Row="1" Height="34" Click="License" Grid.ColumnSpan="2"/>
         <Button Content="R/S seed finder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="53,315,0,0" Grid.Row="1" Height="34" Grid.ColumnSpan="2" Click="Button_Click_1"/>
+        <Button Content="Damage Calculator" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="497,286,0,0" Grid.Row="1" Height="34" Grid.Column="1" Click="DMGCalc"/>
     </Grid>
 </Window>

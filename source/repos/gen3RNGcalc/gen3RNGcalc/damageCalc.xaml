@@ -1,0 +1,678 @@
+﻿<Window x:Class="gen3RNGcalc.damageCalc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gen3RNGcalc"
+        mc:Ignorable="d"
+        Title="damageCalc" Height="951.277" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="202*"/>
+        </Grid.RowDefinitions>
+        <TextBox MaxLength="3" x:Name="baseHP1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,210,0,0" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="baseAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,22,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,50,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,78,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,106,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,133,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="level1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="122,161,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="HPEV1" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,210,0,0" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="AtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,22,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="DefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,50,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,78,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,106,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,133,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="137,189,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="246,189,0,0" RenderTransformOrigin="1.487,0.586"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="318,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
+        <ComboBox x:Name="HPIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,211,0,0" Grid.RowSpan="2">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="AtkIV1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,23,0,0" Grid.Row="1">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="DefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,51,0,0" Grid.Row="1">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="SpAtkIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,79,0,0" Grid.Row="1">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="SpDefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,107,0,0" Grid.Row="1">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="SpeedIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,134,0,0" Grid.Row="1">
+            <ComboBoxItem>0</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>5</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+            <ComboBoxItem>9</ComboBoxItem>
+            <ComboBoxItem>10</ComboBoxItem>
+            <ComboBoxItem>11</ComboBoxItem>
+            <ComboBoxItem>12</ComboBoxItem>
+            <ComboBoxItem>13</ComboBoxItem>
+            <ComboBoxItem>14</ComboBoxItem>
+            <ComboBoxItem>15</ComboBoxItem>
+            <ComboBoxItem>16</ComboBoxItem>
+            <ComboBoxItem>17</ComboBoxItem>
+            <ComboBoxItem>18</ComboBoxItem>
+            <ComboBoxItem>19</ComboBoxItem>
+            <ComboBoxItem>20</ComboBoxItem>
+            <ComboBoxItem>21</ComboBoxItem>
+            <ComboBoxItem>22</ComboBoxItem>
+            <ComboBoxItem>23</ComboBoxItem>
+            <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>25</ComboBoxItem>
+            <ComboBoxItem>26</ComboBoxItem>
+            <ComboBoxItem>27</ComboBoxItem>
+            <ComboBoxItem>28</ComboBoxItem>
+            <ComboBoxItem>29</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">31</ComboBoxItem>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" Margin="99,214,0,0" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="96,26,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="94,54,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="80,82,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="78,109,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="79,137,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="86,162,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="77,192,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total" VerticalAlignment="Top" Margin="365,189,0,0" Width="30"/>
+        <TextBlock x:Name="HPTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,214,0,0" Width="30" Grid.RowSpan="2"/>
+        <TextBlock x:Name="AtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,26,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="DefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,54,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpAtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,82,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpDefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,109,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpeedTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="365,137,0,0" Width="30" Grid.Row="1"/>
+        <ComboBox x:Name="nature1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,189,0,0" Grid.Row="1">
+            <ComboBoxItem IsSelected="True">Hardy (neutral)</ComboBoxItem>
+            <ComboBoxItem>Lonely (+Atk, -Def)</ComboBoxItem>
+            <ComboBoxItem>Adamant (+Atk, -SpAtk)</ComboBoxItem>
+            <ComboBoxItem>Naughty (+Atk, -SpDef)</ComboBoxItem>
+            <ComboBoxItem>Brave (+Atk, -Speed)</ComboBoxItem>
+            <ComboBoxItem>Bold (+Def, -Atk)</ComboBoxItem>
+            <ComboBoxItem>Docile (neutral)</ComboBoxItem>
+            <ComboBoxItem>Impish (+Def, -SpAtk)</ComboBoxItem>
+            <ComboBoxItem>Lax (+Def, -SpDef)</ComboBoxItem>
+            <ComboBoxItem>Relaxed (+Def, -Speed)</ComboBoxItem>
+            <ComboBoxItem>Modest (+SpAtk, -Atk)</ComboBoxItem>
+            <ComboBoxItem>Mild (+SpAtk, -Def)</ComboBoxItem>
+            <ComboBoxItem>Bashful (neutral)</ComboBoxItem>
+            <ComboBoxItem>Rash (+SpAtk, -SpDef)</ComboBoxItem>
+            <ComboBoxItem>Quiet (+SpAtk, -Speed)</ComboBoxItem>
+            <ComboBoxItem>Calm (+SpDef, -Atk)</ComboBoxItem>
+            <ComboBoxItem>Gentle (+SpDef, -Def)</ComboBoxItem>
+            <ComboBoxItem>Careful (+SpDef, -SpAtk)</ComboBoxItem>
+            <ComboBoxItem>Quirky (neutral)</ComboBoxItem>
+            <ComboBoxItem>Sassy (+SpDef, -Speed)</ComboBoxItem>
+            <ComboBoxItem>Timid (+Speed, -Atk)</ComboBoxItem>
+            <ComboBoxItem>Hasty (+Speed, -Def)</ComboBoxItem>
+            <ComboBoxItem>Jolly (+Speed, -SpAtk)</ComboBoxItem>
+            <ComboBoxItem>Naive (+Speed, -SpDef)</ComboBoxItem>
+            <ComboBoxItem>Serious (neutral)</ComboBoxItem>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="89,222,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="item1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,222,0,0" Grid.Row="1"/>
+        <CheckBox x:Name="Boulder" Content="Boulder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,312,0,0" Grid.Row="1" Height="18"/>
+        <!--+attack-->
+        <CheckBox x:Name="Soul" Content="Soul Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,335,0,0" Grid.Row="1" Height="17"/>
+        <!--+defense-->
+        <CheckBox x:Name="Volcano" Content="Volcano Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,312,0,0" Grid.Row="1" Height="18"/>
+        <!--+spatk,+spdef-->
+        <CheckBox x:Name="Thunder" Content="Thunder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,335,0,0" Grid.Row="1" Height="17"/>
+        <!--+speed-->
+        <CheckBox x:Name="Stone" Content="Stone Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,380,0,0" Grid.Row="1" Height="17"/>
+        <!--+attack-->
+        <CheckBox x:Name="Balance" Content="Balance Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,380,0,0" Grid.Row="1" Height="17"/>
+        <!--+defense-->
+        <CheckBox x:Name="Mind" Content="Mind Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,403,0,0" Grid.Row="1" Height="17"/>
+        <!--+spatk,+spdef-->
+        <CheckBox x:Name="Dynamo" Content="Dynamo Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,403,0,0" Grid.Row="1" Height="17"/>
+        <!--+speed-->
+        <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="468,320,0,0" Grid.Row="1" Click="Go"/>
+        <TextBlock  x:Name="alert" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,502,0,0" Grid.Row="1" Height="192" Width="899"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Kanto Badges" VerticalAlignment="Top" Margin="137,296,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hoenn Badges" VerticalAlignment="Top" Margin="137,364,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseHP2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,210,0,0" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="baseAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,22,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,50,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,78,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,106,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,133,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="level2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="621,161,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="HPEV2" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,210,0,0" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="AtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,22,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="DefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,50,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,78,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,106,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,133,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="636,189,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="745,189,0,0" RenderTransformOrigin="1.487,0.586"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="817,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
+        <ComboBox x:Name="HPIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,211,0,0" Grid.RowSpan="2">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <ComboBox x:Name="AtkIV2"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,23,0,0" Grid.Row="1">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <ComboBox x:Name="DefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,51,0,0" Grid.Row="1">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <ComboBox x:Name="SpAtkIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,79,0,0" Grid.Row="1">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <ComboBox x:Name="SpDefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,107,0,0" Grid.Row="1">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <ComboBox x:Name="SpeedIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,134,0,0" Grid.Row="1">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem IsSelected="True" Content="31"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" Margin="598,214,0,0" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="595,26,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="593,54,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="579,82,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="577,109,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="578,137,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="585,162,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="576,192,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total" VerticalAlignment="Top" Margin="864,189,0,0" Width="30"/>
+        <TextBlock x:Name="HPTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,214,0,0" Width="30" Grid.RowSpan="2"/>
+        <TextBlock x:Name="AtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,26,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="DefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,54,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpAtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,82,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpDefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,109,0,0" Width="30" Grid.Row="1"/>
+        <TextBlock x:Name="SpeedTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="864,137,0,0" Width="30" Grid.Row="1"/>
+        <ComboBox x:Name="nature2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,189,0,0" Grid.Row="1">
+            <ComboBoxItem IsSelected="True" Content="Hardy (neutral)"/>
+            <ComboBoxItem Content="Lonely (+Atk, -Def)"/>
+            <ComboBoxItem Content="Adamant (+Atk, -SpAtk)"/>
+            <ComboBoxItem Content="Naughty (+Atk, -SpDef)"/>
+            <ComboBoxItem Content="Brave (+Atk, -Speed)"/>
+            <ComboBoxItem Content="Bold (+Def, -Atk)"/>
+            <ComboBoxItem Content="Docile (neutral)"/>
+            <ComboBoxItem Content="Impish (+Def, -SpAtk)"/>
+            <ComboBoxItem Content="Lax (+Def, -SpDef)"/>
+            <ComboBoxItem Content="Relaxed (+Def, -Speed)"/>
+            <ComboBoxItem Content="Modest (+SpAtk, -Atk)"/>
+            <ComboBoxItem Content="Mild (+SpAtk, -Def)"/>
+            <ComboBoxItem Content="Bashful (neutral)"/>
+            <ComboBoxItem Content="Rash (+SpAtk, -SpDef)"/>
+            <ComboBoxItem Content="Quiet (+SpAtk, -Speed)"/>
+            <ComboBoxItem Content="Calm (+SpDef, -Atk)"/>
+            <ComboBoxItem Content="Gentle (+SpDef, -Def)"/>
+            <ComboBoxItem Content="Careful (+SpDef, -SpAtk)"/>
+            <ComboBoxItem Content="Quirky (neutral)"/>
+            <ComboBoxItem Content="Sassy (+SpDef, -Speed)"/>
+            <ComboBoxItem Content="Timid (+Speed, -Atk)"/>
+            <ComboBoxItem Content="Hasty (+Speed, -Def)"/>
+            <ComboBoxItem Content="Jolly (+Speed, -SpAtk)"/>
+            <ComboBoxItem Content="Naive (+Speed, -SpDef)"/>
+            <ComboBoxItem Content="Serious (neutral)"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="588,222,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="item2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,222,0,0" Grid.Row="1"/>
+        <TextBlock x:Name="finalCalc" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,23,0,0" Height="67" Width="920" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="79,254,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="ability1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,254,0,0" Grid.Row="1" Height="22"/>
+        <ComboBox x:Name="monSelection1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="122,132,0,0" SelectionChanged="newMonSelected1"/>
+        <ComboBox x:Name="monSelection2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="621,132,0,0" SelectionChanged="newMonSelected2"/>
+        <ComboBox x:Name="type1Selection1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="122,167,0,0">
+            <ComboBoxItem IsSelected="True" Content="Normal"/>
+            <ComboBoxItem Content="Fighting"/>
+            <ComboBoxItem Content="Flying"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Psychic"/>
+            <ComboBoxItem Content="Fire"/>
+            <ComboBoxItem Content="Water"/>
+            <ComboBoxItem Content="Electric"/>
+            <ComboBoxItem Content="Grass"/>
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="Ground"/>
+            <ComboBoxItem Content="Ghost"/>
+            <ComboBoxItem Content="Rock"/>
+            <ComboBoxItem Content="Steel"/>
+            <ComboBoxItem Content="Dragon"/>
+            <ComboBoxItem Content="Ice"/>
+            <ComboBoxItem Content="Poison"/>
+        </ComboBox>
+        <ComboBox x:Name="type2Selection1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="196,167,0,0">
+            <ComboBoxItem Content="Normal"/>
+            <ComboBoxItem Content="Fighting"/>
+            <ComboBoxItem Content="Flying"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Psychic"/>
+            <ComboBoxItem Content="Fire"/>
+            <ComboBoxItem Content="Water"/>
+            <ComboBoxItem Content="Electric"/>
+            <ComboBoxItem Content="Grass"/>
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="Ground"/>
+            <ComboBoxItem Content="Ghost"/>
+            <ComboBoxItem Content="Rock"/>
+            <ComboBoxItem Content="Steel"/>
+            <ComboBoxItem Content="Dragon"/>
+            <ComboBoxItem Content="Ice"/>
+            <ComboBoxItem Content="Poison"/>
+            <ComboBoxItem IsSelected="True" Content="None"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top" Margin="90,167,0,0"/>
+        <ComboBox x:Name="type1Selection2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="621,167,0,0">
+            <ComboBoxItem IsSelected="True" Content="Normal"/>
+            <ComboBoxItem Content="Fighting"/>
+            <ComboBoxItem Content="Flying"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Psychic"/>
+            <ComboBoxItem Content="Fire"/>
+            <ComboBoxItem Content="Water"/>
+            <ComboBoxItem Content="Electric"/>
+            <ComboBoxItem Content="Grass"/>
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="Ground"/>
+            <ComboBoxItem Content="Ghost"/>
+            <ComboBoxItem Content="Rock"/>
+            <ComboBoxItem Content="Steel"/>
+            <ComboBoxItem Content="Dragon"/>
+            <ComboBoxItem Content="Ice"/>
+            <ComboBoxItem Content="Poison"/>
+        </ComboBox>
+        <ComboBox x:Name="type2Selection2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="695,167,0,0">
+            <ComboBoxItem Content="Normal"/>
+            <ComboBoxItem Content="Fighting"/>
+            <ComboBoxItem Content="Flying"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Psychic"/>
+            <ComboBoxItem Content="Fire"/>
+            <ComboBoxItem Content="Water"/>
+            <ComboBoxItem Content="Electric"/>
+            <ComboBoxItem Content="Grass"/>
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="Ground"/>
+            <ComboBoxItem Content="Ghost"/>
+            <ComboBoxItem Content="Rock"/>
+            <ComboBoxItem Content="Steel"/>
+            <ComboBoxItem Content="Dragon"/>
+            <ComboBoxItem Content="Ice"/>
+            <ComboBoxItem Content="Poison"/>
+            <ComboBoxItem IsSelected="True" Content="None"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top" Margin="589,167,0,0"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="578,254,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="ability2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,254,0,0" Grid.Row="1" Height="22"/>
+        <RadioButton IsChecked="True" x:Name="noWeather" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,193,0,0"/>
+        <RadioButton x:Name="raining" Content="Rain" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,208,0,0" Grid.RowSpan="2"/>
+        <RadioButton x:Name="sunny" Content="Sun" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,8,0,0" Grid.Row="1"/>
+        <RadioButton x:Name="sandstorm" Content="Sand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,23,0,0" Grid.Row="1"/>
+        <RadioButton x:Name="hailing" Content="Hail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,39,0,0" Grid.Row="1"/>
+        <CheckBox Content="Double battle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,59,0,0" Grid.Row="1"/>
+        <TextBox x:Name="basePower1" MaxLength="3" Text="95" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" Margin="90,452,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="213,452,0,0" Grid.Row="1">
+            <ComboBoxItem Content="Normal"/>
+            <ComboBoxItem Content="Fighting"/>
+            <ComboBoxItem Content="Flying"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Psychic"/>
+            <ComboBoxItem IsSelected="True" Content="Fire"/>
+            <ComboBoxItem Content="Water"/>
+            <ComboBoxItem Content="Electric"/>
+            <ComboBoxItem Content="Grass"/>
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="Ground"/>
+            <ComboBoxItem Content="Ghost"/>
+            <ComboBoxItem Content="Rock"/>
+            <ComboBoxItem Content="Steel"/>
+            <ComboBoxItem Content="Dragon"/>
+            <ComboBoxItem Content="Ice"/>
+            <ComboBoxItem Content="Poison"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Power" VerticalAlignment="Top" Margin="115,431,0,0" Grid.Row="1"/>
+        <CheckBox x:Name="forceCrit1" Content="Crit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,456,0,0" Grid.Row="1"/>
+    </Grid>
+</Window>
