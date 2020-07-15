@@ -47,8 +47,27 @@ namespace gen3RNGcalc
                     monSelection2.Items.Add(mons);
                 }
             }
+            file = System.IO.Path.Combine(directory, "attacks.csv");
+            using (var reader = new StreamReader(file))
+            {
+                List<string> attacks = new List<string>();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    attacks.Add(values[0]);
+                }
+                foreach (string attack in attacks)
+                {
+                    attackName.Items.Add(attack);
+                }
+            }
         }
 
+        /// <summary>
+        /// Sets the values for each of the types, used in a variety of places in the code
+        /// </summary>
         enum TypeValues
         {
             Normal,
@@ -71,6 +90,28 @@ namespace gen3RNGcalc
             None
         }
 
+        /// <summary> A quicker way to calculate stat changes on the fly </summary>
+        /// <param name="findBuff">The SelectedIndex of the comboBox you want to search for</param>
+        public static double Buffs(int findBuff) //findBuff is set to the SelectedIndex of the buff dropdown you are searching for, e.g. atkBuffs1.SelectedIndex
+        {
+            if (findBuff <= 6)
+            {
+                return 4 - (findBuff * 0.5);
+            }
+            else
+            {
+                return 1 / (1 + ((findBuff - 6) * 0.5));
+            }
+        }
+        
+        /// <summary>
+        /// A quick way to parse the inputs of integers and return the parsed value
+        /// </summary>
+        /// <param name="inputNeeded">The text you want to parse, usually a TextBox.Text parameter</param>
+        /// <param name="warning">The warning to display if the text cannot be parsed</param>
+        /// <param name="tooHigh">The warning to display if the parsed value is too high</param>
+        /// <param name="maxValue">The maximum value to be accepted</param>
+        /// <returns></returns>
         public static int ParseInput(string inputNeeded, string warning, string tooHigh, int maxValue)
         {
             tryIt = int.TryParse(inputNeeded, out parsedValue);
@@ -91,6 +132,13 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>
+        /// Calculates the type effectiveness of the move
+        /// </summary>
+        /// <param name="moveType">The type value of the move to be used, according to TypeValues</param>
+        /// <param name="defendingType1">The first type of the defending pokemon, using TypeValues for the value</param>
+        /// <param name="defendingType2">The second type of the defending pokemon, using TypeValues for the value</param>
+        /// <returns></returns>
         public static double effectiveness(int moveType, int defendingType1, int defendingType2)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -115,11 +163,15 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>
+        /// Start the calculation on press of the "Go" button
+        /// </summary>
         private void Go(object sender, RoutedEventArgs e)
         {
             alerts = "";
             alert.Text = alerts;
             finalCalc.Text = "";
+            finalHeader.Text = "";
 
             double atkNature = 1;
             double defNature = 1;
@@ -208,7 +260,7 @@ namespace gen3RNGcalc
             bool levelParse = tryIt;
             alert.Text = alerts;
 
-            // Nature determination
+            // Nature determination, there might be a more efficient way of writing this, I'll look into it
             string nature = nature1.Text.Substring(0, nature1.Text.IndexOf(" "));
             if (nature == "Lonely" || nature == "Adamant" || nature == "Naughty" || nature == "Brave")
             {
@@ -276,102 +328,195 @@ namespace gen3RNGcalc
                 {
                     int HPCalc = (((2 * yourBaseHP + HPIV1.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
                     HPTot1.Text = HPCalc.ToString();
+
                     double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV1.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature * atkBadge;
+                    initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs1.SelectedIndex);
                     int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
                     AtkTot1.Text = AtkCalc.ToString();
+
                     double initialDefCalc = ((((2 * yourBaseDef + DefIV1.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature * defBadge;
+                    initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs1.SelectedIndex);
                     int DefCalc = Convert.ToInt32(Math.Floor(initialDefCalc));
                     DefTot1.Text = DefCalc.ToString();
+
                     double initialSpAtkCalc = ((((2 * yourBaseSpAtk + SpAtkIV1.SelectedIndex + (yourSpAtkEVs / 4)) * yourLevel) / 100) + 5) * spAtkNature * spAtkBadge;
+                    initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(spAtkBuffs1.SelectedIndex);
                     int spAtkCalc = Convert.ToInt32(Math.Floor(initialSpAtkCalc));
                     SpAtkTot1.Text = spAtkCalc.ToString();
+
                     double initialSpDefCalc = ((((2 * yourBaseSpDef + SpDefIV1.SelectedIndex + (yourSpDefEVs / 4)) * yourLevel) / 100) + 5) * spDefNature * spDefBadge;
+                    initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(spDefBuffs1.SelectedIndex);
                     int spDefCalc = Convert.ToInt32(Math.Floor(initialSpDefCalc));
                     SpDefTot1.Text = spDefCalc.ToString();
+
                     double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV1.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature * speedBadge;
+                    initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs1.SelectedIndex);
                     int SpeedCalc = Convert.ToInt32(Math.Floor(initialSpeedCalc));
                     SpeedTot1.Text = SpeedCalc.ToString();
-                    EnemyCalc();
 
-                    int power = ParseInput(basePower1.Text, "Please enter a numerical value for the base power.", "A move's base power can not be higher than 255.", 255);
-                    bool bpParse = tryIt;
-                    alert.Text = alerts;
-
-                    if (bpParse)
+                    if (EnemyCalc())
                     {
-                        double firePower = 1;
-                        double waterPower = 1;
-                        double crit = 1;
-                        double STAB = 1;
-                        double effective = 1;
-                        if (rain == true)
+                        if (attackName.SelectedIndex != 35 && attackName.SelectedIndex != 89 && attackName.SelectedIndex != 117 && attackName.SelectedIndex != 132 && !(attackName.SelectedIndex >= 162 && attackName.SelectedIndex <= 165))
                         {
-                            firePower = 0.5;
-                            waterPower = 1.5;
-                        }
-                        if (sun == true)
-                        {
-                            firePower = 1.5;
-                            waterPower = 0.5;
-                        }
-                        if (forceCrit1.IsChecked == true)
-                        {
-                            crit = 2;
-                        }
-                        if (moveTypeSelection.SelectedIndex == type1Selection1.SelectedIndex || moveTypeSelection.SelectedIndex == type2Selection1.SelectedIndex)
-                        {
-                            STAB = 1.5;
-                        }
-                        effective = effectiveness(moveTypeSelection.SelectedIndex, type1Selection2.SelectedIndex, type2Selection2.SelectedIndex);
-                        double[] rolls = {0.85, 0.86, 0.87, 0.88, 0.89, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0};
-                        double modifier;
-                        bool isPhysical = false;
-                        int typeOfMove = moveTypeSelection.SelectedIndex;
-                        if (typeOfMove == 0 || typeOfMove == 1 || typeOfMove == 2 || typeOfMove == 9 || typeOfMove == 10 || typeOfMove == 11 || typeOfMove == 12 || typeOfMove == 13 || typeOfMove == 16)
-                        {
-                            isPhysical = true;
-                        }
-                        //foreach (double roll in rolls)
-                        for (double roll = 85; roll <= 100; roll++)
-                        {
-                            if (moveTypeSelection.SelectedIndex == 5)
+                            int power = ParseInput(basePower1.Text, "Please enter a numerical value for the base power.", "A move's base power can not be higher than 255.", 255);
+                            bool bpParse = tryIt;
+                            alert.Text = alerts;
+
+                            if (bpParse)
                             {
-                                modifier = roll * crit * firePower * effective * STAB;
+                                finalCalc.Text = "Possible damage amounts: ";
+                                double firePower = 1;
+                                double waterPower = 1;
+                                double crit = 1;
+                                double STAB = 1;
+                                double effective = 1;
+                                double minPercentHP = 0;
+                                double maxPercentHP = 0;
+                                double minDamage = 0;
+                                double maxDamage = 0;
+                                if (rain == true)
+                                {
+                                    firePower = 0.5;
+                                    waterPower = 1.5;
+                                }
+                                if (sun == true)
+                                {
+                                    firePower = 1.5;
+                                    waterPower = 0.5;
+                                }
+                                if (forceCrit1.IsChecked == true)
+                                {
+                                    crit = 2;
+                                }
+                                if (moveTypeSelection.SelectedIndex == type1Selection1.SelectedIndex || moveTypeSelection.SelectedIndex == type2Selection1.SelectedIndex)
+                                {
+                                    STAB = 1.5;
+                                }
+                                effective = effectiveness(moveTypeSelection.SelectedIndex, type1Selection2.SelectedIndex, type2Selection2.SelectedIndex);
+                                double modifier;
+                                bool isPhysical = false;
+                                int typeOfMove = moveTypeSelection.SelectedIndex;
+                                if (typeOfMove == 0 || typeOfMove == 1 || typeOfMove == 2 || typeOfMove == 9 || typeOfMove == 10 || typeOfMove == 11 || typeOfMove == 12 || typeOfMove == 13 || typeOfMove == 16)
+                                {
+                                    isPhysical = true;
+                                }
+                                for (double roll = 85; roll <= 100; roll++)
+                                {
+                                    if (moveTypeSelection.SelectedIndex == 5)
+                                    {
+                                        modifier = roll * crit * firePower * effective * STAB;
+                                    }
+                                    else if (moveTypeSelection.SelectedIndex == 6)
+                                    {
+                                        modifier = roll * crit * waterPower * effective * STAB;
+                                    }
+                                    else
+                                    {
+                                        modifier = roll * crit * effective * STAB;
+                                    }
+                                    double atkdouble = 0;
+                                    string defOfDefender;
+                                    if (isPhysical)
+                                    {
+                                        atkdouble = AtkCalc;
+                                        defOfDefender = DefTot2.Text;
+                                    }
+                                    else
+                                    {
+                                        atkdouble = spAtkCalc;
+                                        defOfDefender = SpDefTot2.Text;
+                                    }
+                                    double lvdouble = yourLevel;
+                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / double.Parse(defOfDefender)) / 50);
+                                    damage += 2;
+                                    damage = Math.Floor((damage * modifier) / 100);
+                                    if (roll == 85)
+                                    {
+                                        minPercentHP = (damage / double.Parse(HPTot2.Text)) * 100;
+                                        minDamage = damage;
+                                    }
+                                    if (roll == 100)
+                                    {
+                                        maxPercentHP = (damage / double.Parse(HPTot2.Text)) * 100;
+                                        maxDamage = damage;
+                                    }
+                                    int finalDamage = Convert.ToInt32(Math.Floor(damage));
+                                    finalCalc.Text = finalCalc.Text + finalDamage.ToString() + ", ";
+                                }
+
+                                string firstMon = monSelection1.Text;
+                                string secondMon = monSelection2.Text;
+                                string moveName = attackName.Text;
+                                string defensiveBuffs;
+                                string offensiveBuffs;
+                                if (isPhysical)
+                                {
+                                    offensiveBuffs = atkBuffs1.Text + " ";
+                                    defensiveBuffs = defBuffs2.Text + " ";
+                                    if (offensiveBuffs == "-- ")
+                                    {
+                                        offensiveBuffs = "";
+                                    }
+                                    if (defensiveBuffs == "-- ")
+                                    {
+                                        defensiveBuffs = "";
+                                    }
+                                    finalHeader.Text = offensiveBuffs + yourAtkEVs.ToString() + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + " Def " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                }
+                                else
+                                {
+                                    offensiveBuffs = spAtkBuffs1.Text + " ";
+                                    defensiveBuffs = spDefBuffs2.Text + " ";
+                                    if (offensiveBuffs == "-- ")
+                                    {
+                                        offensiveBuffs = "";
+                                    }
+                                    if (defensiveBuffs == "-- ")
+                                    {
+                                        defensiveBuffs = "";
+                                    }
+                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                }
                             }
-                            else if (moveTypeSelection.SelectedIndex == 6)
+                        }
+                        else
+                        {
+                            finalCalc.Text = "Possible damage: ";
+                            double effective = effectiveness(moveTypeSelection.SelectedIndex, type1Selection2.SelectedIndex, type2Selection2.SelectedIndex);
+                            double damage;
+                            string firstMon = monSelection1.Text;
+                            string secondMon = monSelection2.Text;
+                            string moveName = attackName.Text;
+                            if (attackName.SelectedIndex == 89 || attackName.SelectedIndex == 117)
                             {
-                                modifier = roll * crit * waterPower * effective * STAB;
+                                if (effective == 0) { damage = 0; }
+                                else { damage = yourLevel; }
+                            }
+                            else if (attackName.SelectedIndex == 35)
+                            {
+                                if (effective == 0) { damage = 0; }
+                                else { damage = 40; }
                             }
                             else
                             {
-                                modifier = roll * crit * effective * STAB;
+                                if (effective == 0) { damage = 0; }
+                                else { damage = 20; }
                             }
-                            double atkdouble = 0;
-                            string defOfDefender;
-                            if (isPhysical)
+                            if (attackName.SelectedIndex >= 162 && attackName.SelectedIndex <= 165)
                             {
-                                atkdouble = AtkCalc;
-                                defOfDefender = DefTot2.Text;
+                                if (effective == 0) { damage = 0; }
+                                else { damage = double.Parse(HPTot2.Text); }
                             }
-                            else
-                            {
-                                atkdouble = spAtkCalc;
-                                defOfDefender = SpDefTot2.Text;
-                            }
-                            double lvdouble = yourLevel;
-                            double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / double.Parse(defOfDefender)) / 50);
-                            damage += 2;
-                            finalCalc.Text = finalCalc.Text + (damage * roll/100).ToString() + " ";
-                            damage = Math.Floor((damage * modifier)/100);
-                            int finalDamage = Convert.ToInt32(Math.Floor(damage));
-                            finalCalc.Text = finalCalc.Text + finalDamage.ToString() + ", ";
+                            double percentHP = (damage / double.Parse(HPTot2.Text)) * 100;
+                            finalHeader.Text = firstMon + " " + moveName + " vs. " + HPEV2.Text + " HP " + secondMon + ": " + damage.ToString() + " (" + Math.Round(percentHP, 1).ToString() + "%)";
+                            finalCalc.Text = finalCalc.Text + damage.ToString();
                         }
                     }
                 }
             }
         }
 
-        public void EnemyCalc()
+        public bool EnemyCalc()
         {
             double atkNature = 1;
             double defNature = 1;
@@ -470,22 +615,34 @@ namespace gen3RNGcalc
             {
                 int HPCalc = (((2 * yourBaseHP + HPIV2.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
                 HPTot2.Text = HPCalc.ToString();
+
                 double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV2.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature;
+                initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs2.SelectedIndex);
                 int AtkCalc = Convert.ToInt32((Math.Floor(initialAtkCalc)));
                 AtkTot2.Text = AtkCalc.ToString();
+
                 double initialDefCalc = ((((2 * yourBaseDef + DefIV2.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature;
+                initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs2.SelectedIndex);
                 int DefCalc = Convert.ToInt32((Math.Floor(initialDefCalc)));
                 DefTot2.Text = DefCalc.ToString();
+
                 double initialSpAtkCalc = ((((2 * yourBaseSpAtk + SpAtkIV2.SelectedIndex + (yourSpAtkEVs / 4)) * yourLevel) / 100) + 5) * spAtkNature;
+                initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(spAtkBuffs2.SelectedIndex);
                 int spAtkCalc = Convert.ToInt32((Math.Floor(initialSpAtkCalc)));
                 SpAtkTot2.Text = spAtkCalc.ToString();
+
                 double initialSpDefCalc = ((((2 * yourBaseSpDef + SpDefIV2.SelectedIndex + (yourSpDefEVs / 4)) * yourLevel) / 100) + 5) * spDefNature;
+                initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(spDefBuffs2.SelectedIndex);
                 int spDefCalc = Convert.ToInt32((Math.Floor(initialSpDefCalc)));
                 SpDefTot2.Text = spDefCalc.ToString();
+
                 double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV2.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature;
+                initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs2.SelectedIndex);
                 int SpeedCalc = Convert.ToInt32((Math.Floor(initialSpeedCalc)));
                 SpeedTot2.Text = SpeedCalc.ToString();
+                return true;
             }
+            else { return false; }
         }
 
         private void newMonSelected1(object sender, SelectionChangedEventArgs e)
@@ -567,6 +724,28 @@ namespace gen3RNGcalc
                 TypeValues secondType = (TypeValues)Enum.Parse(typeof(TypeValues), Type2[monSelection2.SelectedIndex]);
                 type1Selection2.SelectedIndex = Convert.ToInt32(firstType);
                 type2Selection2.SelectedIndex = Convert.ToInt32(secondType);
+            }
+        }
+
+        private void AttackNameSelected(object sender, SelectionChangedEventArgs e)
+        {
+            var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var file = System.IO.Path.Combine(directory, "attacks.csv");
+            using (var reader = new StreamReader(file))
+            {
+                List<string> Type = new List<string>();
+                List<string> BP = new List<string>();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    Type.Add(values[1]);
+                    BP.Add(values[2]);
+                }
+                basePower1.Text = BP[attackName.SelectedIndex];
+                TypeValues moves = (TypeValues)Enum.Parse(typeof(TypeValues), Type[attackName.SelectedIndex]);
+                moveTypeSelection.SelectedIndex = Convert.ToInt32(moves);
             }
         }
     }
