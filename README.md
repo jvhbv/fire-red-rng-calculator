@@ -68,6 +68,52 @@ Some various in-application screenshots showing off the GUI-
 ![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram4.PNG)
 ![](https://raw.githubusercontent.com/jvhbv/fire-red-rng-calculator/GUI/GUIProgram5.PNG)
 
+## What are all the different files in the GUI program doing?
+
+Ever since I implemented the damage calculator, I have been adding several .csv files, which are each used by the code at certain points in order to organize data such as type matchups, the base stats of pokemon, info on different attacks, etc. If you open the .csv files in excel or another similar program, you can see that they are simply charts that contain all the information needed by the currently implemented features of the program. As an example, directly below is the raw data for the typeMatchups.csv file, and below that is what it represents in a readable chart form.
+
+```
+1,1,1,1,1,1,1,1,1,1,1,0,0.5,0.5,1,1,1,1
+2,1,0.5,2,0.5,1,1,1,1,0.5,1,0,2,2,1,2,0.5,1
+1,2,1,1,1,1,1,0.5,2,2,1,1,0.5,0.5,1,1,1,1
+1,0.5,1,0.5,2,1,1,1,1,1,1,2,1,0.5,1,1,1,1
+1,2,1,0,0.5,1,1,1,1,1,1,1,1,0.5,1,1,2,1
+1,1,1,1,1,0.5,0.5,1,2,2,1,1,0.5,2,0.5,2,1,1
+1,1,1,1,1,2,0.5,1,0.5,1,2,1,2,1,0.5,1,1,1
+1,1,2,1,1,1,2,0.5,0.5,1,0,1,1,1,0.5,1,1,1
+1,1,0.5,1,1,0.5,2,1,0.5,0.5,2,1,2,0.5,0.5,1,0.5,1
+1,0.5,0.5,2,2,0.5,1,1,2,1,1,0.5,1,0.5,1,1,0.5,1
+1,1,0,1,1,2,1,2,0.5,0.5,1,1,2,2,1,1,2,1
+0,1,1,0.5,2,1,1,1,1,1,1,2,1,0.5,1,1,1,1
+1,0.5,2,1,1,2,1,1,1,2,0.5,1,1,0.5,1,2,1,1
+1,1,1,1,1,0.5,0.5,0.5,1,1,1,1,2,0.5,1,2,1,1
+1,1,1,1,1,1,1,1,1,1,1,1,1,0.5,2,1,1,1
+1,1,2,1,1,0.5,0.5,1,2,1,2,1,1,0.5,2,0.5,1,1
+1,1,1,1,1,1,1,1,2,1,0.5,0.5,0.5,0,1,1,0.5,1
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+```
+
+|        |Normal|Fighting|Flying|Dark |Psychic|Fire |Water|Electric|Grass|Bug  |Ground|Ghost|Rock |Steel|Dragon|Ice  |Poison|None |
+| ------ | :--: | :----: | :--: | :-: | :---: | :-: | :-: | :----: | :-: | :-: | :--: | :-: | :-: | :-: | :--: | :-: | :--: | :-: |
+|Normal  |1     |1       |1     |1    |1      |1    |1    |1       |1    |1    |1     |0    |0.5  |0.5  |1     |1    |1     |1    |
+|Fighting|2     |1       |0.5   |2    |0.5    |1    |1    |1       |1    |0.5  |1     |0    |2    |2    |1     |2    |0.5   |1    |
+|Flying  |1     |2       |1     |1    |1      |1    |1    |0.5     |2    |2    |1     |1    |0.5  |0.5  |1     |1    |1     |1    |
+|Dark    |1     |0.5     |1     |0.5  |2      |1    |1    |1       |1    |1    |1     |2    |1    |0.5  |1     |1    |1     |1    |
+|Psychic |1     |2       |1     |0    |0.5    |1    |1    |1       |1    |1    |1     |1    |1    |0.5  |1     |1    |2     |1    |
+|Fire    |1     |1       |1     |1    |1      |0.5  |0.5  |1       |2    |2    |1     |1    |0.5  |2    |0.5   |2    |1     |1    |
+|Water   |1     |1       |1     |1    |1      |2    |0.5  |1       |0.5  |1    |2     |1    |2    |1    |0.5   |1    |1     |1    |
+|Electric|1     |1       |2     |1    |1      |1    |2    |0.5     |0.5  |1    |0     |1    |1    |1    |0.5   |1    |1     |1    |
+|Grass   |1     |1       |0.5   |1    |1      |0.5  |2    |1       |0.5  |0.5  |2     |1    |2    |0.5  |0.5   |1    |0.5   |1    |
+|Bug     |1     |0.5     |0.5   |2    |2      |0.5  |1    |1       |2    |1    |1     |0.5  |1    |0.5  |1     |1    |0.5   |1    |
+|Ground  |1     |1       |0     |1    |1      |2    |1    |2       |0.5  |0.5  |1     |1    |2    |2    |1     |1    |2     |1    |
+|Ghost   |0     |1       |1     |0.5  |2      |1    |1    |1       |1    |1    |1     |2    |1    |0.5  |1     |1    |1     |1    |
+|Rock    |1     |0.5     |2     |1    |1      |2    |1    |1       |1    |2    |0.5   |1    |1    |0.5  |1     |2    |1     |1    |
+|Steel   |1     |1       |1     |1    |1      |0.5  |0.5  |0.5     |1    |1    |1     |1    |2    |0.5  |1     |2    |1     |1    |
+|Dragon  |1     |1       |1     |1    |1      |1    |1    |1       |1    |1    |1     |1    |1    |0.5  |2     |1    |1     |1    |
+|Ice     |1     |1       |2     |1    |1      |0.5  |0.5  |1       |2    |1    |2     |1    |1    |0.5  |2     |0.5  |1     |1    |
+|Poison  |1     |1       |1     |1    |1      |1    |1    |1       |2    |1    |0.5   |0.5  |0.5  |0    |1     |1    |0.5   |1    |
+|None    |1     |1       |1     |1    |1      |1    |1    |1       |1    |1    |1     |1    |1    |1    |1     |1    |1     |1    |
+
 ## Great, now how do you go about installing it?
 
 One of the useful things I find about the .NET framework console applications is that there is no installation needed for the actual application, although you must have [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) installed in order to run the application. You can get direct downloads to the executable without having to manually compile it on the [releases](https://github.com/jvhbv/fire-red-rng-calculator/releases) page as more versions get released with more features and bug fixes.
