@@ -561,7 +561,7 @@
         <ComboBox x:Name="item2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,222,0,0" Grid.Row="1"/>
         <TextBlock x:Name="finalCalc" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,72,0,0" Height="55" Width="920"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="79,254,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="ability1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,254,0,0" Grid.Row="1" Height="22"/>
+        <ComboBox x:Name="ability1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,254,0,0" Grid.Row="1" Height="22" SelectionChanged="Ability1_SelectionChanged"/>
         <ComboBox x:Name="monSelection1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="122,132,0,0" SelectionChanged="newMonSelected1"/>
         <ComboBox x:Name="monSelection2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="621,132,0,0" SelectionChanged="newMonSelected2"/>
         <ComboBox x:Name="type1Selection1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="122,167,0,0">
@@ -645,7 +645,7 @@
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top" Margin="589,167,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="578,254,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="ability2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,254,0,0" Grid.Row="1" Height="22"/>
+        <ComboBox x:Name="ability2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,254,0,0" Grid.Row="1" Height="22" SelectionChanged="Ability2_SelectionChanged"/>
         <RadioButton IsChecked="True" x:Name="noWeather" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,192,0,0"/>
         <RadioButton x:Name="raining" Content="Rain" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,207,0,0" Grid.RowSpan="2"/>
         <RadioButton x:Name="sunny" Content="Sun" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,7,0,0" Grid.Row="1"/>
@@ -827,5 +827,29 @@
         </ComboBox>
         <TextBlock x:Name="finalHeader" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,17,0,0" Height="55" Width="920" FontSize="18"/>
         <ComboBox x:Name="attackName" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="41,468,0,0" Grid.Row="1" SelectionChanged="AttackNameSelected"/>
+        <Slider x:Name="HPSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="317" Margin="92,425,0,0" Grid.Row="1"/>
+        <!--not implemented yet-->
+        <CheckBox x:Name="ability1Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,258,0,0" Grid.Row="1" Visibility="Hidden"/>
+        <CheckBox x:Name="ability2Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="768,258,0,0" Grid.Row="1" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="278,192,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="statusConditions1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="318,189,0,0" Grid.Row="1">
+            <ComboBoxItem IsSelected="True" Content="None"/>
+            <ComboBoxItem x:Name="burn1" Content="Burned"/>
+            <ComboBoxItem x:Name="para1" Content="Paralyzed"/>
+            <ComboBoxItem x:Name="poison1" Content="Poisoned"/>
+            <ComboBoxItem x:Name="toxic1" Content="Badly Poisoned"/>
+            <ComboBoxItem x:Name="sleep1" Content="Asleep"/>
+            <ComboBoxItem x:Name="freeze1" Content="Frozen"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="777,192,0,0" Grid.Row="1"/>
+        <ComboBox x:Name="statusConditions2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="817,189,0,0" Grid.Row="1">
+            <ComboBoxItem IsSelected="True" Content="None"/>
+            <ComboBoxItem x:Name="burn2" Content="Burned"/>
+            <ComboBoxItem x:Name="para2" Content="Paralyzed"/>
+            <ComboBoxItem x:Name="poison2" Content="Poisoned"/>
+            <ComboBoxItem x:Name="toxic2" Content="Badly Poisoned"/>
+            <ComboBoxItem x:Name="sleep2" Content="Asleep"/>
+            <ComboBoxItem x:Name="freeze2" Content="Frozen"/>
+        </ComboBox>
     </Grid>
 </Window>

@@ -25,12 +25,14 @@ namespace gen3RNGcalc
         public static int parsedValue;
         public static string alerts;
         public static bool tryIt;
+        public static string weather;
+        public static int defAbility;
 
         public damageCalc()
         {
             InitializeComponent();
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var file = System.IO.Path.Combine(directory, "baseStats.csv");
+            var file = System.IO.Path.Combine(directory, "baseStats.csv"); //Each line in baseStats.csv is formatted like so- Pokemon Name, Base HP, Base Atk, Base Def, Base SpA, Base SpD, Base Spe, Type 1, Type 2
             using (var reader = new StreamReader(file))
             {
                 List<string> monsters = new List<string>();
@@ -43,11 +45,11 @@ namespace gen3RNGcalc
                 }
                 foreach (string mons in monsters)
                 {
-                    monSelection1.Items.Add(mons);
-                    monSelection2.Items.Add(mons);
+                    monSelection1.Items.Add(mons); //Gets the names for each pokemon and adds it to the monSelection1 comboBox
+                    monSelection2.Items.Add(mons); //Gets the names for each pokemon and adds it to the monSelection2 comboBox
                 }
             }
-            file = System.IO.Path.Combine(directory, "attacks.csv");
+            file = System.IO.Path.Combine(directory, "attacks.csv"); //Each line in attacks.csv is formatted like so- Attack Name, Attack Type, Base Power, Comment
             using (var reader = new StreamReader(file))
             {
                 List<string> attacks = new List<string>();
@@ -60,7 +62,24 @@ namespace gen3RNGcalc
                 }
                 foreach (string attack in attacks)
                 {
-                    attackName.Items.Add(attack);
+                    attackName.Items.Add(attack); //Gets the names for each attack and adds it to the attackName comboBox
+                }
+            }
+            file = System.IO.Path.Combine(directory, "abilities.csv"); //Each line is simply just formatted like so- Ability Name, Ability Description
+            using (var reader = new StreamReader(file))
+            {
+                List<string> abilities = new List<string>();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    abilities.Add(values[0]);
+                }
+                foreach (string ability in abilities)
+                {
+                    ability1.Items.Add(ability);
+                    ability2.Items.Add(ability);
                 }
             }
         }
@@ -159,6 +178,10 @@ namespace gen3RNGcalc
                 string defenderType1 = defType2[Convert.ToInt32(moveType)];
                 double finalDefender1 = double.Parse(defenderType);
                 double finalDefender2 = double.Parse(defenderType1);
+                if (defAbility == 75)
+                {
+                    if ((finalDefender1 * finalDefender2) < 2) { return 0; }
+                }
                 return finalDefender1 * finalDefender2;
             }
         }
@@ -187,11 +210,31 @@ namespace gen3RNGcalc
             bool kanto = false;
             bool hoenn = false;
 
-            bool? clear = noWeather.IsChecked;
-            bool? rain = raining.IsChecked;
-            bool? sun = sunny.IsChecked;
-            bool? sand = sandstorm.IsChecked;
-            bool? hail = hailing.IsChecked;
+            int yourAbility = ability1.SelectedIndex;
+            defAbility = ability2.SelectedIndex;
+
+            if (noWeather.IsChecked == true) { weather = "clear"; }
+            else if (raining.IsChecked == true) { weather = "rain"; }
+            else if (sunny.IsChecked == true) { weather = "sun"; }
+            else if (sandstorm.IsChecked == true) { weather = "sand"; }
+            else { weather = "hail"; }
+
+            if (yourAbility == 0 || defAbility == 0 || yourAbility == 6 || defAbility == 6) { weather = "neutral"; }
+            if (weather != "neutral" && (yourAbility == 11 || defAbility == 11))
+            {
+                raining.IsChecked = true;
+                weather = "rain";
+            }
+            if (weather != "neutral" && (yourAbility == 12 || defAbility == 12))
+            {
+                sunny.IsChecked = true;
+                weather = "sun";
+            }
+            if (weather != "neutral" && (yourAbility == 49 || defAbility == 49))
+            {
+                sandstorm.IsChecked = true;
+                weather = "sand";
+            }
 
             bool? boulderBadge = Boulder.IsChecked;
             bool? soulBadge = Soul.IsChecked;
@@ -326,16 +369,25 @@ namespace gen3RNGcalc
             {
                 if ((kanto ^ hoenn) || !kanto && !hoenn)
                 {
-                    int HPCalc = (((2 * yourBaseHP + HPIV1.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
+                    int HPCalc;
+                    if (monSelection1.SelectedIndex == 291) { HPCalc = 1; } //If the selected mon is Shedinja, HP is always set to 1
+                    else
+                    {
+                        HPCalc = (((2 * yourBaseHP + HPIV1.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
+                    }
                     HPTot1.Text = HPCalc.ToString();
 
                     double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV1.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature * atkBadge;
                     initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs1.SelectedIndex);
+                    if ((statusConditions1.SelectedIndex != 0 && yourAbility == 18) || yourAbility == 20) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks if you are statused and have guts or have hustle
                     int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
+                    if (yourAbility == 19 || yourAbility == 44) { AtkCalc *= 2; } //checks for huge / pure power
+                    if (statusConditions1.SelectedIndex == 1 && yourAbility != 18) { AtkCalc /= 2; } //checks if you are burned and don't have guts
                     AtkTot1.Text = AtkCalc.ToString();
 
                     double initialDefCalc = ((((2 * yourBaseDef + DefIV1.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature * defBadge;
                     initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs1.SelectedIndex);
+                    if (statusConditions1.SelectedIndex != 0 && yourAbility == 34) { initialDefCalc = Math.Floor(initialDefCalc * 1.5); } //checks if you are statused and have marvel scale
                     int DefCalc = Convert.ToInt32(Math.Floor(initialDefCalc));
                     DefTot1.Text = DefCalc.ToString();
 
@@ -352,10 +404,53 @@ namespace gen3RNGcalc
                     double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV1.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature * speedBadge;
                     initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs1.SelectedIndex);
                     int SpeedCalc = Convert.ToInt32(Math.Floor(initialSpeedCalc));
+                    if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) //Checks for swift swim and chlorophyll
+                    {
+                        SpeedCalc *= 2;
+                    }
                     SpeedTot1.Text = SpeedCalc.ToString();
 
-                    if (EnemyCalc())
+                    if (EnemyCalc()) //Makes sure that all parsing done by EnemyCalc was successful before trying to calculate anything
                     {
+                        if (yourAbility != defAbility && (yourAbility == 11 || yourAbility == 12 || yourAbility == 49) && (defAbility == 11 || defAbility == 12 || defAbility == 49))
+                        {
+                            if (SpeedCalc <= int.Parse(SpeedTot2.Text)) //Is there a more efficent way of doing this, rather than just checking for each ability value individually?
+                            {
+                                if (yourAbility == 11)
+                                {
+                                    raining.IsChecked = true;
+                                    weather = "rain";
+                                }
+                                else if (yourAbility == 12)
+                                {
+                                    sunny.IsChecked = true;
+                                    weather = "sun";
+                                }
+                                else
+                                {
+                                    sandstorm.IsChecked = true;
+                                    weather = "sand";
+                                }
+                            }
+                            else
+                            {
+                                if (defAbility == 11)
+                                {
+                                    raining.IsChecked = true;
+                                    weather = "rain";
+                                }
+                                else if (defAbility == 12)
+                                {
+                                    sunny.IsChecked = true;
+                                    weather = "sun";
+                                }
+                                else
+                                {
+                                    sandstorm.IsChecked = true;
+                                    weather = "sand";
+                                }
+                            }
+                        }
                         if (attackName.SelectedIndex != 35 && attackName.SelectedIndex != 89 && attackName.SelectedIndex != 117 && attackName.SelectedIndex != 132 && !(attackName.SelectedIndex >= 162 && attackName.SelectedIndex <= 165))
                         {
                             int power = ParseInput(basePower1.Text, "Please enter a numerical value for the base power.", "A move's base power can not be higher than 255.", 255);
@@ -374,17 +469,17 @@ namespace gen3RNGcalc
                                 double maxPercentHP = 0;
                                 double minDamage = 0;
                                 double maxDamage = 0;
-                                if (rain == true)
+                                if (weather == "rain")
                                 {
                                     firePower = 0.5;
                                     waterPower = 1.5;
                                 }
-                                if (sun == true)
+                                if (weather == "sun")
                                 {
                                     firePower = 1.5;
                                     waterPower = 0.5;
                                 }
-                                if (forceCrit1.IsChecked == true)
+                                if (forceCrit1.IsChecked == true && (defAbility != 2 || defAbility != 54)) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
                                 {
                                     crit = 2;
                                 }
@@ -427,9 +522,9 @@ namespace gen3RNGcalc
                                         defOfDefender = SpDefTot2.Text;
                                     }
                                     double lvdouble = yourLevel;
-                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / double.Parse(defOfDefender)) / 50);
+                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / double.Parse(defOfDefender)) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
                                     damage += 2;
-                                    damage = Math.Floor((damage * modifier) / 100);
+                                    damage = Math.Floor((damage * modifier) / 100); //There are a few odd cases where the calculation is off by 1, such as the max roll for 0 SpA Charizard Flamethrower vs. 0 SpD Venusaur, which results in 261, although the actual answer is 260
                                     if (roll == 85)
                                     {
                                         minPercentHP = (damage / double.Parse(HPTot2.Text)) * 100;
@@ -487,25 +582,25 @@ namespace gen3RNGcalc
                             string firstMon = monSelection1.Text;
                             string secondMon = monSelection2.Text;
                             string moveName = attackName.Text;
-                            if (attackName.SelectedIndex == 89 || attackName.SelectedIndex == 117)
+                            if (attackName.SelectedIndex == 89 || attackName.SelectedIndex == 117) //Calculates Seismic Toss and Night Shade damage
                             {
-                                if (effective == 0) { damage = 0; }
-                                else { damage = yourLevel; }
+                                if (effective == 0) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
+                                else { damage = yourLevel; } //If the defender is not immune, then it will always take damage equal to the level of the pokemon using the attack
                             }
-                            else if (attackName.SelectedIndex == 35)
+                            else if (attackName.SelectedIndex == 35) //Calculates Dragon Rage Damage
                             {
-                                if (effective == 0) { damage = 0; }
-                                else { damage = 40; }
+                                if (effective == 0) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
+                                else { damage = 40; } //If the defender is not immune, then it will always take 40 HP of damage
                             }
-                            else
+                            else if (attackName.SelectedIndex == 132) //Calculates Sonic Boom Damage
                             {
-                                if (effective == 0) { damage = 0; }
-                                else { damage = 20; }
+                                if (effective == 0) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
+                                else { damage = 20; } //If the defender is not immune, then it will always take 20 HP of damage
                             }
-                            if (attackName.SelectedIndex >= 162 && attackName.SelectedIndex <= 165)
+                            else //Calculates all other special circumstances (all the OHKO moves)
                             {
-                                if (effective == 0) { damage = 0; }
-                                else { damage = double.Parse(HPTot2.Text); }
+                                if (effective == 0 || defAbility == 61) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
+                                else { damage = double.Parse(HPTot2.Text); } //If the defender is not immune, then it will always take damage equal to its HP
                             }
                             double percentHP = (damage / double.Parse(HPTot2.Text)) * 100;
                             finalHeader.Text = firstMon + " " + moveName + " vs. " + HPEV2.Text + " HP " + secondMon + ": " + damage.ToString() + " (" + Math.Round(percentHP, 1).ToString() + "%)";
@@ -516,6 +611,10 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>
+        /// Calculates the defending pokemon's stats, and also determines if the stats could be parsed for the main calculation to continue
+        /// </summary>
+        /// <returns>returns true if everything could be parsed and calculated</returns>
         public bool EnemyCalc()
         {
             double atkNature = 1;
@@ -523,6 +622,8 @@ namespace gen3RNGcalc
             double spAtkNature = 1;
             double spDefNature = 1;
             double speedNature = 1;
+
+            int yourAbility = ability2.SelectedIndex;
 
             int yourBaseHP = ParseInput(baseHP2.Text, "Please enter a numerical value for the base HP.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool HPBaseParse = tryIt;
@@ -613,16 +714,25 @@ namespace gen3RNGcalc
 
             if (HPBaseParse && AtkBaseParse && DefBaseParse && SpAtkBaseParse && SpDefBaseParse && SpeedBaseParse && HPEVParse && AtkEVParse && DefEVParse && SpAtkEVParse && SpDefEVParse && SpeedEVParse && levelParse)
             {
-                int HPCalc = (((2 * yourBaseHP + HPIV2.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
+                int HPCalc;
+                if (monSelection2.SelectedIndex == 291) { HPCalc = 1; } //If the selected mon is Shedinja, HP is always set to 1
+                else
+                {
+                    HPCalc = (((2 * yourBaseHP + HPIV2.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
+                }
                 HPTot2.Text = HPCalc.ToString();
 
                 double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV2.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature;
                 initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs2.SelectedIndex);
-                int AtkCalc = Convert.ToInt32((Math.Floor(initialAtkCalc)));
+                if ((statusConditions2.SelectedIndex != 0 && yourAbility == 18) || yourAbility == 20) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks if you are statused and have guts or have hustle
+                int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
+                if (yourAbility == 19 || yourAbility == 44) { AtkCalc *= 2; } //checks for huge / pure power
+                if (statusConditions2.SelectedIndex == 1 && yourAbility != 18) { AtkCalc /= 2; } //checks if you are burned and if you don't have guts
                 AtkTot2.Text = AtkCalc.ToString();
 
                 double initialDefCalc = ((((2 * yourBaseDef + DefIV2.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature;
                 initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs2.SelectedIndex);
+                if (statusConditions2.SelectedIndex != 0 && yourAbility == 34) { initialDefCalc = Math.Floor(initialDefCalc * 1.5); } //checks if you are statused and have marvel scale
                 int DefCalc = Convert.ToInt32((Math.Floor(initialDefCalc)));
                 DefTot2.Text = DefCalc.ToString();
 
@@ -639,6 +749,7 @@ namespace gen3RNGcalc
                 double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV2.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature;
                 initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs2.SelectedIndex);
                 int SpeedCalc = Convert.ToInt32((Math.Floor(initialSpeedCalc)));
+                if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) { SpeedCalc *= 2; } //Checks for chlorophyll / swift swim
                 SpeedTot2.Text = SpeedCalc.ToString();
                 return true;
             }
@@ -727,6 +838,7 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>Gets the type and power of the attack that is selected every time a new attack is selected</summary>
         private void AttackNameSelected(object sender, SelectionChangedEventArgs e)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -747,6 +859,100 @@ namespace gen3RNGcalc
                 TypeValues moves = (TypeValues)Enum.Parse(typeof(TypeValues), Type[attackName.SelectedIndex]);
                 moveTypeSelection.SelectedIndex = Convert.ToInt32(moves);
             }
+        }
+
+        /// <summary>The main handler for abilities disallowing a status condition that can be inflicted on a Pokemon</summary>
+        /// <param name="attacker">Set to true if you are editing the attackers enabled status condition choices, false if you are editing the defender</param>
+        /// <param name="statusEnable">An array of booleans representing which status conditions you want enabled; formatted as burn, paralysis, poison, toxic, sleep, freeze</param>
+        public void ToggleStatusChoice(bool attacker, bool[] statusEnable)
+        {
+            //I want to get a string that says which ones to disable, and then disable only those ones
+            //Right now I have an acceptable compromise that utilizes 2 methods in order to determine which status conditions can be selected that use an array of booleans
+            int init = 0; //Initializing an integer that just keeps track of how many times the loops below have ran, used to determine which boolean to read from in the statusEnable array
+            if (attacker)
+            {
+                ComboBoxItem[] statuses = { burn1, para1, poison1, toxic1, sleep1, freeze1 }; //Declares an array that has the names of all the status ComboBoxItem items in the attackers status ComboBox
+                foreach (ComboBoxItem status in statuses)
+                {
+                    status.IsEnabled = statusEnable[init];
+                    if (status.IsSelected && statusEnable[init] == false) { statusConditions1.SelectedIndex = 0; } //Makes sure you can't have the status selected before switching abilities, setting it to none if you had a disabled status selected
+                    init++;
+                }
+            }
+            else
+            {
+                ComboBoxItem[] statuses = { burn2, para2, poison2, toxic2, sleep2, freeze2 }; //Declares an array that has the names of all the status ComboBoxItem items in the defenders status ComboBox
+                foreach (ComboBoxItem status in statuses)
+                {
+                    status.IsEnabled = statusEnable[init];
+                    if (status.IsSelected && statusEnable[init] == false) { statusConditions2.SelectedIndex = 0; }
+                    init++;
+                }
+            }
+        }
+
+        /// <summary>Gets all the information needed and organized to pass off to the main ToggleStatusChoice method</summary>
+        /// <param name="whichAbility">The ComboBox.SelectedIndex value of the ability method calling this method. e.g. Ability1_SelectionChanged uses ability1.SelectedIndex</param>
+        /// <param name="attacker">A boolean to pass off to the main handler that is set to true if it is the attacker's ability being selected, and false if it is the defender's ability being changed</param>
+        public void StatusChoiceInit(int whichAbility, bool attacker)
+        {
+            bool[] toggle = new bool[5];
+            if (whichAbility == 23) //Checks if the user has immunity as their ability
+            {
+                toggle = new bool[] { true, true, false, false, true, true };
+                ToggleStatusChoice(attacker, toggle);
+            }
+            else if (whichAbility == 25 || whichAbility == 70) //Checks if the user has insomnia or vital spirit as their ability
+            {
+                toggle = new bool[] { true, true, true, true, false, true };
+                ToggleStatusChoice(attacker, toggle);
+            }
+            else if (whichAbility == 30) //Checks if the user has limber as their ability
+            {
+                toggle = new bool[] { true, false, true, true, true, true };
+                ToggleStatusChoice(attacker, toggle);
+            }
+            else if (whichAbility == 32) //Checks if the user has magma armor as their ability
+            {
+                toggle = new bool[] { true, true, true, true, true, false };
+                ToggleStatusChoice(attacker, toggle);
+            }
+            else if (whichAbility == 73) //Checks if the user has water veil as their ability
+            {
+                toggle = new bool[] { false, true, true, true, true, true };
+                ToggleStatusChoice(attacker, toggle);
+            }
+            else //Makes sure all the options are available if the user has none of the above abilities
+            {
+                toggle = new bool[] { true, true, true, true, true, true };
+                ToggleStatusChoice(attacker, toggle);
+            }
+        }
+
+        private void Ability1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ability1.SelectedIndex == 16 || ability1.SelectedIndex == 26)
+            {
+                ability1Active.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ability1Active.Visibility = Visibility.Hidden;
+            }
+            StatusChoiceInit(ability1.SelectedIndex, true);
+        }
+
+        private void Ability2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ability2.SelectedIndex == 16 || ability2.SelectedIndex == 26)
+            {
+                ability2Active.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ability1Active.Visibility = Visibility.Hidden;
+            }
+            StatusChoiceInit(ability2.SelectedIndex, false);
         }
     }
 }
