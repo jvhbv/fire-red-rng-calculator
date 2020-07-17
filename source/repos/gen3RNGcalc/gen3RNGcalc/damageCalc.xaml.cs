@@ -178,7 +178,7 @@ namespace gen3RNGcalc
                 string defenderType1 = defType2[Convert.ToInt32(moveType)];
                 double finalDefender1 = double.Parse(defenderType);
                 double finalDefender2 = double.Parse(defenderType1);
-                if (defAbility == 75)
+                if (defAbility == 75) //Wonder guard handler
                 {
                     if ((finalDefender1 * finalDefender2) < 2) { return 0; }
                 }
@@ -403,6 +403,7 @@ namespace gen3RNGcalc
 
                     double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV1.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature * speedBadge;
                     initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs1.SelectedIndex);
+                    if (statusConditions1.SelectedIndex == 2) { initialSpeedCalc /= 4; } //checks if you are paralyzed
                     int SpeedCalc = Convert.ToInt32(Math.Floor(initialSpeedCalc));
                     if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) //Checks for swift swim and chlorophyll
                     {
@@ -460,6 +461,8 @@ namespace gen3RNGcalc
                             if (bpParse)
                             {
                                 finalCalc.Text = "Possible damage amounts: ";
+                                double enemyCritDef = double.Parse(SpDefTot2.Text);
+                                double CritAtk = double.Parse(SpAtkTot1.Text);
                                 double firePower = 1;
                                 double waterPower = 1;
                                 double crit = 1;
@@ -479,9 +482,33 @@ namespace gen3RNGcalc
                                     firePower = 1.5;
                                     waterPower = 0.5;
                                 }
-                                if (forceCrit1.IsChecked == true && (defAbility != 2 || defAbility != 54)) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
+                                bool isPhysical = false;
+                                int typeOfMove = moveTypeSelection.SelectedIndex;
+                                if (typeOfMove == 0 || typeOfMove == 1 || typeOfMove == 2 || typeOfMove == 9 || typeOfMove == 10 || typeOfMove == 11 || typeOfMove == 12 || typeOfMove == 13 || typeOfMove == 16)
+                                {
+                                    isPhysical = true;
+                                    enemyCritDef = double.Parse(DefTot2.Text);
+                                    CritAtk = double.Parse(AtkTot1.Text);
+                                }
+                                if (forceCrit1.IsChecked == true && (defAbility != 2 && defAbility != 54)) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
                                 {
                                     crit = 2;
+                                    if (defBuffs2.SelectedIndex < 6 && isPhysical)
+                                    {
+                                        enemyCritDef = Math.Floor(double.Parse(DefTot2.Text) / Buffs(defBuffs2.SelectedIndex));
+                                    }
+                                    if (spDefBuffs2.SelectedIndex < 6 && !isPhysical)
+                                    {
+                                        enemyCritDef = Math.Floor(double.Parse(SpDefTot2.Text) / Buffs(spDefBuffs2.SelectedIndex));
+                                    }
+                                    if (atkBuffs1.SelectedIndex > 6 && isPhysical)
+                                    {
+                                        CritAtk = Math.Floor(double.Parse(AtkTot1.Text) / Buffs(atkBuffs1.SelectedIndex));
+                                    }
+                                    if (spAtkBuffs1.SelectedIndex > 6 && !isPhysical)
+                                    {
+                                        CritAtk = Math.Floor(double.Parse(SpAtkTot1.Text) / Buffs(spAtkBuffs1.SelectedIndex));
+                                    }
                                 }
                                 if (moveTypeSelection.SelectedIndex == type1Selection1.SelectedIndex || moveTypeSelection.SelectedIndex == type2Selection1.SelectedIndex)
                                 {
@@ -489,12 +516,6 @@ namespace gen3RNGcalc
                                 }
                                 effective = effectiveness(moveTypeSelection.SelectedIndex, type1Selection2.SelectedIndex, type2Selection2.SelectedIndex);
                                 double modifier;
-                                bool isPhysical = false;
-                                int typeOfMove = moveTypeSelection.SelectedIndex;
-                                if (typeOfMove == 0 || typeOfMove == 1 || typeOfMove == 2 || typeOfMove == 9 || typeOfMove == 10 || typeOfMove == 11 || typeOfMove == 12 || typeOfMove == 13 || typeOfMove == 16)
-                                {
-                                    isPhysical = true;
-                                }
                                 for (double roll = 85; roll <= 100; roll++)
                                 {
                                     if (moveTypeSelection.SelectedIndex == 5)
@@ -509,20 +530,12 @@ namespace gen3RNGcalc
                                     {
                                         modifier = roll * crit * effective * STAB;
                                     }
-                                    double atkdouble = 0;
-                                    string defOfDefender;
-                                    if (isPhysical)
-                                    {
-                                        atkdouble = AtkCalc;
-                                        defOfDefender = DefTot2.Text;
-                                    }
-                                    else
-                                    {
-                                        atkdouble = spAtkCalc;
-                                        defOfDefender = SpDefTot2.Text;
-                                    }
+                                    double atkdouble = 0; //deprecated, should replace atkdouble references with CritAtk references
+                                    double defOfDefender; //deprecated, should replace defOfDefender references with enemeyCritDef references
+                                    atkdouble = CritAtk; //deprecated, should replace atkdouble references with CritAtk references
+                                    defOfDefender = enemyCritDef; //deprecated, should replace defOfDefender references with enemeyCritDef references
                                     double lvdouble = yourLevel;
-                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / double.Parse(defOfDefender)) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
+                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / defOfDefender) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
                                     damage += 2;
                                     damage = Math.Floor((damage * modifier) / 100); //There are a few odd cases where the calculation is off by 1, such as the max roll for 0 SpA Charizard Flamethrower vs. 0 SpD Venusaur, which results in 261, although the actual answer is 260
                                     if (roll == 85)
@@ -599,7 +612,7 @@ namespace gen3RNGcalc
                             }
                             else //Calculates all other special circumstances (all the OHKO moves)
                             {
-                                if (effective == 0 || defAbility == 61) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
+                                if (effective == 0 || defAbility == 61 || yourLevel < int.Parse(level2.Text)) { damage = 0; } //Checks if the defending pokemon is immune to the attack, and sets damage to 0 if it is
                                 else { damage = double.Parse(HPTot2.Text); } //If the defender is not immune, then it will always take damage equal to its HP
                             }
                             double percentHP = (damage / double.Parse(HPTot2.Text)) * 100;
@@ -748,6 +761,7 @@ namespace gen3RNGcalc
 
                 double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV2.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature;
                 initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs2.SelectedIndex);
+                if (statusConditions1.SelectedIndex == 2) { initialSpeedCalc /= 4; } //checks if you are paralyzed
                 int SpeedCalc = Convert.ToInt32((Math.Floor(initialSpeedCalc)));
                 if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) { SpeedCalc *= 2; } //Checks for chlorophyll / swift swim
                 SpeedTot2.Text = SpeedCalc.ToString();
