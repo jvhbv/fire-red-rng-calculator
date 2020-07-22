@@ -22,18 +22,51 @@ namespace gen3RNGcalc
     /// </summary>
     public partial class damageCalc : Window
     {
+        /// <summary>
+        /// The variable that ParseInput returns
+        /// </summary>
         public static int parsedValue;
+        /// <summary>
+        /// Any error messages get stored in this variable
+        /// </summary>
         public static string alerts;
+        /// <summary>
+        /// The boolean ParseInput uses to store the TryParse result
+        /// </summary>
         public static bool tryIt;
+        /// <summary>
+        /// The current weather conditions are stored in this variable
+        /// </summary>
         public static string weather;
+        /// <summary>
+        /// The variable that stores the index number of the defenders' ability
+        /// </summary>
         public static int defAbility;
+        /// <summary>
+        /// Used to determine if the ItemPowerBoost loop should exit early
+        /// </summary>
         public static bool leaveLoop = false;
+        /// <summary>
+        /// Stores either null, +, or - depending on the defense modifier on the nature of the defender
+        /// </summary>
         public static string defNatureMod = "";
+        /// <summary>
+        /// Stores either null, +, or - depending on the special defense modifier on the nature of the defender
+        /// </summary>
         public static string spDefNatureMod = "";
+        /// <summary>
+        /// Set to true if you have the current HP textbox selected, false if it is not selected
+        /// </summary>
+        public static bool editingBox = false;
 
+        /// <summary>
+        /// Initialization of the window and csv file parsing
+        /// </summary>
         public damageCalc()
         {
             InitializeComponent();
+
+            //Comma separated value document parsing
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var file = System.IO.Path.Combine(directory, "baseStats.csv"); //Each line in baseStats.csv is formatted like so- Pokemon Name, Base HP, Base Atk, Base Def, Base SpA, Base SpD, Base Spe, Type 1, Type 2
             using (var reader = new StreamReader(file))
@@ -81,8 +114,8 @@ namespace gen3RNGcalc
                 }
                 foreach (string ability in abilities)
                 {
-                    ability1.Items.Add(ability);
-                    ability2.Items.Add(ability);
+                    ability1.Items.Add(ability); //Gets the names for each ability and adds it to the ability1 comboBox
+                    ability2.Items.Add(ability); //Gets the names for each ability and adds it to the ability2 comboBox
                 }
             }
             file = System.IO.Path.Combine(directory, "items.csv"); //Each line is formatted as in game index number, item name, description
@@ -98,8 +131,8 @@ namespace gen3RNGcalc
                 }
                 foreach (string item in items)
                 {
-                    item1.Items.Add(item);
-                    item2.Items.Add(item);
+                    item1.Items.Add(item); //Gets the names for each item and adds it to the item1 comboBox
+                    item2.Items.Add(item); //Gets the names for each item and adds it to the item2 comboBox
                 }
             }
         }
@@ -130,8 +163,8 @@ namespace gen3RNGcalc
         }
 
         /// <summary> A quicker way to calculate stat changes on the fly </summary>
-        /// <param name="findBuff">The SelectedIndex of the comboBox you want to search for</param>
-        public static double Buffs(int findBuff) //findBuff is set to the SelectedIndex of the buff dropdown you are searching for, e.g. atkBuffs1.SelectedIndex
+        /// <param name="findBuff">The SelectedIndex of the comboBox you want to search for, e.g. atkBuffs1.SelectedIndex</param>
+        public static double Buffs(int findBuff)
         {
             if (findBuff <= 6)
             {
@@ -150,7 +183,7 @@ namespace gen3RNGcalc
         /// <param name="warning">The warning to display if the text cannot be parsed</param>
         /// <param name="tooHigh">The warning to display if the parsed value is too high</param>
         /// <param name="maxValue">The maximum value to be accepted</param>
-        /// <returns></returns>
+        /// <returns>The parsed value of the string input if it can be parsed, 0 as a failsafe if it can't</returns>
         public static int ParseInput(string inputNeeded, string warning, string tooHigh, int maxValue)
         {
             tryIt = int.TryParse(inputNeeded, out parsedValue);
@@ -177,7 +210,7 @@ namespace gen3RNGcalc
         /// <param name="moveType">The type value of the move to be used, according to TypeValues</param>
         /// <param name="defendingType1">The first type of the defending pokemon, using TypeValues for the value</param>
         /// <param name="defendingType2">The second type of the defending pokemon, using TypeValues for the value</param>
-        /// <returns></returns>
+        /// <returns>The product of the type matchup for the move type against the first type and the second type</returns>
         public static double effectiveness(int moveType, int defendingType1, int defendingType2)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -228,6 +261,9 @@ namespace gen3RNGcalc
             else { return int.Parse(basePower1.Text); }
         }
 
+        /// <summary>
+        /// Runs Calculate() when the Go button is pressed
+        /// </summary>
         private void Go(object sender, RoutedEventArgs e)
         {
             Calculate();
@@ -394,20 +430,20 @@ namespace gen3RNGcalc
             }
 
             // Badge boost determination
-            if (boulderBadge == true || stoneBadge == true)
+            if (boulderBadge == true || stoneBadge == true) //attack boosting badges
             {
                 atkBadge = 1.1;
             }
-            if (soulBadge == true || balanceBadge == true)
+            if (soulBadge == true || balanceBadge == true) //defense boosting badges
             {
                 defBadge = 1.1;
             }
-            if (volcanoBadge == true || mindBadge == true)
+            if (volcanoBadge == true || mindBadge == true) //special attack and special defense boosting badges
             {
                 spAtkBadge = 1.1;
                 spDefBadge = 1.1;
             }
-            if (thunderBadge == true || dynamoBadge == true)
+            if (thunderBadge == true || dynamoBadge == true) //speed boosting badges
             {
                 speedBadge = 1.1;
             }
@@ -469,42 +505,42 @@ namespace gen3RNGcalc
 
                     if (EnemyCalc()) //Makes sure that all parsing done by EnemyCalc was successful before trying to calculate anything
                     {
-                        if (yourAbility != defAbility && (yourAbility == 11 || yourAbility == 12 || yourAbility == 49) && (defAbility == 11 || defAbility == 12 || defAbility == 49))
+                        if (yourAbility != defAbility && (yourAbility == 11 || yourAbility == 12 || yourAbility == 49) && (defAbility == 11 || defAbility == 12 || defAbility == 49)) //Finds which ability weather should be on the field
                         {
-                            if (SpeedCalc <= int.Parse(SpeedTot2.Text)) //Is there a more efficent way of doing this, rather than just checking for each ability value individually?
+                            if (SpeedCalc <= int.Parse(SpeedTot2.Text))
                             {
-                                if (yourAbility == 11)
+                                switch (yourAbility)
                                 {
-                                    raining.IsChecked = true;
-                                    weather = "rain";
-                                }
-                                else if (yourAbility == 12)
-                                {
-                                    sunny.IsChecked = true;
-                                    weather = "sun";
-                                }
-                                else
-                                {
-                                    sandstorm.IsChecked = true;
-                                    weather = "sand";
+                                    case 11:
+                                        raining.IsChecked = true;
+                                        weather = "rain";
+                                        break;
+                                    case 12:
+                                        sunny.IsChecked = true;
+                                        weather = "sun";
+                                        break;
+                                    case 49:
+                                        sandstorm.IsChecked = true;
+                                        weather = "sand";
+                                        break;
                                 }
                             }
                             else
                             {
-                                if (defAbility == 11)
+                                switch (defAbility)
                                 {
-                                    raining.IsChecked = true;
-                                    weather = "rain";
-                                }
-                                else if (defAbility == 12)
-                                {
-                                    sunny.IsChecked = true;
-                                    weather = "sun";
-                                }
-                                else
-                                {
-                                    sandstorm.IsChecked = true;
-                                    weather = "sand";
+                                    case 11:
+                                        raining.IsChecked = true;
+                                        weather = "rain";
+                                        break;
+                                    case 12:
+                                        sunny.IsChecked = true;
+                                        weather = "sun";
+                                        break;
+                                    case 49:
+                                        sandstorm.IsChecked = true;
+                                        weather = "sand";
+                                        break;
                                 }
                             }
                         }
@@ -903,6 +939,9 @@ namespace gen3RNGcalc
             else { return false; }
         }
 
+        /// <summary>
+        /// Updates the base stats and type of the attacker based on the mon selected
+        /// </summary>
         private void newMonSelected1(object sender, SelectionChangedEventArgs e)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -944,6 +983,9 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>
+        /// Updates the base stats and type of the defender based on the mon selected
+        /// </summary>
         private void newMonSelected2(object sender, SelectionChangedEventArgs e)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -985,7 +1027,9 @@ namespace gen3RNGcalc
             }
         }
 
-        /// <summary>Gets the type and power of the attack that is selected every time a new attack is selected</summary>
+        /// <summary>
+        /// Gets the type and power of the attack that is selected every time a new attack is selected
+        /// </summary>
         private void AttackNameSelected(object sender, SelectionChangedEventArgs e)
         {
             var directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -1076,6 +1120,9 @@ namespace gen3RNGcalc
             }
         }
 
+        /// <summary>
+        /// Runs ability-related functions to be ran each time you select a new ability for the attacker
+        /// </summary>
         private void Ability1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ability1.SelectedIndex == 16 || ability1.SelectedIndex == 26)
@@ -1089,6 +1136,9 @@ namespace gen3RNGcalc
             StatusChoiceInit(ability1.SelectedIndex, true);
         }
 
+        /// <summary>
+        /// Runs ability-related functions to be ran each time you select a new ability for the defender
+        /// </summary>
         private void Ability2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ability2.SelectedIndex == 16 || ability2.SelectedIndex == 26)
@@ -1102,14 +1152,58 @@ namespace gen3RNGcalc
             StatusChoiceInit(ability2.SelectedIndex, false);
         }
 
+        /// <summary>
+        /// Updates a few values in the UI based on the value of the item slider
+        /// </summary>
         private void HPSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             string maxHP = finHP.Text.Substring(2, finHP.Text.Length - 2);
             int HPParsed = int.Parse(maxHP);
             double currentHP = Math.Floor(HPParsed * (HPSlider.Value / 10));
-            curHP.Text = currentHP.ToString();
+            if (!editingBox) { curHP.Text = currentHP.ToString(); } //prevents the code from trying to edit curHP.Text if you are manually editing it, instead, only the code that calculates percentages and whatnot runs
             double val = Math.Round((currentHP / HPParsed) * 100, 1); //Math.Round(HPSlider.Value * 10, 1); I'm going with what I am so that it more accurately reflects the percentage HP it's displaying, also the value in finHP.Text is originally set to 1 instead of 0 so it doesn't try to divide by 0
             HPPercent.Text = val.ToString() + "%";
+        }
+
+        /// <summary>
+        /// Updates a few values in the UI based on the value of the text in the CurHP textBox
+        /// </summary>
+        private void CurHP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (editingBox)
+            {
+                alerts = "";
+                alert.Text = alerts;
+                double HPParsed = Convert.ToDouble(ParseInput(HPTot1.Text, "", "", 714));
+                bool maxParse = tryIt;
+                if (maxParse)
+                {
+                    double currentHP = ParseInput(curHP.Text, "Please enter an integer for the current HP\n", "Your current HP cannot be higher than your maximum HP\n", Convert.ToInt32(HPParsed));
+                    alert.Text = alerts;
+                    bool parse = tryIt;
+                    if (parse)
+                    {
+                        double HPPercentage = currentHP / HPParsed;
+                        HPSlider.Value = HPPercentage * 10.0;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates editingBox to true when you select the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// </summary>
+        private void CurHP_GotFocus(object sender, RoutedEventArgs e)
+        {
+            editingBox = true;
+        }
+
+        /// <summary>
+        /// Updates editingBox to false when you click off of the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// </summary>
+        private void CurHP_LostFocus(object sender, RoutedEventArgs e)
+        {
+            editingBox = false;
         }
     }
 }

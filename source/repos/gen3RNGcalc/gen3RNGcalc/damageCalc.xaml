@@ -852,7 +852,7 @@
             <ComboBoxItem x:Name="sleep2" Content="Asleep"/>
             <ComboBoxItem x:Name="freeze2" Content="Frozen"/>
         </ComboBox>
-        <TextBox x:Name="curHP" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="44" Margin="423,385.647,0,0" Grid.Row="2"/>
+        <TextBox x:Name="curHP" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="44" Margin="423,385.647,0,0" Grid.Row="2" TextChanged="CurHP_TextChanged" GotFocus="CurHP_GotFocus" LostFocus="CurHP_LostFocus"/>
         <TextBlock x:Name="finHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="/ 1" VerticalAlignment="Top" Margin="472,385.647,0,0" Grid.Row="2" Height="23"/>
         <TextBlock x:Name="HPPercent" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0%" VerticalAlignment="Top" Margin="58,386.647,0,0" Grid.Row="2" Height="23"/>
         <TextBlock HorizontalAlignment="Left" Text="Current HP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="425,362.647,0,0" Grid.Row="2" Height="23"/>
