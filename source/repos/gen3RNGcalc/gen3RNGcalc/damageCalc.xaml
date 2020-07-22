@@ -8,22 +8,23 @@
         Title="damageCalc" Height="951.277" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="202*"/>
+            <RowDefinition Height="216*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="665*"/>
         </Grid.RowDefinitions>
         <TextBox MaxLength="3" x:Name="baseHP1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,22,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,50,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,78,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,106,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpeed1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,133,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="level1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="122,161,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="baseDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,10.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,38.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,66.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,93.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="level1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="122,121.647,0,0" Grid.Row="2"/>
         <TextBox MaxLength="3" x:Name="HPEV1" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="AtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,22,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="DefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,50,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpAtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,78,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpDefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,106,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpeedEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,133,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="AtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="DefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,10.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,38.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,66.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,93.647,0,0" Grid.Row="2"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="137,189,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="246,189,0,0" RenderTransformOrigin="1.487,0.586"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="318,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
@@ -61,7 +62,7 @@
             <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="AtkIV1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,23,0,0" Grid.Row="1">
+        <ComboBox x:Name="AtkIV1"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,23,0,0" Grid.Row="1" Grid.RowSpan="2">
             <ComboBoxItem>0</ComboBoxItem>
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
@@ -95,7 +96,7 @@
             <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="DefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,51,0,0" Grid.Row="1">
+        <ComboBox x:Name="DefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,11.647,0,0" Grid.Row="2">
             <ComboBoxItem>0</ComboBoxItem>
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
@@ -129,7 +130,7 @@
             <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="SpAtkIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,79,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpAtkIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,39.647,0,0" Grid.Row="2">
             <ComboBoxItem>0</ComboBoxItem>
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
@@ -163,7 +164,7 @@
             <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="SpDefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,107,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpDefIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,67.647,0,0" Grid.Row="2">
             <ComboBoxItem>0</ComboBoxItem>
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
@@ -197,7 +198,7 @@
             <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="SpeedIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,134,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpeedIV1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="304,94.647,0,0" Grid.Row="2">
             <ComboBoxItem>0</ComboBoxItem>
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
@@ -232,21 +233,21 @@
             <ComboBoxItem IsSelected="True">31</ComboBoxItem>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" Margin="99,214,0,0" Grid.RowSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="96,26,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="94,54,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="80,82,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="78,109,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="79,137,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="86,162,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="77,192,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="96,26,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="94,14.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="80,42.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="78,69.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="79,97.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="86,122.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="77,152.647,0,0" Grid.Row="2"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total" VerticalAlignment="Top" Margin="420,189,0,0" Width="30"/>
         <TextBlock x:Name="HPTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,214,0,0" Width="30" Grid.RowSpan="2"/>
-        <TextBlock x:Name="AtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,26,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="DefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,54,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpAtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,82,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpDefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,109,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpeedTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,137,0,0" Width="30" Grid.Row="1"/>
-        <ComboBox x:Name="nature1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,189,0,0" Grid.Row="1">
+        <TextBlock x:Name="AtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,26,0,0" Width="30" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBlock x:Name="DefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,14.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpAtkTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,42.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpDefTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,69.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpeedTot1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="420,97.647,0,0" Width="30" Grid.Row="2"/>
+        <ComboBox x:Name="nature1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,149.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True">Hardy (neutral)</ComboBoxItem>
             <ComboBoxItem>Lonely (+Atk, -Def)</ComboBoxItem>
             <ComboBoxItem>Adamant (+Atk, -SpAtk)</ComboBoxItem>
@@ -273,41 +274,41 @@
             <ComboBoxItem>Naive (+Speed, -SpDef)</ComboBoxItem>
             <ComboBoxItem>Serious (neutral)</ComboBoxItem>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="89,222,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="item1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,222,0,0" Grid.Row="1"/>
-        <CheckBox x:Name="Boulder" Content="Boulder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,312,0,0" Grid.Row="1" Height="18"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="89,182.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="item1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,182.647,0,0" Grid.Row="2"/>
+        <CheckBox x:Name="Boulder" Content="Boulder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,272.647,0,0" Grid.Row="2" Height="18"/>
         <!--+attack-->
-        <CheckBox x:Name="Soul" Content="Soul Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,335,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Soul" Content="Soul Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,295.647,0,0" Grid.Row="2" Height="17"/>
         <!--+defense-->
-        <CheckBox x:Name="Volcano" Content="Volcano Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,312,0,0" Grid.Row="1" Height="18"/>
+        <CheckBox x:Name="Volcano" Content="Volcano Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,272.647,0,0" Grid.Row="2" Height="18"/>
         <!--+spatk,+spdef-->
-        <CheckBox x:Name="Thunder" Content="Thunder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,335,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Thunder" Content="Thunder Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,295.647,0,0" Grid.Row="2" Height="17"/>
         <!--+speed-->
-        <CheckBox x:Name="Stone" Content="Stone Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,380,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Stone" Content="Stone Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,340.647,0,0" Grid.Row="2" Height="17"/>
         <!--+attack-->
-        <CheckBox x:Name="Balance" Content="Balance Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,380,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Balance" Content="Balance Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,340.647,0,0" Grid.Row="2" Height="17"/>
         <!--+defense-->
-        <CheckBox x:Name="Mind" Content="Mind Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,403,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Mind" Content="Mind Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="77,363.647,0,0" Grid.Row="2" Height="17"/>
         <!--+spatk,+spdef-->
-        <CheckBox x:Name="Dynamo" Content="Dynamo Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,403,0,0" Grid.Row="1" Height="17"/>
+        <CheckBox x:Name="Dynamo" Content="Dynamo Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,363.647,0,0" Grid.Row="2" Height="17"/>
         <!--+speed-->
-        <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="468,320,0,0" Grid.Row="1" Click="Go"/>
-        <TextBlock  x:Name="alert" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,502,0,0" Grid.Row="1" Height="192" Width="899"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Kanto Badges" VerticalAlignment="Top" Margin="137,296,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hoenn Badges" VerticalAlignment="Top" Margin="137,364,0,0" Grid.Row="1"/>
+        <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="468,280.647,0,0" Grid.Row="2" Click="Go"/>
+        <TextBlock  x:Name="alert" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,462.647,0,0" Grid.Row="2" Height="192" Width="899"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Kanto Badges" VerticalAlignment="Top" Margin="137,256.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hoenn Badges" VerticalAlignment="Top" Margin="137,324.647,0,0" Grid.Row="2"/>
         <TextBox MaxLength="3" x:Name="baseHP2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,22,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,50,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,78,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,106,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="baseSpeed2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,133,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="level2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="621,161,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="baseAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="baseDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,10.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,38.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,66.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,93.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="level2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="621,121.647,0,0" Grid.Row="2"/>
         <TextBox MaxLength="3" x:Name="HPEV2" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="AtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,22,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="DefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,50,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpAtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,78,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpDefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,106,0,0" Grid.Row="1"/>
-        <TextBox MaxLength="3" x:Name="SpeedEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,133,0,0" Grid.Row="1"/>
+        <TextBox MaxLength="3" x:Name="AtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox MaxLength="3" x:Name="DefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,10.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,38.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,66.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,93.647,0,0" Grid.Row="2"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="636,189,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="745,189,0,0" RenderTransformOrigin="1.487,0.586"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="817,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
@@ -345,7 +346,7 @@
             <ComboBoxItem Content="30"/>
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
-        <ComboBox x:Name="AtkIV2"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,23,0,0" Grid.Row="1">
+        <ComboBox x:Name="AtkIV2"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,23,0,0" Grid.Row="1" Grid.RowSpan="2">
             <ComboBoxItem Content="0"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -379,7 +380,7 @@
             <ComboBoxItem Content="30"/>
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
-        <ComboBox x:Name="DefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,51,0,0" Grid.Row="1">
+        <ComboBox x:Name="DefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,11.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="0"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -413,7 +414,7 @@
             <ComboBoxItem Content="30"/>
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
-        <ComboBox x:Name="SpAtkIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,79,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpAtkIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,39.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="0"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -447,7 +448,7 @@
             <ComboBoxItem Content="30"/>
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
-        <ComboBox x:Name="SpDefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,107,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpDefIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,67.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="0"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -481,7 +482,7 @@
             <ComboBoxItem Content="30"/>
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
-        <ComboBox x:Name="SpeedIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,134,0,0" Grid.Row="1">
+        <ComboBox x:Name="SpeedIV2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="803,94.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="0"/>
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
@@ -516,21 +517,21 @@
             <ComboBoxItem IsSelected="True" Content="31"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" Margin="598,214,0,0" Grid.RowSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="595,26,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="593,54,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="579,82,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="577,109,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="578,137,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="585,162,0,0" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="576,192,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atk:" VerticalAlignment="Top" Margin="595,26,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Def:" VerticalAlignment="Top" Margin="593,14.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Atk:" VerticalAlignment="Top" Margin="579,42.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Sp.Def:" VerticalAlignment="Top" Margin="577,69.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Margin="578,97.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Level:" VerticalAlignment="Top" Margin="585,122.647,0,0" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nature:" VerticalAlignment="Top" Margin="576,152.647,0,0" Grid.Row="2"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total" VerticalAlignment="Top" Margin="913,189,0,0" Width="30"/>
         <TextBlock x:Name="HPTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,214,0,0" Width="30" Grid.RowSpan="2"/>
-        <TextBlock x:Name="AtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,26,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="DefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,54,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpAtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,82,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpDefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,109,0,0" Width="30" Grid.Row="1"/>
-        <TextBlock x:Name="SpeedTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,137,0,0" Width="30" Grid.Row="1"/>
-        <ComboBox x:Name="nature2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,189,0,0" Grid.Row="1">
+        <TextBlock x:Name="AtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,26,0,0" Width="30" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBlock x:Name="DefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,14.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpAtkTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,42.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpDefTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,69.647,0,0" Width="30" Grid.Row="2"/>
+        <TextBlock x:Name="SpeedTot2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,97.647,0,0" Width="30" Grid.Row="2"/>
+        <ComboBox x:Name="nature2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,149.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="Hardy (neutral)"/>
             <ComboBoxItem Content="Lonely (+Atk, -Def)"/>
             <ComboBoxItem Content="Adamant (+Atk, -SpAtk)"/>
@@ -557,11 +558,11 @@
             <ComboBoxItem Content="Naive (+Speed, -SpDef)"/>
             <ComboBoxItem Content="Serious (neutral)"/>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="588,222,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="item2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,222,0,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:" VerticalAlignment="Top" Margin="588,182.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="item2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,182.647,0,0" Grid.Row="2"/>
         <TextBlock x:Name="finalCalc" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,72,0,0" Height="55" Width="920"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="79,254,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="ability1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,254,0,0" Grid.Row="1" Height="22" SelectionChanged="Ability1_SelectionChanged"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="79,214.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="ability1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="122,214.647,0,0" Grid.Row="2" Height="22" SelectionChanged="Ability1_SelectionChanged"/>
         <ComboBox x:Name="monSelection1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="122,132,0,0" SelectionChanged="newMonSelected1"/>
         <ComboBox x:Name="monSelection2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="621,132,0,0" SelectionChanged="newMonSelected2"/>
         <ComboBox x:Name="type1Selection1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="122,167,0,0">
@@ -644,16 +645,16 @@
             <ComboBoxItem IsSelected="True" Content="None"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top" Margin="589,167,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="578,254,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="ability2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,254,0,0" Grid.Row="1" Height="22" SelectionChanged="Ability2_SelectionChanged"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="578,214.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="ability2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,214.647,0,0" Grid.Row="2" Height="22" SelectionChanged="Ability2_SelectionChanged"/>
         <RadioButton IsChecked="True" x:Name="noWeather" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,192,0,0"/>
         <RadioButton x:Name="raining" Content="Rain" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,207,0,0" Grid.RowSpan="2"/>
         <RadioButton x:Name="sunny" Content="Sun" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,7,0,0" Grid.Row="1"/>
         <RadioButton x:Name="sandstorm" Content="Sand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,22,0,0" Grid.Row="1"/>
-        <RadioButton x:Name="hailing" Content="Hail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,38,0,0" Grid.Row="1"/>
-        <CheckBox Content="Double battle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,58,0,0" Grid.Row="1"/>
-        <TextBox x:Name="basePower1" MaxLength="3" Text="95" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" Margin="174,467,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="297,467,0,0" Grid.Row="1">
+        <RadioButton x:Name="hailing" Content="Hail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,38,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <CheckBox Content="Double battle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,18.647,0,0" Grid.Row="2"/>
+        <TextBox x:Name="basePower1" MaxLength="3" Text="95" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" Margin="174,427.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="297,427.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="Normal"/>
             <ComboBoxItem Content="Fighting"/>
             <ComboBoxItem Content="Flying"/>
@@ -673,9 +674,9 @@
             <ComboBoxItem Content="Poison"/>
             <ComboBoxItem Content="Typeless"/>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Power" VerticalAlignment="Top" Margin="199,446,0,0" Grid.Row="1"/>
-        <CheckBox x:Name="forceCrit1" Content="Crit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="370,471,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="atkBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,23,0,0" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Power" VerticalAlignment="Top" Margin="199,406.647,0,0" Grid.Row="2"/>
+        <CheckBox x:Name="forceCrit1" Content="Crit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="370,431.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="atkBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,23,0,0" Grid.Row="1" Grid.RowSpan="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -690,7 +691,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="defBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,51,0,0" Grid.Row="1">
+        <ComboBox x:Name="defBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,11.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -705,7 +706,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="spAtkBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,79,0,0" Grid.Row="1">
+        <ComboBox x:Name="spAtkBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,39.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -720,7 +721,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="spDefBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,107,0,0" Grid.Row="1">
+        <ComboBox x:Name="spDefBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,67.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -735,7 +736,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="speedBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,134,0,0" Grid.Row="1">
+        <ComboBox x:Name="speedBuffs1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="352,94.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -750,7 +751,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="atkBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,23,0,0" Grid.Row="1">
+        <ComboBox x:Name="atkBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,23,0,0" Grid.Row="1" Grid.RowSpan="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -765,7 +766,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="defBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,51,0,0" Grid.Row="1">
+        <ComboBox x:Name="defBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,11.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -780,7 +781,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="spAtkBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,79,0,0" Grid.Row="1">
+        <ComboBox x:Name="spAtkBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,39.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -795,7 +796,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="spDefBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,107,0,0" Grid.Row="1">
+        <ComboBox x:Name="spDefBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,67.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -810,7 +811,7 @@
             <ComboBoxItem Content="-5"/>
             <ComboBoxItem Content="-6"/>
         </ComboBox>
-        <ComboBox x:Name="speedBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,134,0,0" Grid.Row="1">
+        <ComboBox x:Name="speedBuffs2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="57" Margin="851,94.647,0,0" Grid.Row="2">
             <ComboBoxItem Content="+6"/>
             <ComboBoxItem Content="+5"/>
             <ComboBoxItem Content="+4"/>
@@ -826,13 +827,13 @@
             <ComboBoxItem Content="-6"/>
         </ComboBox>
         <TextBlock x:Name="finalHeader" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,17,0,0" Height="55" Width="920" FontSize="18"/>
-        <ComboBox x:Name="attackName" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="41,468,0,0" Grid.Row="1" SelectionChanged="AttackNameSelected"/>
-        <Slider x:Name="HPSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="317" Margin="92,425,0,0" Grid.Row="1"/>
-        <!--not implemented yet-->
-        <CheckBox x:Name="ability1Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,258,0,0" Grid.Row="1" Visibility="Hidden"/>
-        <CheckBox x:Name="ability2Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="768,258,0,0" Grid.Row="1" Visibility="Hidden"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="278,192,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="statusConditions1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="318,189,0,0" Grid.Row="1">
+        <ComboBox x:Name="attackName" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="41,428.647,0,0" Grid.Row="2" SelectionChanged="AttackNameSelected"/>
+        <Slider x:Name="HPSlider" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="317" Margin="92,385.647,0,0" Grid.Row="2" ValueChanged="HPSlider_ValueChanged"/>
+        <!--not fully implemented yet-->
+        <CheckBox x:Name="ability1Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,218.647,0,0" Grid.Row="2" Visibility="Hidden"/>
+        <CheckBox x:Name="ability2Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="768,218.647,0,0" Grid.Row="2" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="278,152.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="statusConditions1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="318,149.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="None"/>
             <ComboBoxItem x:Name="burn1" Content="Burned"/>
             <ComboBoxItem x:Name="para1" Content="Paralyzed"/>
@@ -841,8 +842,8 @@
             <ComboBoxItem x:Name="sleep1" Content="Asleep"/>
             <ComboBoxItem x:Name="freeze1" Content="Frozen"/>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="777,192,0,0" Grid.Row="1"/>
-        <ComboBox x:Name="statusConditions2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="817,189,0,0" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="777,152.647,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="statusConditions2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="817,149.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="None"/>
             <ComboBoxItem x:Name="burn2" Content="Burned"/>
             <ComboBoxItem x:Name="para2" Content="Paralyzed"/>
@@ -851,5 +852,9 @@
             <ComboBoxItem x:Name="sleep2" Content="Asleep"/>
             <ComboBoxItem x:Name="freeze2" Content="Frozen"/>
         </ComboBox>
+        <TextBox x:Name="curHP" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="44" Margin="423,385.647,0,0" Grid.Row="2"/>
+        <TextBlock x:Name="finHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="/ 1" VerticalAlignment="Top" Margin="472,385.647,0,0" Grid.Row="2" Height="23"/>
+        <TextBlock x:Name="HPPercent" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0%" VerticalAlignment="Top" Margin="58,386.647,0,0" Grid.Row="2" Height="23"/>
+        <TextBlock HorizontalAlignment="Left" Text="Current HP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="425,362.647,0,0" Grid.Row="2" Height="23"/>
     </Grid>
 </Window>

@@ -1,0 +1,247 @@
+0,Nothing,
+1,Master Ball,
+2,Ultra Ball,
+3,Great Ball,
+4,Poké Ball,
+5,Safari Ball,
+6,Net Ball,
+7,Dive Ball,
+8,Nest Ball,
+9,Repeat Ball,
+10,Timer Ball,
+11,Luxury Ball,
+12,Premier Ball,
+13,Potion,
+14,Antidote,
+15,Burn Heal,
+16,Ice Heal,
+17,Awakening,
+18,Parlyz Heal,
+19,Full Restore,
+20,Max Potion,
+21,Hyper Potion,
+22,Super Potion,
+23,Full Heal,
+24,Revive,
+25,Max Revive,
+26,Fresh Water,
+27,Soda Pop,
+28,Lemonade,
+29,Moomoo Milk,
+30,EnergyPowder,
+31,Energy Root,
+32,Heal Powder,
+33,Revival Herb,
+34,Ether,
+35,Max Ether,
+36,Elixir,
+37,Max Elixir,
+38,Lava Cookie,
+39,Blue Flute,
+40,Yellow Flute,
+41,Red Flute,
+42,Black Flute,
+43,White Flute,
+44,Berry Juice,Restores 20 HP when HP < 50%
+45,Sacred Ash,
+46,Shoal Salt,
+47,Shoal Shell,
+48,Red Shard,
+49,Blue Shard,
+50,Yellow Shard,
+51,Green Shard,
+63,HP Up,
+64,Protein,
+65,Iron,
+66,Carbos,
+67,Calcium,
+68,Rare Candy,
+69,PP Up,
+70,Zinc,
+71,PP Max,
+73,Guard Spec.,
+74,Dire Hit,
+75,X Attack,
+76,X Defend,
+77,X Speed,
+78,X Accuracy,
+79,X Special,
+80,Poké Doll,
+81,Fluffy Tail,
+83,Super Repel,
+84,Max Repel,
+85,Escape Rope,
+86,Repel,
+93,Sun Stone,
+94,Moon Stone,
+95,Fire Stone,
+96,Thunderstone,
+97,Water Stone,
+98,Leaf Stone,
+103,TinyMushroom,
+104,Big Mushroom,
+106,Pearl,
+107,Big Pearl,
+108,Stardust,
+109,Star Piece,
+110,Nugget,
+111,Heart Scale,
+121,Orange Mail,
+122,Harbor Mail,
+123,Glitter Mail,
+124,Mech Mail,
+125,Wood Mail,
+126,Wave Mail,
+127,Bead Mail,
+128,Shadow Mail,
+129,Tropic Mail,
+130,Dream Mail,
+131,Fab Mail,
+132,Retro Mail,
+133,Cheri Berry,Cures paralysis
+134,Chesto Berry,Cures sleep
+135,Pecha Berry,Cures poison and toxic
+136,Rawst Berry,Cures burn
+137,Aspear Berry,Cures freeze
+138,Leppa Berry,Restores 10 PP when a move reaches 0 PP
+139,Oran Berry,Restores 10 HP  when HP < 50%
+140,Persim Berry,Cures confusion
+141,Lum Berry,Cures any status condition
+142,Sitrus Berry,Restores 30 HP when HP < 50%
+143,Figy Berry,"Restores 1/8 HP when HP < 50%, confuses -Atk nature"
+144,Wiki Berry,"Restores 1/8 HP when HP < 50%, confuses -SpAtk nature"
+145,Mago Berry,"Restores 1/8 HP when HP < 50%, confuses -Speed nature"
+146,Aguav Berry,"Restores 1/8 HP when HP < 50%, confuses -SpDef nature"
+147,Iapapa Berry,"Restores 1/8 HP when HP < 50%, confuses -Def nature"
+148,Razz Berry,
+149,Bluk Berry,
+150,Nanab Berry,
+151,Wepear Berry,
+152,Pinap Berry,
+153,Pomeg Berry,
+154,Kelpsy Berry,
+155,Qualot Berry,
+156,Hondew Berry,
+157,Grepa Berry,
+158,Tamato Berry,
+159,Cornn Berry,
+160,Magost Berry,
+161,Rabuta Berry,
+162,Nomel Berry,
+163,Spelon Berry,
+164,Pamtre Berry,
+165,Watmel Berry,
+166,Durin Berry,
+167,Belue Berry,
+168,Liechi Berry,Raises Atk 1 stage when HP < 50%
+169,Ganlon Berry,
+170,Salac Berry,Raises Speed 1 stage when HP < 50%
+171,Petaya Berry,Raises SpAtk 1 stage when HP < 50%
+172,Apicot Berry,
+173,Lansat Berry,
+174,Starf Berry,
+175,Enigma Berry,
+179,BrightPowder,Multiplies foes accuracy by 0.9
+180,White Herb,Restores any lowered stats to neutral
+181,Macho Brace,Doubles EVs gained
+182,Exp. Share,Shares Exp gained
+183,Quick Claw,20% chance to go first in priority bracket
+184,Soothe Bell,Doubles happiness gained
+185,Mental Herb,"Cures taunt, infatuation, etc"
+186,Choice Band,"Multiplies attack by 1.5, can only use first move selected"
+187,King's Rock,Moves gain a 10% chance to flinch
+188,SilverPowder,Boosts bug type move base power by 10%
+189,Amulet Coin,Doubles prize money gained
+190,Cleanse Tag,Lowers encounter rate by 1/3 when held by lead
+191,Soul Dew,Multiplies SpAtk and SpDef by 1.5 when held by Latios/Latias
+192,DeepSeaTooth,Doubles SpAtk when held by Clamperl
+193,DeepSeaScale,Doubles SpDef when held by Clamperl
+194,Smoke Ball,Can always flee from wild enounter
+195,Everstone,Prohibits evolution
+196,Focus Band,10% chance to survive a hit that would KO
+197,Lucky Egg,Multiplies exp gained by 1.5
+198,Scope Lens,Raises crit ratio 1 stage
+199,Metal Coat,Boosts steel type move base power by 10%
+200,Leftovers,User restores 1/16 HP (rounded down) per turn
+201,Dragon Scale,Boosts dragon type move base power by 10%
+202,Light Ball,Doubles Atk and SpAtk when held by Pikachu
+203,Soft Sand,Boosts ground type move base power by 10%
+204,Hard Stone,Boosts rock type move base power by 10%
+205,Miracle Seed,Boosts grass type move base power by 10%
+206,BlackGlasses,Boosts dark type move base power by 10%
+207,Black Belt,Boosts fighting type move base power by 10%
+208,Magnet,Boosts electric type move base power by 10%
+209,Mystic Water,Boosts water type move base power by 10%
+210,Sharp Beak,Boosts flying type move base power by 10%
+211,Poison Barb,Boosts poison type move base power by 10%
+212,NeverMeltIce,Boosts ice type move base power by 10%
+213,Spell Tag,Boosts ghost type move base power by 10%
+214,TwistedSpoon,Boosts psychic type move base power by 10%
+215,Charcoal,Boosts fire type move base power by 10%
+216,Dragon Fang,Boosts dragon type move base power by 10%
+217,Silk Scarf,Boosts normal type move base power by 10%
+218,Up-Grade,
+219,Shell Bell,Restores HP equal to 1/8 damage dealt
+220,Sea Incense,Boosts steel type move base power by 5%
+221,Lax Incense,Multiplies foes accuracy by 0.95
+222,Lucky Punch,Raises crit ratio 2 stages if held by Chansey
+223,Metal Powder,Doubles Def when held by Ditto
+224,Thick Club,Doubles Atk when held by Cubone/Marowak
+225,Stick,Raises crit ratio 2 stages if held by Farfetch'd
+254,Red Scarf,Raises coolness in contests
+255,Blue Scarf,Raises beauty in contests
+256,Pink Scarf,Raises cuteness in contests
+257,Green Scarf,Raises cleverness in contests
+258,Yellow Scarf,Raises toughness in contests
+286,Root Fossil,
+287,Claw Fossil,
+289,TM01,
+290,TM02,
+291,TM03,
+292,TM04,
+293,TM05,
+294,TM06,
+295,TM07,
+296,TM08,
+297,TM09,
+298,TM10,
+299,TM11,
+300,TM12,
+301,TM13,
+302,TM14,
+303,TM15,
+304,TM16,
+305,TM17,
+306,TM18,
+307,TM19,
+308,TM20,
+309,TM21,
+310,TM22,
+311,TM23,
+312,TM24,
+313,TM25,
+314,TM26,
+315,TM27,
+316,TM28,
+317,TM29,
+318,TM30,
+319,TM31,
+320,TM32,
+321,TM33,
+322,TM34,
+323,TM35,
+324,TM36,
+325,TM37,
+326,TM38,
+327,TM39,
+328,TM40,
+329,TM41,
+330,TM42,
+331,TM43,
+332,TM44,
+333,TM45,
+334,TM46,
+335,TM47,
+336,TM48,
+337,TM49,
+338,TM50,

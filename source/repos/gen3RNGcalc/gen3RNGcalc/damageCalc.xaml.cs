@@ -27,6 +27,9 @@ namespace gen3RNGcalc
         public static bool tryIt;
         public static string weather;
         public static int defAbility;
+        public static bool leaveLoop = false;
+        public static string defNatureMod = "";
+        public static string spDefNatureMod = "";
 
         public damageCalc()
         {
@@ -80,6 +83,23 @@ namespace gen3RNGcalc
                 {
                     ability1.Items.Add(ability);
                     ability2.Items.Add(ability);
+                }
+            }
+            file = System.IO.Path.Combine(directory, "items.csv"); //Each line is formatted as in game index number, item name, description
+            using (var reader = new StreamReader(file))
+            {
+                List<string> items = new List<string>();
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    items.Add(values[1]);
+                }
+                foreach (string item in items)
+                {
+                    item1.Items.Add(item);
+                    item2.Items.Add(item);
                 }
             }
         }
@@ -178,18 +198,45 @@ namespace gen3RNGcalc
                 string defenderType1 = defType2[Convert.ToInt32(moveType)];
                 double finalDefender1 = double.Parse(defenderType);
                 double finalDefender2 = double.Parse(defenderType1);
-                if (defAbility == 75) //Wonder guard handler
-                {
-                    if ((finalDefender1 * finalDefender2) < 2) { return 0; }
-                }
+                if (defAbility == 75 && (finalDefender1 * finalDefender2) < 2) { return 0; } //Wonder guard handler
+                if (defAbility == 16 && moveType == 5) { return 0; } //Flash fire handler
+                if (defAbility == 28 && moveType == 10) { return 0; } //Levitate handler
+                if ((defAbility == 29 || defAbility == 71) && moveType == 10) { return 0; } //Lightning rod / Volt absorb handler
+                if (defAbility == 72 && moveType == 6) { return 0; } //Water absorb handler
                 return finalDefender1 * finalDefender2;
             }
         }
 
         /// <summary>
-        /// Start the calculation on press of the "Go" button
+        /// Run a quick check for all the type boosting items
         /// </summary>
+        /// <param name="boostFactor">How much the base power should be boosted</param>
+        /// <param name="item">The index number of the item you are looking for</param>
+        /// <param name="type">The type of the move you are looking for</param>
+        public int ItemPowerBoost(double boostFactor, int item, string type)
+        {
+            //get the type to boost and then multiply the base power by the correct amount
+            TypeValues types = new TypeValues();
+            types = (TypeValues)Enum.Parse(typeof(TypeValues), type);
+            int typeWanted = Convert.ToInt32(types);
+            if (item1.SelectedIndex == item && moveTypeSelection.SelectedIndex == typeWanted)
+            {
+                double calculated = double.Parse(basePower1.Text) * boostFactor;
+                leaveLoop = true;
+                return Convert.ToInt32(Math.Floor(calculated));
+            }
+            else { return int.Parse(basePower1.Text); }
+        }
+
         private void Go(object sender, RoutedEventArgs e)
+        {
+            Calculate();
+        }
+
+        /// <summary>
+        /// All the calculations happen here
+        /// </summary>
+        private void Calculate()
         {
             alerts = "";
             alert.Text = alerts;
@@ -376,6 +423,14 @@ namespace gen3RNGcalc
                         HPCalc = (((2 * yourBaseHP + HPIV1.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
                     }
                     HPTot1.Text = HPCalc.ToString();
+                    finHP.Text = "/ " + HPTot1.Text;
+                    if (HPSlider.Value == 0) { HPSlider.Value = 10; } //If your current HP is set to 0, this sets it back to the maximum HP
+                    else //Makes sure that the value displayed in curHP.Text is the number that should be displayed
+                    {
+                        double val = HPSlider.Value;
+                        HPSlider.Value = 0;
+                        HPSlider.Value = val;
+                    }
 
                     double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV1.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature * atkBadge;
                     initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs1.SelectedIndex);
@@ -395,6 +450,7 @@ namespace gen3RNGcalc
                     initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(spAtkBuffs1.SelectedIndex);
                     int spAtkCalc = Convert.ToInt32(Math.Floor(initialSpAtkCalc));
                     SpAtkTot1.Text = spAtkCalc.ToString();
+                    if (defAbility == 66 && (moveTypeSelection.SelectedIndex == 5 || moveTypeSelection.SelectedIndex == 15)) { spAtkCalc /= 2; } //checks if the defender has thick fat and if you are using a fire or ice move
 
                     double initialSpDefCalc = ((((2 * yourBaseSpDef + SpDefIV1.SelectedIndex + (yourSpDefEVs / 4)) * yourLevel) / 100) + 5) * spDefNature * spDefBadge;
                     initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(spDefBuffs1.SelectedIndex);
@@ -460,6 +516,35 @@ namespace gen3RNGcalc
 
                             if (bpParse)
                             {
+                                int[] items = new int[]
+                                {
+                                    ItemPowerBoost(1.1, 152, "Bug"),
+                                    ItemPowerBoost(1.1, 163, "Steel"),
+                                    ItemPowerBoost(1.1, 165, "Dragon"),
+                                    ItemPowerBoost(1.1, 167, "Ground"),
+                                    ItemPowerBoost(1.1, 168, "Rock"),
+                                    ItemPowerBoost(1.1, 169, "Grass"),
+                                    ItemPowerBoost(1.1, 170, "Dark"),
+                                    ItemPowerBoost(1.1, 171, "Fighting"),
+                                    ItemPowerBoost(1.1, 172, "Electric"),
+                                    ItemPowerBoost(1.1, 173, "Water"),
+                                    ItemPowerBoost(1.1, 174, "Flying"),
+                                    ItemPowerBoost(1.1, 175, "Poison"),
+                                    ItemPowerBoost(1.1, 176, "Ice"),
+                                    ItemPowerBoost(1.1, 177, "Ghost"),
+                                    ItemPowerBoost(1.1, 178, "Psychic"),
+                                    ItemPowerBoost(1.1, 179, "Fire"),
+                                    ItemPowerBoost(1.1, 180, "Dragon"),
+                                    ItemPowerBoost(1.1, 181, "Normal"),
+                                    ItemPowerBoost(1.05, 184, "Water")
+                                };
+                                for (int again = 0; again <= 17; again++)
+                                {
+                                    int originalPower = power;
+                                    power = items[again];
+                                    if (leaveLoop && power != originalPower) { break; } //checks to see if it should leave the loop early, and also makes sure that if it should, that the new power is different
+                                }
+                                leaveLoop = false;
                                 finalCalc.Text = "Possible damage amounts: ";
                                 double enemyCritDef = double.Parse(SpDefTot2.Text);
                                 double CritAtk = double.Parse(SpAtkTot1.Text);
@@ -493,19 +578,19 @@ namespace gen3RNGcalc
                                 if (forceCrit1.IsChecked == true && (defAbility != 2 && defAbility != 54)) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
                                 {
                                     crit = 2;
-                                    if (defBuffs2.SelectedIndex < 6 && isPhysical)
+                                    if (defBuffs2.SelectedIndex < 6 && isPhysical) //Ignores stat buffs to defenders defense
                                     {
                                         enemyCritDef = Math.Floor(double.Parse(DefTot2.Text) / Buffs(defBuffs2.SelectedIndex));
                                     }
-                                    if (spDefBuffs2.SelectedIndex < 6 && !isPhysical)
+                                    if (spDefBuffs2.SelectedIndex < 6 && !isPhysical) //Ignores stat buffs to defenders special defense
                                     {
                                         enemyCritDef = Math.Floor(double.Parse(SpDefTot2.Text) / Buffs(spDefBuffs2.SelectedIndex));
                                     }
-                                    if (atkBuffs1.SelectedIndex > 6 && isPhysical)
+                                    if (atkBuffs1.SelectedIndex > 6 && isPhysical) //Ignores stat drops to attackers attack
                                     {
                                         CritAtk = Math.Floor(double.Parse(AtkTot1.Text) / Buffs(atkBuffs1.SelectedIndex));
                                     }
-                                    if (spAtkBuffs1.SelectedIndex > 6 && !isPhysical)
+                                    if (spAtkBuffs1.SelectedIndex > 6 && !isPhysical) //Ignores stat drops to attackers special attack
                                     {
                                         CritAtk = Math.Floor(double.Parse(SpAtkTot1.Text) / Buffs(spAtkBuffs1.SelectedIndex));
                                     }
@@ -518,11 +603,12 @@ namespace gen3RNGcalc
                                 double modifier;
                                 for (double roll = 85; roll <= 100; roll++)
                                 {
-                                    if (moveTypeSelection.SelectedIndex == 5)
+                                    if (moveTypeSelection.SelectedIndex == 5) //handles the modifier for fire type attacks
                                     {
                                         modifier = roll * crit * firePower * effective * STAB;
+                                        if (ability1.SelectedIndex == 16 && ability1Active.IsChecked == true) { modifier *= 1.5; } //Flash fire handler
                                     }
-                                    else if (moveTypeSelection.SelectedIndex == 6)
+                                    else if (moveTypeSelection.SelectedIndex == 6) //handles the modifier for water type attacks
                                     {
                                         modifier = roll * crit * waterPower * effective * STAB;
                                     }
@@ -530,10 +616,46 @@ namespace gen3RNGcalc
                                     {
                                         modifier = roll * crit * effective * STAB;
                                     }
+                                    string comma = ", ";
                                     double atkdouble = 0; //deprecated, should replace atkdouble references with CritAtk references
-                                    double defOfDefender; //deprecated, should replace defOfDefender references with enemeyCritDef references
+                                    double defOfDefender; //deprecated, should replace defOfDefender references with enemyCritDef references
                                     atkdouble = CritAtk; //deprecated, should replace atkdouble references with CritAtk references
-                                    defOfDefender = enemyCritDef; //deprecated, should replace defOfDefender references with enemeyCritDef references
+                                    defOfDefender = enemyCritDef; //deprecated, should replace defOfDefender references with enemyCritDef references
+                                    if (ability1.SelectedIndex == 3 || ability1.SelectedIndex == 38 || ability1.SelectedIndex == 63 || ability1.SelectedIndex == 67) //handles blaze, overgrow, swarm, and torrent
+                                    {
+                                        double currentHP = Convert.ToDouble(ParseInput(curHP.Text, "Please enter an integer for the current HP", "HP can be, at most, 714 with 255 base hp and max everything else", 714));
+                                        bool curHPParse = tryIt;
+                                        if (currentHP / Convert.ToDouble(HPCalc) <= 1.0 / 3.0 && curHPParse)
+                                        {
+                                            switch (ability1.SelectedIndex)
+                                            {
+                                                case 3: //blaze
+                                                    if (moveTypeSelection.SelectedIndex == 5)
+                                                    {
+                                                        atkdouble *= 1.5;
+                                                    }
+                                                    break;
+                                                case 38: //overgrow
+                                                    if (moveTypeSelection.SelectedIndex == 8)
+                                                    {
+                                                        atkdouble *= 1.5;
+                                                    }
+                                                    break;
+                                                case 63: //swarm
+                                                    if (moveTypeSelection.SelectedIndex == 9)
+                                                    {
+                                                        atkdouble *= 1.5;
+                                                    }
+                                                    break;
+                                                case 67: //torrent
+                                                    if (moveTypeSelection.SelectedIndex == 6)
+                                                    {
+                                                        atkdouble *= 1.5;
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                    }
                                     double lvdouble = yourLevel;
                                     double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / defOfDefender) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
                                     damage += 2;
@@ -542,14 +664,16 @@ namespace gen3RNGcalc
                                     {
                                         minPercentHP = (damage / double.Parse(HPTot2.Text)) * 100;
                                         minDamage = damage;
+                                        finalCalc.Text = finalCalc.Text + " (";
                                     }
                                     if (roll == 100)
                                     {
                                         maxPercentHP = (damage / double.Parse(HPTot2.Text)) * 100;
                                         maxDamage = damage;
+                                        comma = ")";
                                     }
                                     int finalDamage = Convert.ToInt32(Math.Floor(damage));
-                                    finalCalc.Text = finalCalc.Text + finalDamage.ToString() + ", ";
+                                    finalCalc.Text = finalCalc.Text + finalDamage.ToString() + comma;
                                 }
 
                                 string firstMon = monSelection1.Text;
@@ -557,6 +681,7 @@ namespace gen3RNGcalc
                                 string moveName = attackName.Text;
                                 string defensiveBuffs;
                                 string offensiveBuffs;
+                                string natureMod = "";
                                 if (isPhysical)
                                 {
                                     offensiveBuffs = atkBuffs1.Text + " ";
@@ -569,7 +694,9 @@ namespace gen3RNGcalc
                                     {
                                         defensiveBuffs = "";
                                     }
-                                    finalHeader.Text = offensiveBuffs + yourAtkEVs.ToString() + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + " Def " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                    if (atkNature == 1.1) { natureMod = "+"; }
+                                    if (atkNature == 0.9) { natureMod = "-"; }
+                                    finalHeader.Text = offensiveBuffs + yourAtkEVs.ToString() + natureMod + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + defNatureMod + " Def " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                                 else
                                 {
@@ -583,7 +710,9 @@ namespace gen3RNGcalc
                                     {
                                         defensiveBuffs = "";
                                     }
-                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                    if (spAtkNature == 1.1) { natureMod = "+"; }
+                                    if (spAtkNature == 0.9) { natureMod = "-"; }
+                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + natureMod + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + spDefNatureMod + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                             }
                         }
@@ -695,10 +824,12 @@ namespace gen3RNGcalc
             if (nature == "Bold" || nature == "Impish" || nature == "Lax" || nature == "Relaxed")
             {
                 defNature = 1.1;
+                defNatureMod = "+";
             }
             if (nature == "Lonely" || nature == "Mild" || nature == "Gentle" || nature == "Hasty")
             {
                 defNature = 0.9;
+                defNatureMod = "-";
             }
             if (nature == "Modest" || nature == "Mild" || nature == "Rash" || nature == "Quiet")
             {
@@ -711,10 +842,12 @@ namespace gen3RNGcalc
             if (nature == "Calm" || nature == "Gentle" || nature == "Careful" || nature == "Sassy")
             {
                 spDefNature = 1.1;
+                spDefNatureMod = "+";
             }
             if (nature == "Naughty" || nature == "Lax" || nature == "Rash" || nature == "Naive")
             {
                 spDefNature = 0.9;
+                spDefNatureMod = "-";
             }
             if (nature == "Timid" || nature == "Hasty" || nature == "Jolly" || nature == "Naive")
             {
@@ -804,7 +937,7 @@ namespace gen3RNGcalc
                 baseSpAtk1.Text = SpAtk[monSelection1.SelectedIndex];
                 baseSpDef1.Text = SpDef[monSelection1.SelectedIndex];
                 baseSpeed1.Text = Speed[monSelection1.SelectedIndex];
-                TypeValues firstType = (TypeValues) Enum.Parse(typeof(TypeValues), Type1[monSelection1.SelectedIndex]);
+                TypeValues firstType = (TypeValues)Enum.Parse(typeof(TypeValues), Type1[monSelection1.SelectedIndex]);
                 TypeValues secondType = (TypeValues)Enum.Parse(typeof(TypeValues), Type2[monSelection1.SelectedIndex]);
                 type1Selection1.SelectedIndex = Convert.ToInt32(firstType);
                 type2Selection1.SelectedIndex = Convert.ToInt32(secondType);
@@ -967,6 +1100,16 @@ namespace gen3RNGcalc
                 ability1Active.Visibility = Visibility.Hidden;
             }
             StatusChoiceInit(ability2.SelectedIndex, false);
+        }
+
+        private void HPSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string maxHP = finHP.Text.Substring(2, finHP.Text.Length - 2);
+            int HPParsed = int.Parse(maxHP);
+            double currentHP = Math.Floor(HPParsed * (HPSlider.Value / 10));
+            curHP.Text = currentHP.ToString();
+            double val = Math.Round((currentHP / HPParsed) * 100, 1); //Math.Round(HPSlider.Value * 10, 1); I'm going with what I am so that it more accurately reflects the percentage HP it's displaying, also the value in finHP.Text is originally set to 1 instead of 0 so it doesn't try to divide by 0
+            HPPercent.Text = val.ToString() + "%";
         }
     }
 }
