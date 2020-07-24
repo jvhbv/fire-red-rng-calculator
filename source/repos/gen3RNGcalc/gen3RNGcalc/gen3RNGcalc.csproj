@@ -131,10 +131,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="abilities.csv" />
+    <None Include="attacks.csv" />
+    <None Include="baseStats.csv" />
+    <None Include="items.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="typeMatchups.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -153,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="COPYING.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="hpBar.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -55,9 +55,16 @@ namespace gen3RNGcalc
         /// </summary>
         public static string spDefNatureMod = "";
         /// <summary>
-        /// Set to true if you have the current HP textbox selected, false if it is not selected
+        /// Sets index 0 to true if you have the current HP textbox selected, false if it is not selected, and does the same for index 1 with the defenders' HP textbox
         /// </summary>
-        public static bool editingBox = false;
+        public static bool[] editingBox = new bool[2] { false, false }; //Just combined the 2 different editingBox booleans into an array of booleans
+        public static double atkNature = 1; //I might put all these nature doubles into 1 array at some point, still thinking about whether or not I should, as I feel separate doubles are more readable
+        public static double defNature = 1;
+        public static double spAtkNature = 1;
+        public static double spDefNature = 1;
+        public static double speedNature = 1;
+        public static string natureMod = "";
+        public static string spAtkNatureMod = "";
 
         /// <summary>
         /// Initialization of the window and csv file parsing
@@ -135,6 +142,9 @@ namespace gen3RNGcalc
                     item2.Items.Add(item); //Gets the names for each item and adds it to the item2 comboBox
                 }
             }
+            //End csv parsing
+
+            Calculate(); //Runs The first calculation, initializing everything in the UI
         }
 
         /// <summary>
@@ -168,11 +178,11 @@ namespace gen3RNGcalc
         {
             if (findBuff <= 6)
             {
-                return 4 - (findBuff * 0.5);
+                return 4 - (findBuff * 0.5); //Calculates positive and neutral stat changes
             }
             else
             {
-                return 1 / (1 + ((findBuff - 6) * 0.5));
+                return 1 / (1 + ((findBuff - 6) * 0.5)); //Calculates detrimental stat changes
             }
         }
         
@@ -270,6 +280,146 @@ namespace gen3RNGcalc
         }
 
         /// <summary>
+        /// Controls the bar that contains the visual representation of the damage done
+        /// </summary>
+        /// <param name="minPercentHP">Set to minPercentHP, only applicable after final calculations are complete</param>
+        /// <param name="maxPercentHP">Set to maxPercentHP, only applicable after final calculations are complete</param>
+        public void VisualHP(double minPercentHP, double maxPercentHP)
+        {
+            if (minPercentHP > 100)
+            {
+                minPercentHP = 100;
+            }
+            if (maxPercentHP > 100)
+            {
+                maxPercentHP = 100;
+            }
+            LinearGradientBrush representation = new LinearGradientBrush
+            {
+                StartPoint = new Point(0, 0)
+            };
+            GradientStop initialDamage = new GradientStop
+            {
+                Color = Colors.ForestGreen,
+                Offset = 0.0
+            };
+            representation.GradientStops.Add(initialDamage);
+            GradientStop minimum = new GradientStop
+            {
+                Color = Colors.ForestGreen,
+                Offset = minPercentHP / 100
+            };
+            representation.GradientStops.Add(minimum);
+            GradientStop valsInBetween = new GradientStop
+            {
+                Color = Colors.LimeGreen,
+                Offset = minimum.Offset
+            };
+            representation.GradientStops.Add(valsInBetween);
+            GradientStop maximum = new GradientStop
+            {
+                Color = Colors.LimeGreen,
+                Offset = maxPercentHP / 100
+            };
+            representation.GradientStops.Add(maximum);
+            GradientStop empty = new GradientStop
+            {
+                Color = Colors.White,
+                Offset = maximum.Offset
+            };
+            representation.GradientStops.Add(empty);
+            GradientStop emptyEnd = new GradientStop
+            {
+                Color = Colors.White,
+                Offset = 1.0
+            };
+            representation.GradientStops.Add(emptyEnd);
+            visualDamage.Fill = representation;
+        }
+
+        /// <summary>
+        /// Used to determine nature stat changes
+        /// </summary>
+        /// <param name="attacker">True if calculating for the attacker, false if for the defender</param>
+        /// <param name="natureBox">nature1 if attacker, nature2 if defender</param>
+        public void NatureDeterm(bool attacker, ComboBox natureBox)
+        {
+            string nature = natureBox.Text.Substring(0, natureBox.Text.IndexOf(" "));
+            if (nature == "Lonely" || nature == "Adamant" || nature == "Naughty" || nature == "Brave")
+            {
+                atkNature = 1.1;
+                if (attacker)
+                {
+                    natureMod = "+";
+                }
+            }
+            if (nature == "Bold" || nature == "Modest" || nature == "Calm" || nature == "Timid")
+            {
+                atkNature = 0.9;
+                if (attacker)
+                {
+                    natureMod = "-";
+                }
+            }
+            if (nature == "Bold" || nature == "Impish" || nature == "Lax" || nature == "Relaxed")
+            {
+                defNature = 1.1;
+                if (!attacker)
+                {
+                    defNatureMod = "+";
+                }
+            }
+            if (nature == "Lonely" || nature == "Mild" || nature == "Gentle" || nature == "Hasty")
+            {
+                defNature = 0.9;
+                if (!attacker)
+                {
+                    defNatureMod = "-";
+                }
+            }
+            if (nature == "Modest" || nature == "Mild" || nature == "Rash" || nature == "Quiet")
+            {
+                spAtkNature = 1.1;
+                if (attacker)
+                {
+                    spAtkNatureMod = "+";
+                }
+            }
+            if (nature == "Adamant" || nature == "Impish" || nature == "Careful" || nature == "Jolly")
+            {
+                spAtkNature = 0.9;
+                if (attacker)
+                {
+                    spAtkNatureMod = "-";
+                }
+            }
+            if (nature == "Calm" || nature == "Gentle" || nature == "Careful" || nature == "Sassy")
+            {
+                spDefNature = 1.1;
+                if (!attacker)
+                {
+                    spDefNatureMod = "+";
+                }
+            }
+            if (nature == "Naughty" || nature == "Lax" || nature == "Rash" || nature == "Naive")
+            {
+                spDefNature = 0.9;
+                if (!attacker)
+                {
+                    spDefNatureMod = "-";
+                }
+            }
+            if (nature == "Timid" || nature == "Hasty" || nature == "Jolly" || nature == "Naive")
+            {
+                speedNature = 1.1;
+            }
+            if (nature == "Brave" || nature == "Relaxed" || nature == "Quiet" || nature == "Sassy")
+            {
+                speedNature = 0.9;
+            }
+        }
+
+        /// <summary>
         /// All the calculations happen here
         /// </summary>
         private void Calculate()
@@ -279,11 +429,11 @@ namespace gen3RNGcalc
             finalCalc.Text = "";
             finalHeader.Text = "";
 
-            double atkNature = 1;
-            double defNature = 1;
-            double spAtkNature = 1;
-            double spDefNature = 1;
-            double speedNature = 1;
+            atkNature = 1;
+            defNature = 1;
+            spAtkNature = 1;
+            spDefNature = 1;
+            speedNature = 1;
             double atkBadge = 1;
             double defBadge = 1;
             double spAtkBadge = 1;
@@ -387,47 +537,7 @@ namespace gen3RNGcalc
             alert.Text = alerts;
 
             // Nature determination, there might be a more efficient way of writing this, I'll look into it
-            string nature = nature1.Text.Substring(0, nature1.Text.IndexOf(" "));
-            if (nature == "Lonely" || nature == "Adamant" || nature == "Naughty" || nature == "Brave")
-            {
-                atkNature = 1.1;
-            }
-            if (nature == "Bold" || nature == "Modest" || nature == "Calm" || nature == "Timid")
-            {
-                atkNature = 0.9;
-            }
-            if (nature == "Bold" || nature == "Impish" || nature == "Lax" || nature == "Relaxed")
-            {
-                defNature = 1.1;
-            }
-            if (nature == "Lonely" || nature == "Mild" || nature == "Gentle" || nature == "Hasty")
-            {
-                defNature = 0.9;
-            }
-            if (nature == "Modest" || nature == "Mild" || nature == "Rash" || nature == "Quiet")
-            {
-                spAtkNature = 1.1;
-            }
-            if (nature == "Adamant" || nature == "Impish" || nature == "Careful" || nature == "Jolly")
-            {
-                spAtkNature = 0.9;
-            }
-            if (nature == "Calm" || nature == "Gentle" || nature == "Careful" || nature == "Sassy")
-            {
-                spDefNature = 1.1;
-            }
-            if (nature == "Naughty" || nature == "Lax" || nature == "Rash" || nature == "Naive")
-            {
-                spDefNature = 0.9;
-            }
-            if (nature == "Timid" || nature == "Hasty" || nature == "Jolly" || nature == "Naive")
-            {
-                speedNature = 1.1;
-            }
-            if (nature == "Brave" || nature == "Relaxed" || nature == "Quiet" || nature == "Sassy")
-            {
-                speedNature = 0.9;
-            }
+            NatureDeterm(true, nature1);
 
             // Badge boost determination
             if (boulderBadge == true || stoneBadge == true) //attack boosting badges
@@ -593,6 +703,7 @@ namespace gen3RNGcalc
                                 double maxPercentHP = 0;
                                 double minDamage = 0;
                                 double maxDamage = 0;
+                                double screens = 1;
                                 if (weather == "rain")
                                 {
                                     firePower = 0.5;
@@ -611,7 +722,7 @@ namespace gen3RNGcalc
                                     enemyCritDef = double.Parse(DefTot2.Text);
                                     CritAtk = double.Parse(AtkTot1.Text);
                                 }
-                                if (forceCrit1.IsChecked == true && (defAbility != 2 && defAbility != 54)) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
+                                if (forceCrit1.IsChecked == true && defAbility != 2 && defAbility != 54) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
                                 {
                                     crit = 2;
                                     if (defBuffs2.SelectedIndex < 6 && isPhysical) //Ignores stat buffs to defenders defense
@@ -631,6 +742,10 @@ namespace gen3RNGcalc
                                         CritAtk = Math.Floor(double.Parse(SpAtkTot1.Text) / Buffs(spAtkBuffs1.SelectedIndex));
                                     }
                                 }
+                                if (forceCrit1.IsChecked == false && ((isPhysical && reflect.IsChecked == true) || (!isPhysical && lightScreen.IsChecked == true)))
+                                {
+                                    screens = 0.5;
+                                }
                                 if (moveTypeSelection.SelectedIndex == type1Selection1.SelectedIndex || moveTypeSelection.SelectedIndex == type2Selection1.SelectedIndex)
                                 {
                                     STAB = 1.5;
@@ -641,16 +756,16 @@ namespace gen3RNGcalc
                                 {
                                     if (moveTypeSelection.SelectedIndex == 5) //handles the modifier for fire type attacks
                                     {
-                                        modifier = roll * crit * firePower * effective * STAB;
+                                        modifier = roll * crit * firePower * effective * STAB * screens;
                                         if (ability1.SelectedIndex == 16 && ability1Active.IsChecked == true) { modifier *= 1.5; } //Flash fire handler
                                     }
                                     else if (moveTypeSelection.SelectedIndex == 6) //handles the modifier for water type attacks
                                     {
-                                        modifier = roll * crit * waterPower * effective * STAB;
+                                        modifier = roll * crit * waterPower * effective * STAB * screens;
                                     }
                                     else
                                     {
-                                        modifier = roll * crit * effective * STAB;
+                                        modifier = roll * crit * effective * STAB * screens;
                                     }
                                     string comma = ", ";
                                     double atkdouble = 0; //deprecated, should replace atkdouble references with CritAtk references
@@ -717,7 +832,6 @@ namespace gen3RNGcalc
                                 string moveName = attackName.Text;
                                 string defensiveBuffs;
                                 string offensiveBuffs;
-                                string natureMod = "";
                                 if (isPhysical)
                                 {
                                     offensiveBuffs = atkBuffs1.Text + " ";
@@ -730,8 +844,7 @@ namespace gen3RNGcalc
                                     {
                                         defensiveBuffs = "";
                                     }
-                                    if (atkNature == 1.1) { natureMod = "+"; }
-                                    if (atkNature == 0.9) { natureMod = "-"; }
+                                    VisualHP(minPercentHP, maxPercentHP);
                                     finalHeader.Text = offensiveBuffs + yourAtkEVs.ToString() + natureMod + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + defNatureMod + " Def " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                                 else
@@ -746,9 +859,8 @@ namespace gen3RNGcalc
                                     {
                                         defensiveBuffs = "";
                                     }
-                                    if (spAtkNature == 1.1) { natureMod = "+"; }
-                                    if (spAtkNature == 0.9) { natureMod = "-"; }
-                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + natureMod + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + spDefNatureMod + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                    VisualHP(minPercentHP, maxPercentHP);
+                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + spAtkNatureMod + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + spDefNatureMod + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                             }
                         }
@@ -781,6 +893,7 @@ namespace gen3RNGcalc
                                 else { damage = double.Parse(HPTot2.Text); } //If the defender is not immune, then it will always take damage equal to its HP
                             }
                             double percentHP = (damage / double.Parse(HPTot2.Text)) * 100;
+                            VisualHP(percentHP, percentHP);
                             finalHeader.Text = firstMon + " " + moveName + " vs. " + HPEV2.Text + " HP " + secondMon + ": " + damage.ToString() + " (" + Math.Round(percentHP, 1).ToString() + "%)";
                             finalCalc.Text = finalCalc.Text + damage.ToString();
                         }
@@ -795,11 +908,11 @@ namespace gen3RNGcalc
         /// <returns>returns true if everything could be parsed and calculated</returns>
         public bool EnemyCalc()
         {
-            double atkNature = 1;
-            double defNature = 1;
-            double spAtkNature = 1;
-            double spDefNature = 1;
-            double speedNature = 1;
+            atkNature = 1;
+            defNature = 1;
+            spAtkNature = 1;
+            spDefNature = 1;
+            speedNature = 1;
 
             int yourAbility = ability2.SelectedIndex;
 
@@ -848,51 +961,7 @@ namespace gen3RNGcalc
             alert.Text = alerts;
 
             // Nature determination
-            string nature = nature2.Text.Substring(0, nature2.Text.IndexOf(" "));
-            if (nature == "Lonely" || nature == "Adamant" || nature == "Naughty" || nature == "Brave")
-            {
-                atkNature = 1.1;
-            }
-            if (nature == "Bold" || nature == "Modest" || nature == "Calm" || nature == "Timid")
-            {
-                atkNature = 0.9;
-            }
-            if (nature == "Bold" || nature == "Impish" || nature == "Lax" || nature == "Relaxed")
-            {
-                defNature = 1.1;
-                defNatureMod = "+";
-            }
-            if (nature == "Lonely" || nature == "Mild" || nature == "Gentle" || nature == "Hasty")
-            {
-                defNature = 0.9;
-                defNatureMod = "-";
-            }
-            if (nature == "Modest" || nature == "Mild" || nature == "Rash" || nature == "Quiet")
-            {
-                spAtkNature = 1.1;
-            }
-            if (nature == "Adamant" || nature == "Impish" || nature == "Careful" || nature == "Jolly")
-            {
-                spAtkNature = 0.9;
-            }
-            if (nature == "Calm" || nature == "Gentle" || nature == "Careful" || nature == "Sassy")
-            {
-                spDefNature = 1.1;
-                spDefNatureMod = "+";
-            }
-            if (nature == "Naughty" || nature == "Lax" || nature == "Rash" || nature == "Naive")
-            {
-                spDefNature = 0.9;
-                spDefNatureMod = "-";
-            }
-            if (nature == "Timid" || nature == "Hasty" || nature == "Jolly" || nature == "Naive")
-            {
-                speedNature = 1.1;
-            }
-            if (nature == "Brave" || nature == "Relaxed" || nature == "Quiet" || nature == "Sassy")
-            {
-                speedNature = 0.9;
-            }
+            NatureDeterm(false, nature2);
 
             if (HPBaseParse && AtkBaseParse && DefBaseParse && SpAtkBaseParse && SpDefBaseParse && SpeedBaseParse && HPEVParse && AtkEVParse && DefEVParse && SpAtkEVParse && SpDefEVParse && SpeedEVParse && levelParse)
             {
@@ -903,6 +972,14 @@ namespace gen3RNGcalc
                     HPCalc = (((2 * yourBaseHP + HPIV2.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
                 }
                 HPTot2.Text = HPCalc.ToString();
+                finHPDefender.Text = "/ " + HPTot2.Text;
+                if (HPSliderDefender.Value == 0) { HPSliderDefender.Value = 10; } //If the defenders' current HP is set to 0, this sets it back to the maximum HP
+                else //Makes sure that the value displayed in curHPDefender.Text is the number that should be displayed
+                {
+                    double val = HPSliderDefender.Value;
+                    HPSliderDefender.Value = 0;
+                    HPSliderDefender.Value = val;
+                }
 
                 double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV2.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature;
                 initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs2.SelectedIndex);
@@ -1153,57 +1230,123 @@ namespace gen3RNGcalc
         }
 
         /// <summary>
-        /// Updates a few values in the UI based on the value of the item slider
+        /// Updates a few values in the UI based on the value of the HP slider
         /// </summary>
         private void HPSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            string maxHP = finHP.Text.Substring(2, finHP.Text.Length - 2);
+            ChangedHPSlider(true);
+        }
+
+        /// <summary>
+        /// Updates a few values in the UI based on the value of the defenders' HP slider
+        /// </summary>
+        private void HPSliderDefender_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ChangedHPSlider(false);
+        }
+
+        /// <summary>
+        /// The main method that controls the data influenced by the HP sliders
+        /// </summary>
+        /// <param name="attackerOrDefender">Set to true if you are running for the attacker, false if running for the defender</param>
+        private void ChangedHPSlider(bool attackerOrDefender)
+        {
+            TextBlock finalHP = finHPDefender;
+            TextBox yourCurrentHP = curHPDefender;
+            Slider slider = HPSliderDefender;
+            bool boxEditCheck = editingBox[1];
+            TextBlock percentage = HPPercentDefender;
+            if (attackerOrDefender) //I massively simplified the method by making all of the UI elements variables set based on the attackerOrDefender bool, reducing the number of times it checks the bool from 3 to 1
+            {
+                finalHP = finHP;
+                yourCurrentHP = curHP;
+                slider = HPSlider;
+                boxEditCheck = editingBox[0];
+                percentage = HPPercent;
+            }
+            string maxHP = finalHP.Text.Substring(2, finalHP.Text.Length - 2);
             int HPParsed = int.Parse(maxHP);
-            double currentHP = Math.Floor(HPParsed * (HPSlider.Value / 10));
-            if (!editingBox) { curHP.Text = currentHP.ToString(); } //prevents the code from trying to edit curHP.Text if you are manually editing it, instead, only the code that calculates percentages and whatnot runs
+            double currentHP = Math.Floor(HPParsed * (slider.Value / 10));
+            if (!boxEditCheck) { yourCurrentHP.Text = currentHP.ToString(); }
             double val = Math.Round((currentHP / HPParsed) * 100, 1); //Math.Round(HPSlider.Value * 10, 1); I'm going with what I am so that it more accurately reflects the percentage HP it's displaying, also the value in finHP.Text is originally set to 1 instead of 0 so it doesn't try to divide by 0
-            HPPercent.Text = val.ToString() + "%";
+            percentage.Text = val.ToString() + "%";
+        }
+
+        private void CurHP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ChangedCurHP(true);
+        }
+
+        private void CurHPDefender_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ChangedCurHP(false);
         }
 
         /// <summary>
         /// Updates a few values in the UI based on the value of the text in the CurHP textBox
         /// </summary>
-        private void CurHP_TextChanged(object sender, TextChangedEventArgs e)
+        /// <param name="attackerOrDefender">Use true for attacker, false for defender</param>
+        private void ChangedCurHP(bool attackerOrDefender)
         {
-            if (editingBox)
+            if ((attackerOrDefender && editingBox[0]) || (!attackerOrDefender && editingBox[1]))
             {
                 alerts = "";
                 alert.Text = alerts;
-                double HPParsed = Convert.ToDouble(ParseInput(HPTot1.Text, "", "", 714));
+                TextBlock totalHP = HPTot2;
+                TextBox yourCurrentHP = curHPDefender;
+                Slider slider = HPSliderDefender;
+                if (attackerOrDefender) //reduced from 3 bool checks to 1
+                {
+                    totalHP = HPTot1;
+                    yourCurrentHP = curHP;
+                    slider = HPSlider;
+                }
+                double HPParsed = Convert.ToDouble(ParseInput(totalHP.Text, "", "", 714));
                 bool maxParse = tryIt;
                 if (maxParse)
                 {
-                    double currentHP = ParseInput(curHP.Text, "Please enter an integer for the current HP\n", "Your current HP cannot be higher than your maximum HP\n", Convert.ToInt32(HPParsed));
+                    double currentHP = ParseInput(yourCurrentHP.Text, "Please enter an integer for the current HP\n", "Your current HP cannot be higher than your maximum HP\n", Convert.ToInt32(HPParsed));
                     alert.Text = alerts;
                     bool parse = tryIt;
                     if (parse)
                     {
                         double HPPercentage = currentHP / HPParsed;
-                        HPSlider.Value = HPPercentage * 10.0;
+                        slider.Value = HPPercentage * 10.0;
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Updates editingBox to true when you select the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// Updates editingBox[0] to true when you select the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
         /// </summary>
         private void CurHP_GotFocus(object sender, RoutedEventArgs e)
         {
-            editingBox = true;
+            editingBox[0] = true;
         }
 
         /// <summary>
-        /// Updates editingBox to false when you click off of the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// Updates editingBox[0] to false when you click off of the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
         /// </summary>
         private void CurHP_LostFocus(object sender, RoutedEventArgs e)
         {
-            editingBox = false;
+            editingBox[0] = false;
+        }
+
+        /// <summary>
+        /// Updates editingBox[1] to true when you select the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// </summary>
+        private void CurHPDefender_GotFocus(object sender, RoutedEventArgs e)
+        {
+            editingBox[1] = true;
+        }
+
+        /// <summary>
+        /// Updates editingBox[1] to false when you click off of the CurHP textBox, all other ways I've tested of doing this cause the item slider to be extremely laggy
+        /// </summary>
+        private void CurHPDefender_LostFocus(object sender, RoutedEventArgs e)
+        {
+            editingBox[1] = false;
         }
     }
 }

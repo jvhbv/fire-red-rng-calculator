@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gen3RNGcalc"
         mc:Ignorable="d"
-        Title="damageCalc" Height="951.277" Width="1000">
+        Title="damageCalc" Height="951.277" Width="1017.647">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="216*"/>
@@ -653,6 +653,7 @@
         <RadioButton x:Name="sandstorm" Content="Sand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,22,0,0" Grid.Row="1"/>
         <RadioButton x:Name="hailing" Content="Hail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,38,0,0" Grid.Row="1" Grid.RowSpan="2"/>
         <CheckBox Content="Double battle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,18.647,0,0" Grid.Row="2"/>
+        <!-->Does nothing right now, will implement double battle mechanics at a later date.</!-->
         <TextBox x:Name="basePower1" MaxLength="3" Text="95" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" Margin="174,427.647,0,0" Grid.Row="2"/>
         <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="297,427.647,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="Normal"/>
@@ -856,5 +857,15 @@
         <TextBlock x:Name="finHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="/ 1" VerticalAlignment="Top" Margin="472,385.647,0,0" Grid.Row="2" Height="23"/>
         <TextBlock x:Name="HPPercent" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0%" VerticalAlignment="Top" Margin="58,386.647,0,0" Grid.Row="2" Height="23"/>
         <TextBlock HorizontalAlignment="Left" Text="Current HP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="425,362.647,0,0" Grid.Row="2" Height="23"/>
+        <Slider x:Name="HPSliderDefender" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="317" Margin="582,267,0,0" Grid.Row="2" ValueChanged="HPSliderDefender_ValueChanged"/>
+        <TextBox x:Name="curHPDefender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="44" Margin="913,267,0,0" Grid.Row="2" TextChanged="CurHPDefender_TextChanged" GotFocus="CurHPDefender_GotFocus" LostFocus="CurHPDefender_LostFocus"/>
+        <TextBlock x:Name="finHPDefender" HorizontalAlignment="Left" TextWrapping="Wrap" Text="/ 1" VerticalAlignment="Top" Margin="962,267,0,0" Grid.Row="2" Height="23"/>
+        <TextBlock x:Name="HPPercentDefender" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0%" VerticalAlignment="Top" Margin="548,268,0,0" Grid.Row="2" Height="23"/>
+        <TextBlock HorizontalAlignment="Left" Text="Current HP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,250,0,0" Grid.Row="2" Height="23"/>
+        <Rectangle x:Name="visualDamage" HorizontalAlignment="Left" Width="144"  Margin="824,168,0,37" Panel.ZIndex="1" Height="11"/>
+        <Image x:Name="hpBar" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="198" Source="hpBar.bmp" Margin="776,162,0,0"/><!--Looks much better in the actual program than it does in the preview-->
+        <TextBlock x:Name="dmgLbl" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total damage:" VerticalAlignment="Top" Margin="834,141,0,0"/>
+        <CheckBox x:Name="reflect" Content="Reflect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,41,0,0" Grid.Row="2"/>
+        <CheckBox x:Name="lightScreen" Content="Light Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,56,0,0" Grid.Row="2"/>
     </Grid>
 </Window>
