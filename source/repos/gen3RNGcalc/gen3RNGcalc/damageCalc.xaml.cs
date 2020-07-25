@@ -58,13 +58,28 @@ namespace gen3RNGcalc
         /// Sets index 0 to true if you have the current HP textbox selected, false if it is not selected, and does the same for index 1 with the defenders' HP textbox
         /// </summary>
         public static bool[] editingBox = new bool[2] { false, false }; //Just combined the 2 different editingBox booleans into an array of booleans
-        public static double atkNature = 1; //I might put all these nature doubles into 1 array at some point, still thinking about whether or not I should, as I feel separate doubles are more readable
-        public static double defNature = 1;
-        public static double spAtkNature = 1;
-        public static double spDefNature = 1;
-        public static double speedNature = 1;
+        /// <summary>
+        /// Array that contains all nature doubles, formatted as Atk, Def, SpAtk, SpDef, Speed
+        /// </summary>
+        public static double[] natureStuff = new double[5] { 1, 1, 1, 1, 1 }; //Combined all the nature doubles into an array of doubles
         public static string natureMod = "";
         public static string spAtkNatureMod = "";
+        /// <summary>
+        /// Array that contains all base stat integers, formatted as HP, Atk, Def, SpAtk, SpDef, Speed
+        /// </summary>
+        public static int[] baseStats = new int[6]; //Combined all the different base stat integers into one array
+        /// <summary>
+        /// Array that contains all EV integers, formatted as HP, Atk, Def, SpAtk, SpDef, Speed
+        /// </summary>
+        public static int[] allEVs = new int[6]; //Combined all the ev integers into one array
+        /// <summary>
+        /// Integer that stores the level of each mon temporarily during calculations
+        /// </summary>
+        public static int yourLevel;
+        /// <summary>
+        /// Array that contains all badge doubles, formatted as Atk, Def, SpAtk, SpDef, Speed
+        /// </summary>
+        public static double[] badges = new double[5] { 1, 1, 1, 1, 1 }; //Combined all badge doubles into one array
 
         /// <summary>
         /// Initialization of the window and csv file parsing
@@ -347,7 +362,7 @@ namespace gen3RNGcalc
             string nature = natureBox.Text.Substring(0, natureBox.Text.IndexOf(" "));
             if (nature == "Lonely" || nature == "Adamant" || nature == "Naughty" || nature == "Brave")
             {
-                atkNature = 1.1;
+                natureStuff[0] = 1.1;
                 if (attacker)
                 {
                     natureMod = "+";
@@ -355,7 +370,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Bold" || nature == "Modest" || nature == "Calm" || nature == "Timid")
             {
-                atkNature = 0.9;
+                natureStuff[0] = 0.9;
                 if (attacker)
                 {
                     natureMod = "-";
@@ -363,7 +378,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Bold" || nature == "Impish" || nature == "Lax" || nature == "Relaxed")
             {
-                defNature = 1.1;
+                natureStuff[1] = 1.1;
                 if (!attacker)
                 {
                     defNatureMod = "+";
@@ -371,7 +386,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Lonely" || nature == "Mild" || nature == "Gentle" || nature == "Hasty")
             {
-                defNature = 0.9;
+                natureStuff[1] = 0.9;
                 if (!attacker)
                 {
                     defNatureMod = "-";
@@ -379,7 +394,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Modest" || nature == "Mild" || nature == "Rash" || nature == "Quiet")
             {
-                spAtkNature = 1.1;
+                natureStuff[2] = 1.1;
                 if (attacker)
                 {
                     spAtkNatureMod = "+";
@@ -387,7 +402,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Adamant" || nature == "Impish" || nature == "Careful" || nature == "Jolly")
             {
-                spAtkNature = 0.9;
+                natureStuff[2] = 0.9;
                 if (attacker)
                 {
                     spAtkNatureMod = "-";
@@ -395,7 +410,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Calm" || nature == "Gentle" || nature == "Careful" || nature == "Sassy")
             {
-                spDefNature = 1.1;
+                natureStuff[3] = 1.1;
                 if (!attacker)
                 {
                     spDefNatureMod = "+";
@@ -403,7 +418,7 @@ namespace gen3RNGcalc
             }
             if (nature == "Naughty" || nature == "Lax" || nature == "Rash" || nature == "Naive")
             {
-                spDefNature = 0.9;
+                natureStuff[3] = 0.9;
                 if (!attacker)
                 {
                     spDefNatureMod = "-";
@@ -411,11 +426,11 @@ namespace gen3RNGcalc
             }
             if (nature == "Timid" || nature == "Hasty" || nature == "Jolly" || nature == "Naive")
             {
-                speedNature = 1.1;
+                natureStuff[4] = 1.1;
             }
             if (nature == "Brave" || nature == "Relaxed" || nature == "Quiet" || nature == "Sassy")
             {
-                speedNature = 0.9;
+                natureStuff[4] = 0.9;
             }
         }
 
@@ -429,16 +444,11 @@ namespace gen3RNGcalc
             finalCalc.Text = "";
             finalHeader.Text = "";
 
-            atkNature = 1;
-            defNature = 1;
-            spAtkNature = 1;
-            spDefNature = 1;
-            speedNature = 1;
-            double atkBadge = 1;
-            double defBadge = 1;
-            double spAtkBadge = 1;
-            double spDefBadge = 1;
-            double speedBadge = 1;
+            natureStuff[0] = 1;
+            natureStuff[1] = 1;
+            natureStuff[2] = 1;
+            natureStuff[3] = 1;
+            natureStuff[4] = 1;
 
             bool kanto = false;
             bool hoenn = false;
@@ -492,47 +502,47 @@ namespace gen3RNGcalc
             }
 
             // Base stat input parsing
-            int yourBaseHP = ParseInput(baseHP1.Text, "Please enter a numerical value for the base HP.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[0] = ParseInput(baseHP1.Text, "Please enter a numerical value for the base HP.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool HPBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseAtk = ParseInput(baseAtk1.Text, "Please enter a numerical value for the base Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[1] = ParseInput(baseAtk1.Text, "Please enter a numerical value for the base Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool AtkBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseDef = ParseInput(baseDef1.Text, "Please enter a numerical value for the base Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[2] = ParseInput(baseDef1.Text, "Please enter a numerical value for the base Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool DefBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpAtk = ParseInput(baseSpAtk1.Text, "Please enter a numerical value for the base Special Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[3] = ParseInput(baseSpAtk1.Text, "Please enter a numerical value for the base Special Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpAtkBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpDef = ParseInput(baseSpDef1.Text, "Please enter a numerical value for the base Special Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[4] = ParseInput(baseSpDef1.Text, "Please enter a numerical value for the base Special Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpDefBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpeed = ParseInput(baseSpeed1.Text, "Please enter a numerical value for the base Speed.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[5] = ParseInput(baseSpeed1.Text, "Please enter a numerical value for the base Speed.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpeedBaseParse = tryIt;
             alert.Text = alerts;
 
             // EV input parsing
-            int yourHPEVs = ParseInput(HPEV1.Text, "Please enter a numerical value for the HP EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[0] = ParseInput(HPEV1.Text, "Please enter a numerical value for the HP EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool HPEVParse = tryIt;
             alert.Text = alerts;
-            int yourAtkEVs = ParseInput(AtkEV1.Text, "Please enter a numerical value for the Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[1] = ParseInput(AtkEV1.Text, "Please enter a numerical value for the Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool AtkEVParse = tryIt;
             alert.Text = alerts;
-            int yourDefEVs = ParseInput(DefEV1.Text, "Please enter a numerical value for the Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[2] = ParseInput(DefEV1.Text, "Please enter a numerical value for the Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool DefEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpAtkEVs = ParseInput(SpAtkEV1.Text, "Please enter a numerical value for the Special Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[3] = ParseInput(SpAtkEV1.Text, "Please enter a numerical value for the Special Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpAtkEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpDefEVs = ParseInput(SpDefEV1.Text, "Please enter a numerical value for the Special Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[4] = ParseInput(SpDefEV1.Text, "Please enter a numerical value for the Special Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpDefEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpeedEVs = ParseInput(SpeedEV1.Text, "Please enter a numerical value for the Speed EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[5] = ParseInput(SpeedEV1.Text, "Please enter a numerical value for the Speed EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpeedEVParse = tryIt;
             alert.Text = alerts;
 
             // Level input parsing
-            int yourLevel = ParseInput(level1.Text, "Please enter a numerical value for your level", "Pokémon have a maximum level of 100.\n", 100);
+            yourLevel = ParseInput(level1.Text, "Please enter a numerical value for your level", "Pokémon have a maximum level of 100.\n", 100);
             bool levelParse = tryIt;
             alert.Text = alerts;
 
@@ -542,82 +552,33 @@ namespace gen3RNGcalc
             // Badge boost determination
             if (boulderBadge == true || stoneBadge == true) //attack boosting badges
             {
-                atkBadge = 1.1;
+                badges[0] = 1.1;
             }
             if (soulBadge == true || balanceBadge == true) //defense boosting badges
             {
-                defBadge = 1.1;
+                badges[1] = 1.1;
             }
             if (volcanoBadge == true || mindBadge == true) //special attack and special defense boosting badges
             {
-                spAtkBadge = 1.1;
-                spDefBadge = 1.1;
+                badges[2] = 1.1;
+                badges[3] = 1.1;
             }
             if (thunderBadge == true || dynamoBadge == true) //speed boosting badges
             {
-                speedBadge = 1.1;
+                badges[4] = 1.1;
             }
 
             if (HPBaseParse && AtkBaseParse && DefBaseParse && SpAtkBaseParse && SpDefBaseParse && SpeedBaseParse && HPEVParse && AtkEVParse && DefEVParse && SpAtkEVParse && SpDefEVParse && SpeedEVParse && levelParse)
             {
                 if ((kanto ^ hoenn) || !kanto && !hoenn)
                 {
-                    int HPCalc;
-                    if (monSelection1.SelectedIndex == 291) { HPCalc = 1; } //If the selected mon is Shedinja, HP is always set to 1
-                    else
-                    {
-                        HPCalc = (((2 * yourBaseHP + HPIV1.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
-                    }
-                    HPTot1.Text = HPCalc.ToString();
-                    finHP.Text = "/ " + HPTot1.Text;
-                    if (HPSlider.Value == 0) { HPSlider.Value = 10; } //If your current HP is set to 0, this sets it back to the maximum HP
-                    else //Makes sure that the value displayed in curHP.Text is the number that should be displayed
-                    {
-                        double val = HPSlider.Value;
-                        HPSlider.Value = 0;
-                        HPSlider.Value = val;
-                    }
-
-                    double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV1.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature * atkBadge;
-                    initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs1.SelectedIndex);
-                    if ((statusConditions1.SelectedIndex != 0 && yourAbility == 18) || yourAbility == 20) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks if you are statused and have guts or have hustle
-                    int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
-                    if (yourAbility == 19 || yourAbility == 44) { AtkCalc *= 2; } //checks for huge / pure power
-                    if (statusConditions1.SelectedIndex == 1 && yourAbility != 18) { AtkCalc /= 2; } //checks if you are burned and don't have guts
-                    AtkTot1.Text = AtkCalc.ToString();
-
-                    double initialDefCalc = ((((2 * yourBaseDef + DefIV1.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature * defBadge;
-                    initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs1.SelectedIndex);
-                    if (statusConditions1.SelectedIndex != 0 && yourAbility == 34) { initialDefCalc = Math.Floor(initialDefCalc * 1.5); } //checks if you are statused and have marvel scale
-                    int DefCalc = Convert.ToInt32(Math.Floor(initialDefCalc));
-                    DefTot1.Text = DefCalc.ToString();
-
-                    double initialSpAtkCalc = ((((2 * yourBaseSpAtk + SpAtkIV1.SelectedIndex + (yourSpAtkEVs / 4)) * yourLevel) / 100) + 5) * spAtkNature * spAtkBadge;
-                    initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(spAtkBuffs1.SelectedIndex);
-                    int spAtkCalc = Convert.ToInt32(Math.Floor(initialSpAtkCalc));
-                    SpAtkTot1.Text = spAtkCalc.ToString();
-                    if (defAbility == 66 && (moveTypeSelection.SelectedIndex == 5 || moveTypeSelection.SelectedIndex == 15)) { spAtkCalc /= 2; } //checks if the defender has thick fat and if you are using a fire or ice move
-
-                    double initialSpDefCalc = ((((2 * yourBaseSpDef + SpDefIV1.SelectedIndex + (yourSpDefEVs / 4)) * yourLevel) / 100) + 5) * spDefNature * spDefBadge;
-                    initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(spDefBuffs1.SelectedIndex);
-                    int spDefCalc = Convert.ToInt32(Math.Floor(initialSpDefCalc));
-                    SpDefTot1.Text = spDefCalc.ToString();
-
-                    double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV1.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature * speedBadge;
-                    initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs1.SelectedIndex);
-                    if (statusConditions1.SelectedIndex == 2) { initialSpeedCalc /= 4; } //checks if you are paralyzed
-                    int SpeedCalc = Convert.ToInt32(Math.Floor(initialSpeedCalc));
-                    if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) //Checks for swift swim and chlorophyll
-                    {
-                        SpeedCalc *= 2;
-                    }
-                    SpeedTot1.Text = SpeedCalc.ToString();
+                    StatCalculation(true);
 
                     if (EnemyCalc()) //Makes sure that all parsing done by EnemyCalc was successful before trying to calculate anything
                     {
                         if (yourAbility != defAbility && (yourAbility == 11 || yourAbility == 12 || yourAbility == 49) && (defAbility == 11 || defAbility == 12 || defAbility == 49)) //Finds which ability weather should be on the field
                         {
-                            if (SpeedCalc <= int.Parse(SpeedTot2.Text))
+                            if (int.Parse(SpeedTot1.Text) <= int.Parse(SpeedTot2.Text))
                             {
                                 switch (yourAbility)
                                 {
@@ -704,6 +665,7 @@ namespace gen3RNGcalc
                                 double minDamage = 0;
                                 double maxDamage = 0;
                                 double screens = 1;
+                                string criticalHit = ": ";
                                 if (weather == "rain")
                                 {
                                     firePower = 0.5;
@@ -725,6 +687,7 @@ namespace gen3RNGcalc
                                 if (forceCrit1.IsChecked == true && defAbility != 2 && defAbility != 54) //Checks if you want to force crits and makes sure the defender does not have battle armor or shell armor
                                 {
                                     crit = 2;
+                                    criticalHit = " on a critical hit: ";
                                     if (defBuffs2.SelectedIndex < 6 && isPhysical) //Ignores stat buffs to defenders defense
                                     {
                                         enemyCritDef = Math.Floor(double.Parse(DefTot2.Text) / Buffs(defBuffs2.SelectedIndex));
@@ -768,47 +731,43 @@ namespace gen3RNGcalc
                                         modifier = roll * crit * effective * STAB * screens;
                                     }
                                     string comma = ", ";
-                                    double atkdouble = 0; //deprecated, should replace atkdouble references with CritAtk references
-                                    double defOfDefender; //deprecated, should replace defOfDefender references with enemyCritDef references
-                                    atkdouble = CritAtk; //deprecated, should replace atkdouble references with CritAtk references
-                                    defOfDefender = enemyCritDef; //deprecated, should replace defOfDefender references with enemyCritDef references
                                     if (ability1.SelectedIndex == 3 || ability1.SelectedIndex == 38 || ability1.SelectedIndex == 63 || ability1.SelectedIndex == 67) //handles blaze, overgrow, swarm, and torrent
                                     {
                                         double currentHP = Convert.ToDouble(ParseInput(curHP.Text, "Please enter an integer for the current HP", "HP can be, at most, 714 with 255 base hp and max everything else", 714));
                                         bool curHPParse = tryIt;
-                                        if (currentHP / Convert.ToDouble(HPCalc) <= 1.0 / 3.0 && curHPParse)
+                                        if (currentHP / double.Parse(HPTot1.Text) <= 1.0 / 3.0 && curHPParse)
                                         {
                                             switch (ability1.SelectedIndex)
                                             {
                                                 case 3: //blaze
                                                     if (moveTypeSelection.SelectedIndex == 5)
                                                     {
-                                                        atkdouble *= 1.5;
+                                                        CritAtk *= 1.5;
                                                     }
                                                     break;
                                                 case 38: //overgrow
                                                     if (moveTypeSelection.SelectedIndex == 8)
                                                     {
-                                                        atkdouble *= 1.5;
+                                                        CritAtk *= 1.5;
                                                     }
                                                     break;
                                                 case 63: //swarm
                                                     if (moveTypeSelection.SelectedIndex == 9)
                                                     {
-                                                        atkdouble *= 1.5;
+                                                        CritAtk *= 1.5;
                                                     }
                                                     break;
                                                 case 67: //torrent
                                                     if (moveTypeSelection.SelectedIndex == 6)
                                                     {
-                                                        atkdouble *= 1.5;
+                                                        CritAtk *= 1.5;
                                                     }
                                                     break;
                                             }
                                         }
                                     }
                                     double lvdouble = yourLevel;
-                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * atkdouble * power / defOfDefender) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
+                                    double damage = Math.Floor(Math.Floor(Math.Floor(2 * lvdouble / 5 + 2) * CritAtk * power / enemyCritDef) / 50); //Pulled directly from pokemon showdown's initial calculation, and adapted for C#
                                     damage += 2;
                                     damage = Math.Floor((damage * modifier) / 100); //There are a few odd cases where the calculation is off by 1, such as the max roll for 0 SpA Charizard Flamethrower vs. 0 SpD Venusaur, which results in 261, although the actual answer is 260
                                     if (roll == 85)
@@ -845,7 +804,7 @@ namespace gen3RNGcalc
                                         defensiveBuffs = "";
                                     }
                                     VisualHP(minPercentHP, maxPercentHP);
-                                    finalHeader.Text = offensiveBuffs + yourAtkEVs.ToString() + natureMod + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + defNatureMod + " Def " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                    finalHeader.Text = offensiveBuffs + AtkEV1.Text + natureMod + " Atk " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + DefEV2.Text + defNatureMod + " Def " + secondMon + criticalHit + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                                 else
                                 {
@@ -860,7 +819,7 @@ namespace gen3RNGcalc
                                         defensiveBuffs = "";
                                     }
                                     VisualHP(minPercentHP, maxPercentHP);
-                                    finalHeader.Text = offensiveBuffs + yourSpAtkEVs.ToString() + spAtkNatureMod + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + spDefNatureMod + " SpD " + secondMon + ": " + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
+                                    finalHeader.Text = offensiveBuffs + SpAtkEV1.Text + spAtkNatureMod + " SpA " + firstMon + " " + moveName + " vs. " + defensiveBuffs + HPEV2.Text + " HP / " + SpDefEV2.Text + spDefNatureMod + " SpD " + secondMon + criticalHit + minDamage.ToString() + "-" + maxDamage.ToString() + " (" + Math.Round(minPercentHP, 1).ToString() + " - " + Math.Round(maxPercentHP, 1).ToString() + "%)";
                                 }
                             }
                         }
@@ -908,55 +867,61 @@ namespace gen3RNGcalc
         /// <returns>returns true if everything could be parsed and calculated</returns>
         public bool EnemyCalc()
         {
-            atkNature = 1;
-            defNature = 1;
-            spAtkNature = 1;
-            spDefNature = 1;
-            speedNature = 1;
+            natureStuff[0] = 1;
+            natureStuff[1] = 1;
+            natureStuff[2] = 1;
+            natureStuff[3] = 1;
+            natureStuff[4] = 1;
+
+            badges[0] = 1;
+            badges[1] = 1;
+            badges[2] = 1;
+            badges[3] = 1;
+            badges[4] = 1;
 
             int yourAbility = ability2.SelectedIndex;
 
-            int yourBaseHP = ParseInput(baseHP2.Text, "Please enter a numerical value for the base HP.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[0] = ParseInput(baseHP2.Text, "Please enter a numerical value for the base HP.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool HPBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseAtk = ParseInput(baseAtk2.Text, "Please enter a numerical value for the base Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[1] = ParseInput(baseAtk2.Text, "Please enter a numerical value for the base Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool AtkBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseDef = ParseInput(baseDef2.Text, "Please enter a numerical value for the base Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[2] = ParseInput(baseDef2.Text, "Please enter a numerical value for the base Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool DefBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpAtk = ParseInput(baseSpAtk2.Text, "Please enter a numerical value for the base Special Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[3] = ParseInput(baseSpAtk2.Text, "Please enter a numerical value for the base Special Attack.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpAtkBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpDef = ParseInput(baseSpDef2.Text, "Please enter a numerical value for the base Special Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[4] = ParseInput(baseSpDef2.Text, "Please enter a numerical value for the base Special Defense.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpDefBaseParse = tryIt;
             alert.Text = alerts;
-            int yourBaseSpeed = ParseInput(baseSpeed2.Text, "Please enter a numerical value for the base Speed.\n", "Pokémon can not have a base stat of over 255.\n", 255);
+            baseStats[5] = ParseInput(baseSpeed2.Text, "Please enter a numerical value for the base Speed.\n", "Pokémon can not have a base stat of over 255.\n", 255);
             bool SpeedBaseParse = tryIt;
             alert.Text = alerts;
 
             // EV input parsing
-            int yourHPEVs = ParseInput(HPEV2.Text, "Please enter a numerical value for the HP EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[0] = ParseInput(HPEV2.Text, "Please enter a numerical value for the HP EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool HPEVParse = tryIt;
             alert.Text = alerts;
-            int yourAtkEVs = ParseInput(AtkEV2.Text, "Please enter a numerical value for the Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[1] = ParseInput(AtkEV2.Text, "Please enter a numerical value for the Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool AtkEVParse = tryIt;
             alert.Text = alerts;
-            int yourDefEVs = ParseInput(DefEV2.Text, "Please enter a numerical value for the Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[2] = ParseInput(DefEV2.Text, "Please enter a numerical value for the Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool DefEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpAtkEVs = ParseInput(SpAtkEV2.Text, "Please enter a numerical value for the Special Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[3] = ParseInput(SpAtkEV2.Text, "Please enter a numerical value for the Special Attack EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpAtkEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpDefEVs = ParseInput(SpDefEV2.Text, "Please enter a numerical value for the Special Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[4] = ParseInput(SpDefEV2.Text, "Please enter a numerical value for the Special Defense EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpDefEVParse = tryIt;
             alert.Text = alerts;
-            int yourSpeedEVs = ParseInput(SpeedEV2.Text, "Please enter a numerical value for the Speed EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
+            allEVs[5] = ParseInput(SpeedEV2.Text, "Please enter a numerical value for the Speed EVs.\n", "Pokémon can not have an EV of over 252.\n", 252);
             bool SpeedEVParse = tryIt;
             alert.Text = alerts;
 
             // Level input parsing
-            int yourLevel = ParseInput(level2.Text, "Please enter a numerical value for your level", "Pokémon have a maximum level of 100.\n", 100);
+            yourLevel = ParseInput(level2.Text, "Please enter a numerical value for your level", "Pokémon have a maximum level of 100.\n", 100);
             bool levelParse = tryIt;
             alert.Text = alerts;
 
@@ -965,55 +930,96 @@ namespace gen3RNGcalc
 
             if (HPBaseParse && AtkBaseParse && DefBaseParse && SpAtkBaseParse && SpDefBaseParse && SpeedBaseParse && HPEVParse && AtkEVParse && DefEVParse && SpAtkEVParse && SpDefEVParse && SpeedEVParse && levelParse)
             {
-                int HPCalc;
-                if (monSelection2.SelectedIndex == 291) { HPCalc = 1; } //If the selected mon is Shedinja, HP is always set to 1
-                else
-                {
-                    HPCalc = (((2 * yourBaseHP + HPIV2.SelectedIndex + (yourHPEVs / 4)) * yourLevel) / 100) + yourLevel + 10;
-                }
-                HPTot2.Text = HPCalc.ToString();
-                finHPDefender.Text = "/ " + HPTot2.Text;
-                if (HPSliderDefender.Value == 0) { HPSliderDefender.Value = 10; } //If the defenders' current HP is set to 0, this sets it back to the maximum HP
-                else //Makes sure that the value displayed in curHPDefender.Text is the number that should be displayed
-                {
-                    double val = HPSliderDefender.Value;
-                    HPSliderDefender.Value = 0;
-                    HPSliderDefender.Value = val;
-                }
-
-                double initialAtkCalc = ((((2 * yourBaseAtk + AtkIV2.SelectedIndex + (yourAtkEVs / 4)) * yourLevel) / 100) + 5) * atkNature;
-                initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(atkBuffs2.SelectedIndex);
-                if ((statusConditions2.SelectedIndex != 0 && yourAbility == 18) || yourAbility == 20) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks if you are statused and have guts or have hustle
-                int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
-                if (yourAbility == 19 || yourAbility == 44) { AtkCalc *= 2; } //checks for huge / pure power
-                if (statusConditions2.SelectedIndex == 1 && yourAbility != 18) { AtkCalc /= 2; } //checks if you are burned and if you don't have guts
-                AtkTot2.Text = AtkCalc.ToString();
-
-                double initialDefCalc = ((((2 * yourBaseDef + DefIV2.SelectedIndex + (yourDefEVs / 4)) * yourLevel) / 100) + 5) * defNature;
-                initialDefCalc = Math.Floor(initialDefCalc) * Buffs(defBuffs2.SelectedIndex);
-                if (statusConditions2.SelectedIndex != 0 && yourAbility == 34) { initialDefCalc = Math.Floor(initialDefCalc * 1.5); } //checks if you are statused and have marvel scale
-                int DefCalc = Convert.ToInt32((Math.Floor(initialDefCalc)));
-                DefTot2.Text = DefCalc.ToString();
-
-                double initialSpAtkCalc = ((((2 * yourBaseSpAtk + SpAtkIV2.SelectedIndex + (yourSpAtkEVs / 4)) * yourLevel) / 100) + 5) * spAtkNature;
-                initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(spAtkBuffs2.SelectedIndex);
-                int spAtkCalc = Convert.ToInt32((Math.Floor(initialSpAtkCalc)));
-                SpAtkTot2.Text = spAtkCalc.ToString();
-
-                double initialSpDefCalc = ((((2 * yourBaseSpDef + SpDefIV2.SelectedIndex + (yourSpDefEVs / 4)) * yourLevel) / 100) + 5) * spDefNature;
-                initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(spDefBuffs2.SelectedIndex);
-                int spDefCalc = Convert.ToInt32((Math.Floor(initialSpDefCalc)));
-                SpDefTot2.Text = spDefCalc.ToString();
-
-                double initialSpeedCalc = ((((2 * yourBaseSpeed + SpeedIV2.SelectedIndex + (yourSpeedEVs / 4)) * yourLevel) / 100) + 5) * speedNature;
-                initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(speedBuffs2.SelectedIndex);
-                if (statusConditions1.SelectedIndex == 2) { initialSpeedCalc /= 4; } //checks if you are paralyzed
-                int SpeedCalc = Convert.ToInt32((Math.Floor(initialSpeedCalc)));
-                if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) { SpeedCalc *= 2; } //Checks for chlorophyll / swift swim
-                SpeedTot2.Text = SpeedCalc.ToString();
+                StatCalculation(false);
                 return true;
             }
             else { return false; }
+        }
+
+        /// <summary>
+        /// Calculates stats for attacker or defender
+        /// </summary>
+        /// <param name="attacker">True for attacker, false for defender</param>
+        public void StatCalculation(bool attacker)
+        {
+            ComboBox mon = monSelection2;
+            int yourAbility = ability2.SelectedIndex;
+            TextBlock[] totals = new TextBlock[7] { HPTot2, AtkTot2, DefTot2, SpAtkTot2, SpDefTot2, SpeedTot2, finHPDefender };
+            ComboBox[] ivs = new ComboBox[6] { HPIV2, AtkIV2, DefIV2, SpAtkIV2, SpDefIV2, SpeedIV2 };
+            ComboBox itemValue = item2;
+            Slider slider = HPSliderDefender;
+            ComboBox status = statusConditions2;
+            ComboBox[] buffBoxes = new ComboBox[5] { atkBuffs2, defBuffs2, spAtkBuffs2, spDefBuffs2, speedBuffs2 };
+
+            if (attacker)
+            {
+                mon = monSelection1;
+                yourAbility = ability1.SelectedIndex;
+                totals = new TextBlock[7] { HPTot1, AtkTot1, DefTot1, SpAtkTot1, SpDefTot1, SpeedTot1, finHP };
+                ivs = new ComboBox[6] { HPIV1, AtkIV1, DefIV1, SpAtkIV1, SpDefIV1, SpeedIV1 };
+                itemValue = item1;
+                slider = HPSlider;
+                status = statusConditions1;
+                buffBoxes = new ComboBox[5] { atkBuffs1, defBuffs1, spAtkBuffs1, spDefBuffs1, speedBuffs1 };
+            }
+
+            int HPCalc;
+            if (mon.SelectedIndex == 291) { HPCalc = 1; } //If the selected mon is Shedinja, HP is always set to 1
+            else
+            {
+                HPCalc = (((2 * baseStats[0] + ivs[0].SelectedIndex + (allEVs[0] / 4)) * yourLevel) / 100) + yourLevel + 10;
+            }
+            totals[0].Text = HPCalc.ToString();
+            totals[6].Text = "/ " + totals[0].Text;
+            if (slider.Value == 0) { slider.Value = 10; } //If your current HP is set to 0, this sets it back to the maximum HP
+            else //Makes sure that the value displayed in curHP.Text is the number that should be displayed
+            {
+                double val = slider.Value;
+                slider.Value = 0;
+                slider.Value = val;
+            }
+
+            double initialAtkCalc = ((((2 * baseStats[1] + ivs[1].SelectedIndex + (allEVs[1] / 4)) * yourLevel) / 100) + 5) * natureStuff[0] * badges[0];
+            initialAtkCalc = Math.Floor(initialAtkCalc) * Buffs(buffBoxes[0].SelectedIndex);
+            if ((statusConditions1.SelectedIndex != 0 && yourAbility == 18) || yourAbility == 20) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks if you are statused and have guts or have hustle
+            if (itemValue.SelectedIndex == 150) { initialAtkCalc = Math.Floor(initialAtkCalc * 1.5); } //checks for choice band
+            int AtkCalc = Convert.ToInt32(Math.Floor(initialAtkCalc));
+            if (yourAbility == 19 || yourAbility == 44) { AtkCalc *= 2; } //checks for huge / pure power
+            if (itemValue.SelectedIndex == 166 && mon.SelectedIndex == 24) { AtkCalc *= 2; } //checks if you are holding light ball and you are pikachu
+            if (status.SelectedIndex == 1 && yourAbility != 18) { AtkCalc /= 2; } //checks if you are burned and don't have guts
+            totals[1].Text = AtkCalc.ToString();
+
+            double initialDefCalc = ((((2 * baseStats[2] + ivs[2].SelectedIndex + (allEVs[2] / 4)) * yourLevel) / 100) + 5) * natureStuff[1] * badges[1];
+            initialDefCalc = Math.Floor(initialDefCalc) * Buffs(buffBoxes[1].SelectedIndex);
+            if (status.SelectedIndex != 0 && yourAbility == 34) { initialDefCalc = Math.Floor(initialDefCalc * 1.5); } //checks if you are statused and have marvel scale
+            int DefCalc = Convert.ToInt32(Math.Floor(initialDefCalc));
+            totals[2].Text = DefCalc.ToString();
+
+            double initialSpAtkCalc = ((((2 * baseStats[3] + ivs[3].SelectedIndex + (allEVs[3] / 4)) * yourLevel) / 100) + 5) * natureStuff[2] * badges[2];
+            initialSpAtkCalc = Math.Floor(initialSpAtkCalc) * Buffs(buffBoxes[2].SelectedIndex);
+            if (itemValue.SelectedIndex == 155 && (mon.SelectedIndex == 379 || mon.SelectedIndex == 380)) { initialSpAtkCalc = Math.Floor(initialSpAtkCalc * 1.5); } //checks for soul dew and if you are a lati twin
+            int spAtkCalc = Convert.ToInt32(Math.Floor(initialSpAtkCalc));
+            if (itemValue.SelectedIndex == 156 && mon.SelectedIndex == 365) { spAtkCalc *= 2; } //checks for deep sea tooth and if you are clamperl
+            if (itemValue.SelectedIndex == 166 && mon.SelectedIndex == 24) { spAtkCalc *= 2; } //checks for light ball and if you are pikachu
+            totals[3].Text = spAtkCalc.ToString();
+            if (defAbility == 66 && (moveTypeSelection.SelectedIndex == 5 || moveTypeSelection.SelectedIndex == 15)) { spAtkCalc /= 2; } //checks if the defender has thick fat and if you are using a fire or ice move
+
+            double initialSpDefCalc = ((((2 * baseStats[4] + ivs[4].SelectedIndex + (allEVs[4] / 4)) * yourLevel) / 100) + 5) * natureStuff[3] * badges[3];
+            initialSpDefCalc = Math.Floor(initialSpDefCalc) * Buffs(buffBoxes[3].SelectedIndex);
+            if (itemValue.SelectedIndex == 155 && (mon.SelectedIndex == 379 ||mon.SelectedIndex == 380)) { initialSpDefCalc = Math.Floor(initialSpDefCalc * 1.5); } //checks for soul dew and if you are a lati twin
+            int spDefCalc = Convert.ToInt32(Math.Floor(initialSpDefCalc));
+            if (itemValue.SelectedIndex == 157 && mon.SelectedIndex == 365) { spDefCalc *= 2; } //checks for deep sea scale and if you are clamperl
+            totals[4].Text = spDefCalc.ToString();
+
+            double initialSpeedCalc = ((((2 * baseStats[5] + ivs[5].SelectedIndex + (allEVs[5] / 4)) * yourLevel) / 100) + 5) * natureStuff[4] * badges[4];
+            initialSpeedCalc = Math.Floor(initialSpeedCalc) * Buffs(buffBoxes[4].SelectedIndex);
+            if (statusConditions1.SelectedIndex == 2) { initialSpeedCalc /= 4; } //checks if you are paralyzed
+            int SpeedCalc = Convert.ToInt32(Math.Floor(initialSpeedCalc));
+            if ((yourAbility == 4 && weather == "sun") || (yourAbility == 64 && weather == "rain")) //Checks for swift swim and chlorophyll
+            {
+                SpeedCalc *= 2;
+            }
+            totals[5].Text = SpeedCalc.ToString();
         }
 
         /// <summary>
