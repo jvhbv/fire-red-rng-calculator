@@ -444,11 +444,7 @@ namespace gen3RNGcalc
             finalCalc.Text = "";
             finalHeader.Text = "";
 
-            natureStuff[0] = 1;
-            natureStuff[1] = 1;
-            natureStuff[2] = 1;
-            natureStuff[3] = 1;
-            natureStuff[4] = 1;
+            natureStuff = new double[5] { 1, 1, 1, 1, 1 }; //Rewritten to be in array form again, saving 4 manual variable assignments
 
             bool kanto = false;
             bool hoenn = false;
@@ -867,17 +863,8 @@ namespace gen3RNGcalc
         /// <returns>returns true if everything could be parsed and calculated</returns>
         public bool EnemyCalc()
         {
-            natureStuff[0] = 1;
-            natureStuff[1] = 1;
-            natureStuff[2] = 1;
-            natureStuff[3] = 1;
-            natureStuff[4] = 1;
-
-            badges[0] = 1;
-            badges[1] = 1;
-            badges[2] = 1;
-            badges[3] = 1;
-            badges[4] = 1;
+            natureStuff = new double[5] { 1, 1, 1, 1, 1 }; //Rewritten to be in array form again, saving 4 manual variable assignments
+            badges = new double[5] { 1, 1, 1, 1, 1 }; //Rewritten to be in array form again, saving 4 manual variable assignments
 
             int yourAbility = ability2.SelectedIndex;
 
