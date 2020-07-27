@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gen3RNGcalc"
         mc:Ignorable="d"
-        Title="damageCalc" Height="951.277" Width="1017.647">
+        Title="Damage Calculator" Height="951.277" Width="1017.647">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="216*"/>
             <RowDefinition Height="39*"/>
             <RowDefinition Height="665*"/>
         </Grid.RowDefinitions>
-        <TextBox MaxLength="3" x:Name="baseHP1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,10.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,38.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,66.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpeed1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,93.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="level1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="122,121.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="HPEV1" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="AtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="DefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,10.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpAtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,38.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpDefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,66.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpeedEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,93.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseHP1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,210,0,0" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,22,0,0" Grid.Row="1" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,10.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,38.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,66.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="122,93.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="level1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="122,121.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="HPEV1" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,210,0,0" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="AtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,22,0,0" Grid.Row="1" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="DefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,10.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,38.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,66.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="213,93.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="137,189,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="246,189,0,0" RenderTransformOrigin="1.487,0.586"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="318,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
@@ -293,22 +293,22 @@
         <CheckBox x:Name="Dynamo" Content="Dynamo Badge" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,363.647,0,0" Grid.Row="2" Height="17"/>
         <!--+speed-->
         <Button Content="Go" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="468,280.647,0,0" Grid.Row="2" Click="Go"/>
-        <TextBlock  x:Name="alert" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,462.647,0,0" Grid.Row="2" Height="192" Width="899"/>
+        <TextBlock x:Name="alert" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="58,462.647,0,0" Grid.Row="2" Height="192" Width="899"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Kanto Badges" VerticalAlignment="Top" Margin="137,256.647,0,0" Grid.Row="2"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Hoenn Badges" VerticalAlignment="Top" Margin="137,324.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseHP2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="baseDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,10.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,38.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,66.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="baseSpeed2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,93.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="level2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="621,121.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="HPEV2" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,210,0,0" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="AtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,22,0,0" Grid.Row="1" Grid.RowSpan="2"/>
-        <TextBox MaxLength="3" x:Name="DefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,10.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpAtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,38.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpDefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,66.647,0,0" Grid.Row="2"/>
-        <TextBox MaxLength="3" x:Name="SpeedEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,93.647,0,0" Grid.Row="2"/>
+        <TextBox MaxLength="3" x:Name="baseHP2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,210,0,0" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,22,0,0" Grid.Row="1" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,10.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpAtk2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,38.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpDef2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,66.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="baseSpeed2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="621,93.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="level2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="86" Margin="621,121.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="HPEV2" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,210,0,0" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="AtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,22,0,0" Grid.Row="1" Grid.RowSpan="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="DefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,10.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpAtkEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,38.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpDefEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,66.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
+        <TextBox MaxLength="3" x:Name="SpeedEV2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="86" Margin="712,93.647,0,0" Grid.Row="2" TextChanged="StatUpdated"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Base Stats" VerticalAlignment="Top" Margin="636,189,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EVs" VerticalAlignment="Top" Margin="745,189,0,0" RenderTransformOrigin="1.487,0.586"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="IVs" VerticalAlignment="Top" Margin="817,189,0,0" RenderTransformOrigin="1.487,0.586" Width="19"/>
@@ -647,15 +647,15 @@
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top" Margin="589,167,0,0"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ability:" VerticalAlignment="Top" Margin="578,214.647,0,0" Grid.Row="2"/>
         <ComboBox x:Name="ability2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="621,214.647,0,0" Grid.Row="2" Height="22" SelectionChanged="Ability2_SelectionChanged"/>
-        <RadioButton IsChecked="True" x:Name="noWeather" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,192,0,0"/>
+        <RadioButton IsChecked="True" x:Name="noWeather" Content="Clear" HorizontalAlignment="Left" Margin="468,192,0,9"/>
         <RadioButton x:Name="raining" Content="Rain" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,207,0,0" Grid.RowSpan="2"/>
         <RadioButton x:Name="sunny" Content="Sun" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,7,0,0" Grid.Row="1"/>
         <RadioButton x:Name="sandstorm" Content="Sand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,22,0,0" Grid.Row="1"/>
         <RadioButton x:Name="hailing" Content="Hail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,38,0,0" Grid.Row="1" Grid.RowSpan="2"/>
         <CheckBox Content="Double battle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,18.647,0,0" Grid.Row="2"/>
-        <!-->Does nothing right now, will implement double battle mechanics at a later date.</!-->
+        <!--Does nothing right now, will implement double battle mechanics at a later date.-->
         <TextBox x:Name="basePower1" MaxLength="3" Text="95" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" Margin="174,427.647,0,0" Grid.Row="2"/>
-        <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="297,427.647,0,0" Grid.Row="2">
+        <ComboBox x:Name="moveTypeSelection" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Margin="286,428,0,0" Grid.Row="2">
             <ComboBoxItem IsSelected="True" Content="Normal"/>
             <ComboBoxItem Content="Fighting"/>
             <ComboBoxItem Content="Flying"/>
@@ -828,9 +828,8 @@
             <ComboBoxItem Content="-6"/>
         </ComboBox>
         <TextBlock x:Name="finalHeader" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="37,17,0,0" Height="55" Width="920" FontSize="18"/>
-        <ComboBox x:Name="attackName" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="41,428.647,0,0" Grid.Row="2" SelectionChanged="AttackNameSelected"/>
+        <ComboBox x:Name="attackName" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="49,429,0,0" Grid.Row="2" SelectionChanged="AttackNameSelected"/>
         <Slider x:Name="HPSlider" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="317" Margin="92,385.647,0,0" Grid.Row="2" ValueChanged="HPSlider_ValueChanged"/>
-        <!--not fully implemented yet-->
         <CheckBox x:Name="ability1Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,218.647,0,0" Grid.Row="2" Visibility="Hidden"/>
         <CheckBox x:Name="ability2Active" Content="Active?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="768,218.647,0,0" Grid.Row="2" Visibility="Hidden"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Margin="278,152.647,0,0" Grid.Row="2"/>
@@ -863,9 +862,18 @@
         <TextBlock x:Name="HPPercentDefender" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0%" VerticalAlignment="Top" Margin="548,268,0,0" Grid.Row="2" Height="23"/>
         <TextBlock HorizontalAlignment="Left" Text="Current HP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="913,250,0,0" Grid.Row="2" Height="23"/>
         <Rectangle x:Name="visualDamage" HorizontalAlignment="Left" Width="144"  Margin="824,168,0,37" Panel.ZIndex="1" Height="11"/>
-        <Image x:Name="hpBar" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="198" Source="hpBar.bmp" Margin="776,162,0,0"/><!--Looks much better in the actual program than it does in the preview-->
+        <Image x:Name="hpBar" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="198" Source="hpBar.bmp" Margin="776,162,0,0"/>
+        <!--Looks much better in the actual program than it does in the preview-->
         <TextBlock x:Name="dmgLbl" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Total damage:" VerticalAlignment="Top" Margin="834,141,0,0"/>
         <CheckBox x:Name="reflect" Content="Reflect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,41,0,0" Grid.Row="2"/>
         <CheckBox x:Name="lightScreen" Content="Light Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,56,0,0" Grid.Row="2"/>
+        <ComboBox x:Name="hitsBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="44" Margin="463,429,0,0" Grid.Row="2" Visibility="Hidden">
+            <ComboBoxItem x:Name="oneHit" Content="1"/>
+            <ComboBoxItem x:Name="twoHit" IsSelected="True" Content="2"/>
+            <ComboBoxItem x:Name="threeHit" Content="3"/>
+            <ComboBoxItem x:Name="fourHit" Content="4"/>
+            <ComboBoxItem x:Name="fiveHit" Content="5"/>
+        </ComboBox>
+        <TextBlock x:Name="hitsNumber" HorizontalAlignment="Left" Text="Hits:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="435,431,0,0" Grid.Row="2" Height="23" Width="28" Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -164,3 +164,16 @@ Fissure,Ground,—,OHKO
 Guillotine,Normal,—,OHKO
 Horn Drill,Normal,—,OHKO
 Sheer Cold,Ice,—,OHKO
+Bone Rush,Ground,25,hits 2-5 times
+Bonemerang,Ground,50,hits twice
+Comet Punch,Normal,18,hits 2-5 times
+Double Kick,Fighting,30,hits twice
+Double Slap,Normal,15,hits 2-5 times
+Fury Attack,Normal,15,hits 2-5 times
+Fury Swipes,Normal,18,hits 2-5 times
+Icicle Spear,Ice,25,hits 2-5 times
+Pin Missile,Bug,25,hits 2-5 times
+Rock Blast,Rock,25,hits 2-5 times
+Spike Cannon,Normal,20,hits 2-5 times
+Triple Kick,Fighting,10,hits 1-3 times power doubles on each hit
+Twineedle,Bug,25,hits twice
