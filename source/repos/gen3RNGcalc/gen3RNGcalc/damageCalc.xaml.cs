@@ -14,9 +14,14 @@ using System.Windows.Shapes;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace gen3RNGcalc
 {
+    public class Test
+    {
+
+    }
     /// <summary>
     /// Interaction logic for damageCalc.xaml
     /// </summary>
@@ -80,6 +85,11 @@ namespace gen3RNGcalc
         /// Array that contains all badge doubles, formatted as Atk, Def, SpAtk, SpDef, Speed
         /// </summary>
         public static double[] badges = new double[5] { 1, 1, 1, 1, 1 }; //Combined all badge doubles into one array
+        public static List<int> allDamageVals = new List<int>();
+        public static List<int> damages = new List<int>();
+        public static int looped = 0;
+        public static List<int> addedDmg = new List<int>();
+        public static List<int> turnsNeeded = new List<int>() { 1 };
 
         /// <summary>
         /// Initialization of the window and csv file parsing
@@ -435,6 +445,66 @@ namespace gen3RNGcalc
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="allDamageVals"></param>
+        /// <param name="dmgs"></param>
+        /// <param name="turnsNeeded"></param>
+        /// <param name="looped"></param>
+        /// <param name="addedDmg"></param>
+        /// <returns></returns>
+        public List<int> KOTurns(int dmgs/*, bool checkDMG*/)
+        {
+            /*if (!checkDMG)
+            {
+                looped = 0;
+                foreach (int dmgs1 in damages)
+                {
+                    while (true)//KOTurns(allDamageVals, KOTurns(allDamageVals, addedDmg[looped], turnsNeeded, looped, addedDmg, true)[looped], turnsNeeded, looped, addedDmg, true)[looped] < int.Parse(HPTot2.Text)) //as long as the calculation is less than the defenders total hp, it continues to run
+                    {
+                        if (KOTurns(addedDmg[looped], true)[looped] >= int.Parse(HPTot2.Text)) { break; }
+                        addedDmg[looped] += dmgs1;
+                        turnsNeeded[looped]++;
+                    }
+                }
+                return turnsNeeded;
+            }
+            else
+            {*/
+            foreach (int dmgs1 in damages)
+            {
+                while (true)//KOTurns(allDamageVals, KOTurns(allDamageVals, addedDmg[looped], turnsNeeded, looped, addedDmg, true)[looped], turnsNeeded, looped, addedDmg, true)[looped] < int.Parse(HPTot2.Text)) //as long as the calculation is less than the defenders total hp, it continues to run
+                {
+                    if (addedDmg[looped] >= int.Parse(HPTot2.Text)) { break; }
+                    addedDmg[looped] += dmgs1;
+                    turnsNeeded[looped]++;
+                }
+                addedDmg.Add(dmgs);
+                turnsNeeded.Add(1);
+                looped++;
+            }
+            return addedDmg;
+            //}
+        }
+
+        /*public static int KOLoop(List<int> allDamageVals, int dmgs, List<int> turnsNeeded, int looped, List<int> addedDmg, string totalHP)
+        {
+            foreach (int dmgs1 in allDamageVals)
+            {
+                addedDmg[looped] += dmgs1;
+                turnsNeeded[looped]++;
+                if (addedDmg[looped] < int.Parse(totalHP))
+                {
+                    KOLoop(allDamageVals, addedDmg[looped], turnsNeeded, looped, addedDmg, totalHP);
+                }
+                addedDmg.Add(dmgs);
+                turnsNeeded.Add(1);
+                looped++;
+            }
+            return addedDmg[looped];
+        }*/
+
+        /// <summary>
         /// All the calculations happen here
         /// </summary>
         private void Calculate()
@@ -443,6 +513,9 @@ namespace gen3RNGcalc
             alert.Text = alerts;
             finalCalc.Text = "";
             finalHeader.Text = "";
+            allDamageVals = new List<int>();
+            damages = new List<int>();
+            turnsNeeded = new List<int>();
 
             natureStuff = new double[5] { 1, 1, 1, 1, 1 }; //Rewritten to be in array form again, saving 4 manual variable assignments
 
@@ -711,6 +784,7 @@ namespace gen3RNGcalc
                                 }
                                 effective = effectiveness(moveTypeSelection.SelectedIndex, type1Selection2.SelectedIndex, type2Selection2.SelectedIndex);
                                 double modifier;
+                                //List<int> allDamageVals = new List<int>(); //List to store all of the different damage possibilities to an array of ints, going to use for calculating chance to KO
                                 for (double roll = 85; roll <= 100; roll++)
                                 {
                                     if (moveTypeSelection.SelectedIndex == 5) //handles the modifier for fire type attacks
@@ -779,8 +853,36 @@ namespace gen3RNGcalc
                                         comma = ")";
                                     }
                                     int finalDamage = Convert.ToInt32(Math.Floor(damage));
+                                    allDamageVals.Add(finalDamage); //Adds the damage to the array of ints
                                     finalCalc.Text = finalCalc.Text + finalDamage.ToString() + comma;
                                 }
+
+                                looped = 0;
+                                bool damageLoop = false;
+                                foreach (int dmgs in allDamageVals) //finds the number of turns each roll combination needs to KO
+                                {
+                                    if (!damageLoop)
+                                    {
+                                        turnsNeeded = new List<int>() { 1 };
+                                        addedDmg = new List<int>() { dmgs };
+                                        damageLoop = true;
+                                    }
+                                    damages = allDamageVals;
+                                    //turnsNeeded = KOTurns(allDamageVals[damageLoop], false);
+                                    foreach (int dmgs1 in damages)
+                                    {
+                                        while (true)//KOTurns(allDamageVals, KOTurns(allDamageVals, addedDmg[looped], turnsNeeded, looped, addedDmg, true)[looped], turnsNeeded, looped, addedDmg, true)[looped] < int.Parse(HPTot2.Text)) //as long as the calculation is less than the defenders total hp, it continues to run
+                                        {
+                                            if (KOTurns(addedDmg[looped]/*, true*/)[looped] >= int.Parse(HPTot2.Text)) { break; }
+                                            addedDmg[looped] += dmgs1;
+                                            turnsNeeded[looped]++;
+                                        }
+                                    }
+                                }
+
+                                int minimumKOTurns = turnsNeeded.Min();
+                                alerts += minimumKOTurns.ToString();
+                                alert.Text = alerts;
 
                                 string firstMon = monSelection1.SelectedItem.ToString(); //monSelection1.Text;
                                 string secondMon = monSelection2.SelectedItem.ToString(); //monSelection2.Text;
